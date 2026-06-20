@@ -46,6 +46,7 @@ export default function StandingsTable({ standings }: Props) {
       <table className={styles.table}>
         <thead>
           <tr>
+            <th className={styles.th} style={{ minWidth: 180 }}>Team</th>
             {COLUMNS.map(({ key, label, title }) => (
               <th
                 key={key}
@@ -60,7 +61,6 @@ export default function StandingsTable({ standings }: Props) {
                 </i>
               </th>
             ))}
-            <th className={styles.th} style={{ minWidth: 180 }}>Team</th>
             <th className={`${styles.th} ${styles.thNum}`}>Played</th>
             <th className={styles.th}>Form</th>
           </tr>
@@ -72,6 +72,18 @@ export default function StandingsTable({ standings }: Props) {
             const isTop3 = s.rank <= 3;
             return (
               <tr key={s.teamId} className={styles.row}>
+                <td className={styles.td}>
+                  <Link href={`/teams/${team.id}`} className={styles.teamCell}>
+                    <span
+                      className={styles.teamBar}
+                      style={{ background: team.colors.primary }}
+                    />
+                    <span className={styles.teamInfo}>
+                      <span className={styles.teamName}>{team.name}</span>
+                      <span className={styles.teamCity}>{team.city}</span>
+                    </span>
+                  </Link>
+                </td>
                 <td className={`${styles.td} ${styles.tdNum} ${styles.rank} ${isTop3 ? styles.rankTop : ''}`}>
                   {s.rank}
                 </td>
@@ -86,18 +98,6 @@ export default function StandingsTable({ standings }: Props) {
                 </td>
                 <td className={`${styles.td} ${styles.tdNum}`}>
                   <span className={styles.snitchCount}>{s.snitchCatches}</span>
-                </td>
-                <td className={styles.td}>
-                  <Link href={`/teams/${team.id}`} className={styles.teamCell}>
-                    <span
-                      className={styles.teamBar}
-                      style={{ background: team.colors.primary }}
-                    />
-                    <span className={styles.teamInfo}>
-                      <span className={styles.teamName}>{team.name}</span>
-                      <span className={styles.teamCity}>{team.city}</span>
-                    </span>
-                  </Link>
                 </td>
                 <td className={`${styles.td} ${styles.tdNum}`}>{s.played}</td>
                 <td className={styles.td}>
