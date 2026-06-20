@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { TEAMS, MATCHES } from '@/data';
 import { computePlayerStats } from '@/lib/playerStats';
-import { getHairColor } from '@/data/playerHair';
 import { Position } from '@/data/types';
 import styles from './page.module.css';
 
@@ -31,56 +31,26 @@ const POSITION_COLOR: Record<Position, string> = {
   Seeker:  '#3ecf8e',
 };
 
-const FEMALE_PLAYERS = new Set([
-  'Amy Ward',
-  'Angelina Johnson', 'Alicia Spinnet', 'Katie Bell',
-  'Gwenog Jones', 'Wilda Griffiths', 'Valmai Morgan', 'Glynnis Griffiths',
-  'Bronwen Sharpe', 'Siwan Hobday', 'Meghan McCormack',
-  'Cho Chang', 'Tamsin Applebee', 'Heidi Macavoy',
-  'Tamara Finnegan', 'Iona Banks', 'Catriona McCormack', 'Molly McBride',
-  'Nell Vance', 'Seren Ashby',
-  'Petra Hawke', 'Isla Fairweather', 'Jess Galway',
-  'Siobhan Quigley', 'Aoife Brennan', 'Brigid Shaughnessy',
-]);
+const IMAGE_OVERRIDES: Record<string, string> = {
+  'Amy Ward': '/players/amy_ward_v10.png',
+};
 
-// Male hair styles available in micah — varied so not everyone looks the same
-const MALE_HAIR_STYLES = ['shortHair', 'danDyke', 'fonze', 'mrClean'];
-function maleHairStyle(name: string): string {
-  // deterministic pick from name
-  const idx = name.split('').reduce((a, c) => a + c.charCodeAt(0), 0) % MALE_HAIR_STYLES.length;
-  return MALE_HAIR_STYLES[idx];
-}
-
-const FEMALE_HAIR_STYLES = ['full', 'wavy', 'pixie'];
-function femaleHairStyle(name: string): string {
-  const idx = name.split('').reduce((a, c) => a + c.charCodeAt(0), 0) % FEMALE_HAIR_STYLES.length;
-  return FEMALE_HAIR_STYLES[idx];
-}
-
-function micahUrl(
-  name: string,
-  gender: 'male' | 'female',
-  hairColor: string,
-  bgColor: string,
-): string {
-  const seed = encodeURIComponent(name.replace(/\s+/g, ''));
-  const hair = gender === 'female' ? femaleHairStyle(name) : maleHairStyle(name);
-  const hairHex = hairColor.replace('#', '');
-  const bgHex = bgColor.replace('#', '');
-  return (
-    `https://api.dicebear.com/7.x/micah/png` +
-    `?seed=${seed}` +
-    `&backgroundColor[]=${bgHex}` +
-    `&hair[]=${hair}` +
-    `&hairColor[]=${hairHex}` +
-    `&size=300`
-  );
+function playerImagePath(name: string): string {
+  return IMAGE_OVERRIDES[name] ?? '/players/' + name.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase() + '.png';
 }
 
 export default function RostersPage() {
-  const [activeTeam, setActiveTeam] = useState(TEAMS[0].id);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const initialTeam = searchParams.get('team') ?? TEAMS[0].id;
+  const [activeTeam, setActiveTeam] = useState(initialTeam);
   const playerStats = computePlayerStats(MATCHES);
-  const team = TEAMS.find((t) => t.id === activeTeam)!;
+  const team = TEAMS.find((t) => t.id === activeTeam) ?? TEAMS[0];
+
+  function selectTeam(id: string) {
+    setActiveTeam(id);
+    router.replace(`/rosters?team=${id}`, { scroll: false });
+  }
 
   return (
     <div className={`${styles.page} container`}>
@@ -99,7 +69,7 @@ export default function RostersPage() {
             aria-selected={t.id === activeTeam}
             className={`${styles.tab} ${t.id === activeTeam ? styles.tabActive : ''}`}
             style={{ ['--tab-color' as string]: t.colors.primary }}
-            onClick={() => setActiveTeam(t.id)}
+            onClick={() => selectTeam(t.id)}
           >
             <span className={styles.tabDot} style={{ background: t.colors.primary }} />
             {t.shortName}
@@ -144,8 +114,6 @@ export default function RostersPage() {
 
             <div className={styles.playerGrid}>
               {players.map((player) => {
-                const gender = FEMALE_PLAYERS.has(player.name) ? 'female' : 'male';
-                const hairColor = getHairColor(player.name);
                 const isYou = player.name === 'Amy Ward';
                 const ps = playerStats[player.name];
                 const goals  = ps?.goalsScored ?? 0;
@@ -166,11 +134,10 @@ export default function RostersPage() {
                     {/* Portrait */}
                     <div className={styles.avatarWrap}>
                       <Image
-                        src={micahUrl(player.name, gender, hairColor, team.colors.primary)}
+                        src={playerImagePath(player.name)}
                         alt={player.name}
                         fill
                         className={styles.avatarImg}
-                        unoptimized
                       />
                       {/* Gradient overlay at bottom of portrait */}
                       <div className={styles.avatarOverlay} />
