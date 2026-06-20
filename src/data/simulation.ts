@@ -1,5 +1,5 @@
 /**
- * Deterministic seeded PRNG + match simulation for the Quidditch League season.
+ * Deterministic seeded PRNG + match simulation for the Hogwarts Quidditch season.
  * All randomness flows through `seededRand` so results are stable across builds.
  */
 
@@ -28,21 +28,14 @@ function randChoice<T>(arr: T[]): T {
   return arr[Math.floor(rng() * arr.length)];
 }
 
-// Team strength ratings (0–1) used to weight outcomes
+// Team strength ratings — canon-based
 const STRENGTH: Record<string, number> = {
-  gryffindor: 0.82,
-  slytherin: 0.78,
-  hufflepuff: 0.70,
-  ravenclaw: 0.74,
-  harpies: 0.88,
-  cannons: 0.45,
-  tornados: 0.76,
-  wasps: 0.72,
-  arrows: 0.68,
-  bats: 0.65,
+  gryffindor: 0.84, // wins the cup most years, Harry is exceptional
+  slytherin:  0.78, // well-funded, dirty tactics, Draco is capable
+  ravenclaw:  0.70, // solid, Cho is talented
+  hufflepuff: 0.66, // fair players, Cedric is brilliant but team depth is lighter
 };
 
-// Seeker catch probability adjusted by team strength
 function seekerCatchProb(teamId: string): number {
   return 0.35 + STRENGTH[teamId] * 0.3;
 }
@@ -64,7 +57,6 @@ function buildTimeline(
   type Pending = { minute: number; side: MatchSide; type: 'quaffle' | 'snitch'; player: string };
   const events: Pending[] = [];
 
-  // Place quaffle goals at random minutes
   const usedMinutes = new Set<number>();
   const getMinute = (max: number): number => {
     let m: number;
@@ -80,11 +72,8 @@ function buildTimeline(
     events.push({ minute: getMinute(duration), side: 'away', type: 'quaffle', player: randChoice(awayChasers) });
   }
   events.sort((a, b) => a.minute - b.minute);
-
-  // Append snitch at the end
   events.push({ minute: duration, side: snitchCaughtBy, type: 'snitch', player: snitchCatcher });
 
-  // Build running score
   let homeScore = 0;
   let awayScore = 0;
   return events.map((e) => {
@@ -115,74 +104,50 @@ function simulateMatch(
   const homeStr = STRENGTH[homeId];
   const awayStr = STRENGTH[awayId];
 
-  // Goals scored proportional to strength, with some variance
   const homeGoals = Math.max(0, Math.round(homeStr * 14 + (rng() - 0.5) * 10));
   const awayGoals = Math.max(0, Math.round(awayStr * 12 + (rng() - 0.5) * 10));
 
-  // Seeker: whichever team's seeker is "faster" this match
   const homeSnitchProb = seekerCatchProb(homeId);
   const awaySnitchProb = seekerCatchProb(awayId);
-  const total = homeSnitchProb + awaySnitchProb;
-  const snitchCaughtBy: MatchSide = rng() < homeSnitchProb / total ? 'home' : 'away';
+  const snitchCaughtBy: MatchSide = rng() < homeSnitchProb / (homeSnitchProb + awaySnitchProb) ? 'home' : 'away';
 
   const catchingTeam = TEAMS.find((t) => t.id === (snitchCaughtBy === 'home' ? homeId : awayId))!;
   const seeker = catchingTeam.roster.find((p) => p.position === 'Seeker')!;
-
   const duration = randInt(45, 180);
-
   const timeline = buildTimeline(homeId, awayId, homeGoals, awayGoals, snitchCaughtBy, seeker.name, duration);
 
-  return {
-    id,
-    date,
-    round,
-    homeTeamId: homeId,
-    awayTeamId: awayId,
-    homeQuaffleGoals: homeGoals,
-    awayQuaffleGoals: awayGoals,
-    snitchCaughtBy,
-    snitchCatcher: seeker.name,
-    durationMinutes: duration,
-    timeline,
-  };
+  return { id, date, round, homeTeamId: homeId, awayTeamId: awayId,
+    homeQuaffleGoals: homeGoals, awayQuaffleGoals: awayGoals,
+    snitchCaughtBy, snitchCatcher: seeker.name, durationMinutes: duration, timeline };
 }
 
-// Generate a full round-robin schedule (each pair plays once)
+// 3 full round-robins = 18 matches, each team plays 9 games
 function generateSchedule(): Match[] {
-  const teamIds = TEAMS.map((t) => t.id);
+  const ids = TEAMS.map((t) => t.id);
+  // All 6 unique pairings
+  const pairs: [string, string][] = [];
+  for (let i = 0; i < ids.length; i++)
+    for (let j = i + 1; j < ids.length; j++)
+      pairs.push([ids[i], ids[j]]);
+
   const matches: Match[] = [];
   let matchNum = 0;
-
-  // Season starts 2024-09-07, one match-day per week
   const startDate = new Date('2024-09-07');
 
-  // Berger-style round-robin rotation
-  const n = teamIds.length;
-  const fixed = teamIds[0];
-  const rotating = teamIds.slice(1);
-  let round = 0;
+  for (let roundSet = 0; roundSet < 3; roundSet++) {
+    for (let p = 0; p < pairs.length; p++) {
+      const round = roundSet * pairs.length + p + 1;
+      // Alternate home/away each round set
+      const [a, b] = pairs[p];
+      const [home, away] = roundSet % 2 === 0 ? [a, b] : [b, a];
 
-  for (let r = 0; r < n - 1; r++) {
-    round++;
-    const roundTeams = [fixed, ...rotating];
-    const pairs: [string, string][] = [];
-    for (let i = 0; i < n / 2; i++) {
-      pairs.push([roundTeams[i], roundTeams[n - 1 - i]]);
-    }
+      const matchDate = new Date(startDate);
+      matchDate.setDate(startDate.getDate() + (roundSet * pairs.length + p) * 7);
+      const dateStr = matchDate.toISOString().split('T')[0];
 
-    const matchDate = new Date(startDate);
-    matchDate.setDate(startDate.getDate() + r * 7);
-    const dateStr = matchDate.toISOString().split('T')[0];
-
-    for (const [home, away] of pairs) {
       matchNum++;
-      matches.push(
-        simulateMatch(`match-${matchNum}`, dateStr, round, home, away)
-      );
+      matches.push(simulateMatch(`match-${matchNum}`, dateStr, round, home, away));
     }
-
-    // Rotate
-    rotating.unshift(rotating.pop()!);
   }
 
   return matches;

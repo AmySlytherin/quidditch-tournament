@@ -13,22 +13,22 @@ export const PLAYER_HAIR: Record<string, string> = {
   'Katie Bell':         '#7a4e1a',  // Chestnut brown
 
   // ── Slytherin ───────────────────────────────────────────────────────────
-  'Amy Ward':           '#2b1a0c',  // Dark brown (default — can update)
+  'Amy Ward':           '#2b1a0c',  // Dark brown
   'Draco Malfoy':       '#ddd8b0',  // Platinum blonde, slicked back
   'Cassius Warrington': '#2a1a08',  // Dark brown
-  'Montague':           '#1e1410',  // Near black
-  'Vaisey':             '#3a2810',  // Dark brown
-  'Crabbe Sr.':         '#111111',  // Black
-  'Goyle Sr.':          '#111111',  // Black
+  'Marcus Flint':       '#111111',  // Black, unkempt
+  'Adrian Pucey':       '#3a2010',  // Dark brown
+  'Vincent Crabbe':     '#111111',  // Black
+  'Gregory Goyle':      '#111111',  // Black
 
   // ── Hufflepuff ──────────────────────────────────────────────────────────
-  'Cedric Diggory':     '#5a3318',  // Brown
-  'Zacharias Smith':    '#b09040',  // Dirty blonde
-  'Tamsin Applebee':    '#7a4e1a',  // Brown
-  'Heidi Macavoy':      '#3a220e',  // Dark brown
-  'Herbert Fleet':      '#5a3318',  // Brown
-  'Anthony Rickett':    '#3a220e',  // Dark brown
-  'Grant Page':         '#8a6030',  // Light brown
+  'Cedric Diggory':       '#5a3318',  // Brown
+  'Zacharias Smith':      '#b09040',  // Dirty blonde
+  'Tamsin Applebee':      '#7a4e1a',  // Brown
+  'Heidi Macavoy':        '#3a220e',  // Dark brown
+  'Herbert Fleet':        '#5a3318',  // Brown
+  'Anthony Rickett':      '#3a220e',  // Dark brown
+  'Maxine O\'Flaherty':   '#b03a08',  // Red (Irish)
 
   // ── Ravenclaw ───────────────────────────────────────────────────────────
   'Cho Chang':          '#111111',  // Black, long
@@ -36,7 +36,7 @@ export const PLAYER_HAIR: Record<string, string> = {
   'Duncan Inglebee':    '#2e1e0a',  // Dark brown
   'Jeremy Stretton':    '#8a6030',  // Brown
   'Grant Whitmore':     '#5a3318',  // Brown
-  'Owen Cauldwell':     '#c09040',  // Blonde
+  'Jason Samuels':      '#3a220e',  // Dark brown
   'Lucinda Talkalot':   '#c09040',  // Blonde
 
   // ── Holyhead Harpies ────────────────────────────────────────────────────
