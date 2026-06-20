@@ -1,19 +1,19 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 import { TEAMS, MATCHES } from '@/data';
 import { computePlayerStats } from '@/lib/playerStats';
 import { Position } from '@/data/types';
+import PlayerIllustration from '@/components/PlayerIllustration/PlayerIllustration';
 import styles from './page.module.css';
 
 const POSITION_ORDER: Position[] = ['Keeper', 'Chaser', 'Beater', 'Seeker'];
 
 const POSITION_DESC: Record<Position, string> = {
-  Keeper:  'Guards the three goal hoops',
-  Chaser:  'Scores with the Quaffle — 10 pts per goal',
-  Beater:  'Wields a bat to redirect Bludgers',
-  Seeker:  'Catches the Golden Snitch — 150 pts, ends the match',
+  Keeper: 'Guards the three goal hoops',
+  Chaser: 'Scores with the Quaffle — 10 pts per goal',
+  Beater: 'Wields a bat to redirect Bludgers',
+  Seeker: 'Catches the Golden Snitch — 150 pts, ends the match',
 };
 
 const POSITION_ICON: Record<Position, string> = {
@@ -23,13 +23,6 @@ const POSITION_ICON: Record<Position, string> = {
   Seeker: '🔮',
 };
 
-function avatarUrl(name: string, gender: 'male' | 'female' = 'male'): string {
-  const seed = encodeURIComponent(name.replace(/\s+/g, ''));
-  const style = gender === 'female' ? 'adventurerNeutral' : 'adventurer';
-  return `https://api.dicebear.com/7.x/${style}/png?seed=${seed}&size=256&backgroundColor=1c2030`;
-}
-
-// Players we know are female (canon + Amy)
 const FEMALE_PLAYERS = new Set([
   'Amy Ward',
   'Angelina Johnson', 'Alicia Spinnet', 'Katie Bell',
@@ -82,7 +75,12 @@ export default function RostersPage() {
       {/* Team header */}
       <div
         className={styles.teamHeader}
-        style={{ background: `linear-gradient(120deg, ${team.colors.primary}22, ${team.colors.secondary}11)`, border: `1px solid ${team.colors.primary}33`, borderRadius: 'var(--radius-xl)', marginBottom: 'var(--space-8)' }}
+        style={{
+          background: `linear-gradient(120deg, ${team.colors.primary}22, ${team.colors.secondary}11)`,
+          border: `1px solid ${team.colors.primary}33`,
+          borderRadius: 'var(--radius-xl)',
+          marginBottom: 'var(--space-8)',
+        }}
       >
         <div
           className={styles.teamHeaderBadge}
@@ -104,9 +102,7 @@ export default function RostersPage() {
         return (
           <section key={pos} className={styles.positionSection}>
             <div className={styles.positionHeading}>
-              <span className={styles.positionTitle}>
-                {POSITION_ICON[pos]} {pos}
-              </span>
+              <span className={styles.positionTitle}>{POSITION_ICON[pos]} {pos}</span>
               <span className={styles.positionLine} />
               <span className={styles.positionDesc}>{POSITION_DESC[pos]}</span>
             </div>
@@ -125,16 +121,16 @@ export default function RostersPage() {
                     key={player.id}
                     className={`${styles.playerCard} ${isYou ? styles.playerCardHighlight : ''}`}
                   >
+                    {/* Illustrated portrait */}
                     <div className={styles.avatarWrap}>
-                      <Image
-                        src={avatarUrl(player.name, gender)}
-                        alt={player.name}
-                        width={256}
-                        height={256}
-                        className={styles.avatarImg}
-                        unoptimized
+                      <PlayerIllustration
+                        position={pos}
+                        primary={team.colors.primary}
+                        secondary={team.colors.secondary}
+                        num={player.number}
+                        gender={gender}
+                        uid={player.id}
                       />
-                      <span className={styles.numberBadge}>#{player.number}</span>
                       {isYou && <span className={styles.youBadge}>You</span>}
                     </div>
 
@@ -152,7 +148,7 @@ export default function RostersPage() {
                               <span className={styles.pStatLabel}>Goals</span>
                             </div>
                             <div className={styles.pStat}>
-                              <span className={`${styles.pStatVal}`}>{pts}</span>
+                              <span className={styles.pStatVal}>{pts}</span>
                               <span className={styles.pStatLabel}>Pts scored</span>
                             </div>
                           </>
@@ -161,11 +157,11 @@ export default function RostersPage() {
                           <>
                             <div className={styles.pStat}>
                               <span className={`${styles.pStatVal} ${styles.pStatWin}`}>{snitch}</span>
-                              <span className={styles.pStatLabel}>Snitch catches</span>
+                              <span className={styles.pStatLabel}>Snitch</span>
                             </div>
                             <div className={styles.pStat}>
-                              <span className={`${styles.pStatVal}`}>{snitch * 150}</span>
-                              <span className={styles.pStatLabel}>Pts from snitch</span>
+                              <span className={styles.pStatVal}>{snitch * 150}</span>
+                              <span className={styles.pStatLabel}>Pts</span>
                             </div>
                           </>
                         )}
