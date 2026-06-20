@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { TEAMS, MATCHES } from '@/data';
 import { computePlayerStats } from '@/lib/playerStats';
+import { getHairColor } from '@/data/playerHair';
 import { Position } from '@/data/types';
 import PlayerIllustration from '@/components/PlayerIllustration/PlayerIllustration';
 import styles from './page.module.css';
@@ -110,6 +111,7 @@ export default function RostersPage() {
             <div className={styles.playerGrid}>
               {players.map((player) => {
                 const gender = FEMALE_PLAYERS.has(player.name) ? 'female' : 'male';
+                const hairColor = getHairColor(player.name);
                 const isYou = player.name === 'Amy Ward';
                 const ps = playerStats[player.name];
                 const goals = ps?.goalsScored ?? 0;
@@ -129,6 +131,7 @@ export default function RostersPage() {
                         secondary={team.colors.secondary}
                         num={player.number}
                         gender={gender}
+                        hairColor={hairColor}
                         uid={player.id}
                       />
                       {isYou && <span className={styles.youBadge}>You</span>}
