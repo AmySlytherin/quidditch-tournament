@@ -1,0 +1,200 @@
+.wrapper {
+  overflow-x: auto;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.th {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.th:first-child { border-radius: var(--radius-xl) 0 0 0; }
+.th:last-child { border-radius: 0 var(--radius-xl) 0 0; }
+
+.thSortable {
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.thSortable:hover {
+  color: var(--color-text-secondary);
+}
+
+.thActive {
+  color: var(--color-accent) !important;
+}
+
+.sortIcon {
+  display: inline-block;
+  margin-left: var(--space-1);
+  opacity: 0.5;
+  font-style: normal;
+  font-size: 0.75em;
+}
+
+.sortIconActive {
+  opacity: 1;
+}
+
+.thNum {
+  text-align: right;
+}
+
+.row {
+  border-bottom: 1px solid var(--color-border);
+  transition: background 0.1s;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.row:hover {
+  background: var(--color-surface-raised);
+}
+
+.td {
+  padding: var(--space-3) var(--space-4);
+  vertical-align: middle;
+}
+
+.tdNum {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-secondary);
+}
+
+.tdNumHighlight {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+/* Rank cell */
+.rank {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  min-width: 32px;
+}
+
+.rankTop {
+  color: var(--color-accent);
+}
+
+/* Team cell */
+.teamCell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 180px;
+}
+
+.teamBar {
+  width: 3px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.teamInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.teamName {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  transition: color 0.15s;
+}
+
+.row:hover .teamName {
+  color: var(--color-accent);
+}
+
+.teamCity {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+/* Points diff */
+.diff {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  font-size: 0.8125rem;
+}
+
+.diffPos { color: var(--color-win); }
+.diffNeg { color: var(--color-loss); }
+.diffZero { color: var(--color-text-muted); }
+
+/* Snitch */
+.snitchCell {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.snitchCount {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+/* Recent form */
+.form {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.formPip {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-sm);
+  font-size: 0.625rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0;
+}
+
+.formW {
+  background: var(--color-win-bg);
+  color: var(--color-win);
+}
+
+.formL {
+  background: var(--color-loss-bg);
+  color: var(--color-loss);
+}
+
+/* Record */
+.record {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+
+.recordW { color: var(--color-win); font-weight: 600; }
+.recordSep { color: var(--color-text-muted); margin: 0 2px; }
+.recordL { color: var(--color-loss); font-weight: 600; }
