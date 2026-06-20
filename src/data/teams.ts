@@ -26,7 +26,7 @@ export const TEAMS: Team[] = [
     city: 'Hogwarts',
     colors: { primary: '#1A472A', secondary: '#AAAAAA', text: '#ffffff' },
     roster: [
-      { id: 'sly-1', name: 'Miles Bletchley', position: 'Keeper', number: 1 },
+      { id: 'sly-1', name: 'Amy Ward', position: 'Keeper', number: 1 },
       { id: 'sly-2', name: 'Cassius Warrington', position: 'Chaser', number: 6 },
       { id: 'sly-3', name: 'Montague', position: 'Chaser', number: 8 },
       { id: 'sly-4', name: 'Vaisey', position: 'Chaser', number: 10 },
