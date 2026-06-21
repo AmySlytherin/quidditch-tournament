@@ -313,23 +313,20 @@
 
 /* ─── Bio panel ──────────────────────────────────────────────────── */
 .bioPanel {
-  position: fixed;
-  top: 50%;
-  right: var(--space-8);
-  transform: translateY(-50%);
+  position: relative;
   width: 280px;
+  margin-top: var(--space-5);
   background: var(--color-surface-raised);
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
-  z-index: 50;
   animation: bioSlideIn 0.2s ease;
 }
 
 @keyframes bioSlideIn {
-  from { opacity: 0; transform: translateY(-50%) translateX(16px); }
-  to   { opacity: 1; transform: translateY(-50%) translateX(0); }
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .bioPanelStripe {

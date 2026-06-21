@@ -123,52 +123,11 @@ function RostersInner() {
         <div className={styles.teamHeaderCount}>{team.roster.length} players</div>
       </div>
 
-      {/* Bio panel */}
-      {selectedPlayer && (() => {
-        const { player: p, team: t } = selectedPlayer;
-        const posColor = POSITION_COLOR[p.position];
-        return (
-          <div className={styles.bioPanel}>
-            <div className={styles.bioPanelStripe}
-              style={{ background: `linear-gradient(90deg, ${t.colors.primary}, ${t.colors.secondary})` }} />
-            <button className={styles.bioPanelClose} onClick={() => setSelectedPlayer(null)}>✕</button>
-            <div className={styles.bioPanelPortrait}>
-              <Image src={playerImagePath(p.name)} alt={p.name} fill className={styles.bioPanelImg} />
-              <div className={styles.bioPanelOverlay} />
-            </div>
-            <div className={styles.bioPanelBody}>
-              <div className={styles.bioPanelName}>{p.name}</div>
-              <div className={styles.bioPanelRows}>
-                <div className={styles.bioPanelRow}>
-                  <span className={styles.bioPanelLabel}>Position</span>
-                  <span className={styles.bioPanelValue} style={{ color: posColor }}>
-                    {POSITION_ICON[p.position]} {p.position}
-                  </span>
-                </div>
-                <div className={styles.bioPanelRow}>
-                  <span className={styles.bioPanelLabel}>House</span>
-                  <span className={styles.bioPanelValue} style={{ color: t.id === 'hufflepuff' ? '#7a5c00' : t.colors.primary }}>
-                    {t.name}
-                  </span>
-                </div>
-                <div className={styles.bioPanelRow}>
-                  <span className={styles.bioPanelLabel}>Jersey</span>
-                  <span className={styles.bioPanelValue}>#{p.number}</span>
-                </div>
-                <div className={styles.bioPanelRow}>
-                  <span className={styles.bioPanelLabel}>Year</span>
-                  <span className={styles.bioPanelValue}>{ordinal(p.year)} Year</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      })()}
-
       {/* Roster by position */}
       {POSITION_ORDER.map((pos) => {
         const players = team.roster.filter((p) => p.position === pos);
         if (!players.length) return null;
+        const sectionHasSelected = selectedPlayer?.player.position === pos;
         return (
           <section key={pos} className={styles.positionSection}>
             <div className={styles.positionHeading}>
@@ -269,6 +228,48 @@ function RostersInner() {
                 );
               })}
             </div>
+
+            {/* Inline bio panel — appears below this position group when a player in it is selected */}
+            {sectionHasSelected && (() => {
+              const { player: p, team: t } = selectedPlayer!;
+              const posColor = POSITION_COLOR[p.position];
+              return (
+                <div className={styles.bioPanel}>
+                  <div className={styles.bioPanelStripe}
+                    style={{ background: `linear-gradient(90deg, ${t.colors.primary}, ${t.colors.secondary})` }} />
+                  <button className={styles.bioPanelClose} onClick={() => setSelectedPlayer(null)}>✕</button>
+                  <div className={styles.bioPanelPortrait}>
+                    <Image src={playerImagePath(p.name)} alt={p.name} fill className={styles.bioPanelImg} />
+                    <div className={styles.bioPanelOverlay} />
+                  </div>
+                  <div className={styles.bioPanelBody}>
+                    <div className={styles.bioPanelName}>{p.name}</div>
+                    <div className={styles.bioPanelRows}>
+                      <div className={styles.bioPanelRow}>
+                        <span className={styles.bioPanelLabel}>Position</span>
+                        <span className={styles.bioPanelValue} style={{ color: posColor }}>
+                          {POSITION_ICON[p.position]} {p.position}
+                        </span>
+                      </div>
+                      <div className={styles.bioPanelRow}>
+                        <span className={styles.bioPanelLabel}>House</span>
+                        <span className={styles.bioPanelValue} style={{ color: t.id === 'hufflepuff' ? '#7a5c00' : t.colors.primary }}>
+                          {t.name}
+                        </span>
+                      </div>
+                      <div className={styles.bioPanelRow}>
+                        <span className={styles.bioPanelLabel}>Jersey</span>
+                        <span className={styles.bioPanelValue}>#{p.number}</span>
+                      </div>
+                      <div className={styles.bioPanelRow}>
+                        <span className={styles.bioPanelLabel}>Year</span>
+                        <span className={styles.bioPanelValue}>{ordinal(p.year)} Year</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
           </section>
         );
       })}
