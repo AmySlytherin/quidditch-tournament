@@ -25,20 +25,25 @@ export default function GoldenSnitch() {
     <div className={styles.snitch} aria-hidden="true">
       <svg width="36" height="26" viewBox="0 0 36 26" fill="none" xmlns="http://www.w3.org/2000/svg">
         {/* Left wing */}
-        <ellipse cx="8" cy="13" rx="9" ry="5" fill="#c8b97a" stroke="#8a6c2a" strokeWidth="0.8"
-          transform="rotate(-18 8 13)" className={styles.wingLeft} />
+        <ellipse cx="8" cy="13" rx="9" ry="4.5" fill="#b8960a" stroke="#7a5c00" strokeWidth="0.7"
+          transform="rotate(-15 8 13)" className={styles.wingLeft} />
         {/* Right wing */}
-        <ellipse cx="28" cy="13" rx="9" ry="5" fill="#c8b97a" stroke="#8a6c2a" strokeWidth="0.8"
-          transform="rotate(18 28 13)" className={styles.wingRight} />
+        <ellipse cx="28" cy="13" rx="9" ry="4.5" fill="#b8960a" stroke="#7a5c00" strokeWidth="0.7"
+          transform="rotate(15 28 13)" className={styles.wingRight} />
+        {/* Wing detail lines */}
+        <line x1="3" y1="11" x2="16" y2="13" stroke="#7a5c00" strokeWidth="0.4" opacity="0.6" />
+        <line x1="33" y1="11" x2="20" y2="13" stroke="#7a5c00" strokeWidth="0.4" opacity="0.6" />
         {/* Body — golden ball */}
-        <circle cx="18" cy="13" r="6" fill="url(#snitch-gold)" />
-        {/* Highlight */}
-        <circle cx="15.5" cy="10.5" r="1.8" fill="rgba(255,255,220,0.6)" />
+        <circle cx="18" cy="13" r="6.2" fill="url(#snitch-gold)" />
+        {/* Specular highlight */}
+        <circle cx="15.2" cy="10.2" r="2" fill="rgba(255,252,200,0.55)" />
+        <circle cx="20" cy="15.5" r="0.8" fill="rgba(255,220,80,0.2)" />
         <defs>
-          <radialGradient id="snitch-gold" cx="40%" cy="35%" r="65%">
-            <stop offset="0%"  stopColor="#ffe97a" />
-            <stop offset="60%" stopColor="#d4a843" />
-            <stop offset="100%" stopColor="#8a6010" />
+          <radialGradient id="snitch-gold" cx="38%" cy="32%" r="68%">
+            <stop offset="0%"   stopColor="#fff0a0" />
+            <stop offset="35%"  stopColor="#e8b820" />
+            <stop offset="70%"  stopColor="#c08010" />
+            <stop offset="100%" stopColor="#7a4e00" />
           </radialGradient>
         </defs>
       </svg>
