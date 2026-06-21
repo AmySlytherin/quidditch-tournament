@@ -12,8 +12,8 @@ const cinzel = Cinzel({
 });
 
 export const metadata: Metadata = {
-  title: 'Hogwarts Quidditch Cup',
-  description: 'House standings, match results, and player rosters for the Hogwarts Quidditch Cup.',
+  title: 'Hogwarts Quidditch',
+  description: 'House standings, match results, and player rosters for Hogwarts Quidditch.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
