@@ -1,10 +1,10 @@
 /* ─── Design tokens ──────────────────────────────────────────────────── */
 :root {
   /* Surface — warm dark stone, like Hogwarts by candlelight */
-  --color-bg: #0f0d0a;
-  --color-surface: #181410;
-  --color-surface-raised: #211c16;
-  --color-surface-overlay: #2a241c;
+  --color-bg: #1a1710;
+  --color-surface: #232018;
+  --color-surface-raised: #2c271e;
+  --color-surface-overlay: #363028;
   --color-border: rgba(212, 168, 67, 0.10);
   --color-border-strong: rgba(212, 168, 67, 0.22);
 
