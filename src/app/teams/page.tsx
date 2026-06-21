@@ -10,9 +10,9 @@ export default function TeamsPage() {
   return (
     <div className={`${styles.page} container`}>
       <header className={styles.header}>
-        <p className={styles.eyebrow}>⚡ 2024–25 Season</p>
-        <h1>All Teams</h1>
-        <p className={styles.subtitle}>{TEAMS.length} teams competing this season</p>
+        <p className={styles.eyebrow}>⚡ Hogwarts Quidditch Cup · 2024–25</p>
+        <h1>All Houses</h1>
+        <div className="page-divider"><span>✦</span></div>
       </header>
 
       <div className={styles.grid}>

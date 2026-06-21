@@ -10,10 +10,11 @@ export default function StandingsPage() {
   return (
     <div className={`${styles.page} container`}>
       <header className={styles.header}>
-        <p className={styles.eyebrow}>⚡ 2024–25 Season</p>
-        <h1 className={styles.title}>League Standings</h1>
+        <p className={styles.eyebrow}>⚡ Hogwarts Quidditch Cup · 2024–25</p>
+        <h1 className={styles.title}>House Standings</h1>
+        <div className="page-divider"><span>✦</span></div>
         <p className={styles.subtitle}>
-          {MATCHES.length} matches played · Last updated{' '}
+          Last updated{' '}
           {new Date(lastMatch.date).toLocaleDateString('en-GB', {
             day: 'numeric',
             month: 'long',

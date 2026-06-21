@@ -1,15 +1,23 @@
 import type { Metadata } from 'next';
+import { Cinzel } from 'next/font/google';
 import './globals.css';
 import Nav from '@/components/Nav/Nav';
 
+const cinzel = Cinzel({
+  subsets: ['latin'],
+  weight: ['400', '600', '700', '900'],
+  variable: '--font-display',
+  display: 'swap',
+});
+
 export const metadata: Metadata = {
-  title: 'Quidditch League — Tournament Standings',
-  description: 'Live standings, match results, and team stats for the Quidditch League tournament.',
+  title: 'Hogwarts Quidditch Cup',
+  description: 'House standings, match results, and player rosters for the Hogwarts Quidditch Cup.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={cinzel.variable}>
       <body>
         <Nav />
         <main>{children}</main>

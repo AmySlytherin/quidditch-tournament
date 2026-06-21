@@ -16,11 +16,9 @@ export default function SchedulePage() {
   return (
     <div className={`${styles.page} container`}>
       <header className={styles.header}>
-        <p className={styles.eyebrow}>⚡ 2024–25 Season</p>
-        <h1>Schedule & Results</h1>
-        <p className={styles.subtitle}>
-          {MATCHES.length} matches · {rounds.length} rounds · round-robin format
-        </p>
+        <p className={styles.eyebrow}>⚡ Hogwarts Quidditch Cup · 2024–25</p>
+        <h1>Fixtures & Results</h1>
+        <div className="page-divider"><span>✦</span></div>
       </header>
 
       <div className={styles.rounds}>

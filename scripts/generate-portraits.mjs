@@ -1,19 +1,18 @@
 /**
- * Generates DALL-E portrait images for every player and saves them to public/players/.
- * Run once: node scripts/generate-portraits.mjs
+ * Generates gpt-image-1 portraits for all 4-team Hogwarts rosters.
+ * Skips amy_ward_v10.png and lucinda_v2.png (already finalized).
+ * Run: node scripts/generate-portraits.mjs
  */
 
 import OpenAI from 'openai';
 import fs from 'fs';
 import path from 'path';
-import https from 'https';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = path.join(__dirname, '..', 'public', 'players');
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
-// Load API key from .env.local
 const envPath = path.join(__dirname, '..', '.env.local');
 const envContent = fs.readFileSync(envPath, 'utf8');
 const apiKey = envContent.match(/OPENAI_API_KEY=(.+)/)?.[1]?.trim();
@@ -21,152 +20,155 @@ if (!apiKey) { console.error('No OPENAI_API_KEY found'); process.exit(1); }
 
 const openai = new OpenAI({ apiKey });
 
-const FEMALE_PLAYERS = new Set([
-  'Amy Ward',
-  'Angelina Johnson', 'Alicia Spinnet', 'Katie Bell',
-  'Gwenog Jones', 'Wilda Griffiths', 'Valmai Morgan', 'Glynnis Griffiths',
-  'Bronwen Sharpe', 'Siwan Hobday', 'Meghan McCormack',
-  'Cho Chang', 'Tamsin Applebee', 'Heidi Macavoy',
-  'Tamara Finnegan', 'Iona Banks', 'Catriona McCormack', 'Molly McBride',
-  'Nell Vance', 'Seren Ashby',
-  'Petra Hawke', 'Isla Fairweather', 'Jess Galway',
-  'Siobhan Quigley', 'Aoife Brennan', 'Brigid Shaughnessy',
-]);
-
-// Team uniform colors for the prompt
-const TEAM_UNIFORMS = {
-  gryffindor: 'scarlet and gold',
-  slytherin:  'emerald green and silver',
-  hufflepuff: 'black and yellow',
-  ravenclaw:  'blue and bronze',
-  harpies:    'dark green and gold',
-  cannons:    'orange and black',
-  tornados:   'royal blue and silver',
-  wasps:      'yellow and black',
-  arrows:     'teal and white',
-  bats:       'black and red',
-};
-
+// Players with explicit, distinctive physical descriptors.
+// Amy Ward and Lucinda Talkalot have finalized portraits — skip them.
 const PLAYERS = [
-  // Gryffindor
-  { name: 'Oliver Wood',       teamId: 'gryffindor', position: 'Keeper'  },
-  { name: 'Angelina Johnson',  teamId: 'gryffindor', position: 'Chaser'  },
-  { name: 'Alicia Spinnet',    teamId: 'gryffindor', position: 'Chaser'  },
-  { name: 'Katie Bell',        teamId: 'gryffindor', position: 'Chaser'  },
-  { name: 'Fred Weasley',      teamId: 'gryffindor', position: 'Beater'  },
-  { name: 'George Weasley',    teamId: 'gryffindor', position: 'Beater'  },
-  { name: 'Harry Potter',      teamId: 'gryffindor', position: 'Seeker'  },
-  // Slytherin
-  { name: 'Amy Ward',          teamId: 'slytherin',  position: 'Keeper'  },
-  { name: 'Cassius Warrington',teamId: 'slytherin',  position: 'Chaser'  },
-  { name: 'Montague',          teamId: 'slytherin',  position: 'Chaser'  },
-  { name: 'Vaisey',            teamId: 'slytherin',  position: 'Chaser'  },
-  { name: 'Crabbe Sr.',        teamId: 'slytherin',  position: 'Beater'  },
-  { name: 'Goyle Sr.',         teamId: 'slytherin',  position: 'Beater'  },
-  { name: 'Draco Malfoy',      teamId: 'slytherin',  position: 'Seeker'  },
-  // Hufflepuff
-  { name: 'Cedric Diggory',    teamId: 'hufflepuff', position: 'Seeker'  },
-  { name: 'Zacharias Smith',   teamId: 'hufflepuff', position: 'Chaser'  },
-  { name: 'Tamsin Applebee',   teamId: 'hufflepuff', position: 'Chaser'  },
-  { name: 'Heidi Macavoy',     teamId: 'hufflepuff', position: 'Chaser'  },
-  { name: 'Herbert Fleet',     teamId: 'hufflepuff', position: 'Beater'  },
-  { name: 'Anthony Rickett',   teamId: 'hufflepuff', position: 'Beater'  },
-  { name: 'Grant Page',        teamId: 'hufflepuff', position: 'Keeper'  },
-  // Ravenclaw
-  { name: 'Roger Davies',      teamId: 'ravenclaw',  position: 'Chaser'  },
-  { name: 'Cho Chang',         teamId: 'ravenclaw',  position: 'Seeker'  },
-  { name: 'Duncan Inglebee',   teamId: 'ravenclaw',  position: 'Chaser'  },
-  { name: 'Jeremy Stretton',   teamId: 'ravenclaw',  position: 'Chaser'  },
-  { name: 'Grant Whitmore',    teamId: 'ravenclaw',  position: 'Beater'  },
-  { name: 'Owen Cauldwell',    teamId: 'ravenclaw',  position: 'Beater'  },
-  { name: 'Lucinda Talkalot',  teamId: 'ravenclaw',  position: 'Keeper'  },
-  // Harpies
-  { name: 'Gwenog Jones',      teamId: 'harpies',    position: 'Beater'  },
-  { name: 'Wilda Griffiths',   teamId: 'harpies',    position: 'Chaser'  },
-  { name: 'Valmai Morgan',     teamId: 'harpies',    position: 'Chaser'  },
-  { name: 'Glynnis Griffiths', teamId: 'harpies',    position: 'Chaser'  },
-  { name: 'Bronwen Sharpe',    teamId: 'harpies',    position: 'Beater'  },
-  { name: 'Siwan Hobday',      teamId: 'harpies',    position: 'Seeker'  },
-  { name: 'Meghan McCormack',  teamId: 'harpies',    position: 'Keeper'  },
-  // Cannons
-  { name: 'Dragomir Gorgovitch',teamId:'cannons',    position: 'Chaser'  },
-  { name: 'Barry Ryan',        teamId: 'cannons',    position: 'Keeper'  },
-  { name: 'Tamara Finnegan',   teamId: 'cannons',    position: 'Chaser'  },
-  { name: 'Idris Oakby',       teamId: 'cannons',    position: 'Seeker'  },
-  { name: 'Rod Plumpton',      teamId: 'cannons',    position: 'Beater'  },
-  { name: 'Alasdair Maddock',  teamId: 'cannons',    position: 'Beater'  },
-  { name: 'Lennox Campbell',   teamId: 'cannons',    position: 'Chaser'  },
-  // Tornados
-  { name: 'Roderick Plumpton', teamId: 'tornados',   position: 'Seeker'  },
-  { name: 'Iona Banks',        teamId: 'tornados',   position: 'Chaser'  },
-  { name: 'Rufus Scrimgeour',  teamId: 'tornados',   position: 'Beater'  },
-  { name: 'Catriona McCormack',teamId: 'tornados',   position: 'Chaser'  },
-  { name: 'Molly McBride',     teamId: 'tornados',   position: 'Chaser'  },
-  { name: 'Patrick Digweed',   teamId: 'tornados',   position: 'Beater'  },
-  { name: 'Eamon Delaney',     teamId: 'tornados',   position: 'Keeper'  },
-  // Wasps
-  { name: 'Luca Caruso',       teamId: 'wasps',      position: 'Seeker'  },
-  { name: 'Cormac McLaggen',   teamId: 'wasps',      position: 'Keeper'  },
-  { name: 'Thaddeus Pryce',    teamId: 'wasps',      position: 'Chaser'  },
-  { name: 'Nell Vance',        teamId: 'wasps',      position: 'Chaser'  },
-  { name: 'Aiden Cross',       teamId: 'wasps',      position: 'Chaser'  },
-  { name: 'Bram Hollis',       teamId: 'wasps',      position: 'Beater'  },
-  { name: 'Seren Ashby',       teamId: 'wasps',      position: 'Beater'  },
-  // Arrows
-  { name: 'Finley Quine',      teamId: 'arrows',     position: 'Seeker'  },
-  { name: 'Petra Hawke',       teamId: 'arrows',     position: 'Keeper'  },
-  { name: 'Magnus Tully',      teamId: 'arrows',     position: 'Chaser'  },
-  { name: 'Isla Fairweather',  teamId: 'arrows',     position: 'Chaser'  },
-  { name: 'Callum North',      teamId: 'arrows',     position: 'Chaser'  },
-  { name: 'Rory Stonebridge',  teamId: 'arrows',     position: 'Beater'  },
-  { name: 'Jess Galway',       teamId: 'arrows',     position: 'Beater'  },
-  // Bats
-  { name: 'Finbar Quigley',    teamId: 'bats',       position: 'Seeker'  },
-  { name: 'Siobhan Quigley',   teamId: 'bats',       position: 'Keeper'  },
-  { name: 'Declan Mullet',     teamId: 'bats',       position: 'Chaser'  },
-  { name: 'Aoife Brennan',     teamId: 'bats',       position: 'Chaser'  },
-  { name: 'Cormac Daly',       teamId: 'bats',       position: 'Chaser'  },
-  { name: 'Séamus Rafferty',   teamId: 'bats',       position: 'Beater'  },
-  { name: 'Brigid Shaughnessy',teamId: 'bats',       position: 'Beater'  },
+  // ── GRYFFINDOR (scarlet and gold robes) ───────────────────────────────
+  {
+    name: 'Oliver Wood',
+    file: 'oliver_wood.png',
+    prompt: `Sports trading card portrait photograph of a teenage Scottish male Quidditch Keeper, 18 years old, short dark brown wavy hair, square athletic jaw, intense focused expression, muscular broad-shouldered build. Wearing scarlet and gold Quidditch robes, matching helmet pushed back on head. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+  {
+    name: 'Angelina Johnson',
+    file: 'angelina_johnson.png',
+    prompt: `Sports trading card portrait photograph of a Black British teenage female Quidditch Chaser, 17 years old, tall athletic build, natural coily dark hair pulled back tightly, warm deep brown skin, sharp cheekbones, confident determined expression. Wearing scarlet and gold Quidditch robes, matching helmet. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+  {
+    name: 'Alicia Spinnet',
+    file: 'alicia_spinnet.png',
+    prompt: `Sports trading card portrait photograph of a mixed-race teenage female Quidditch Chaser, 16 years old, warm golden-brown complexion, curly light brown shoulder-length hair loose around her face, friendly open expression, almond-shaped brown eyes. Wearing scarlet and gold Quidditch robes, matching helmet. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+  {
+    name: 'Katie Bell',
+    file: 'katie_bell.png',
+    prompt: `Sports trading card portrait photograph of a white British teenage female Quidditch Chaser, 16 years old, straight long blonde hair, pale blue eyes, fair complexion, gentle but focused expression, soft features. Wearing scarlet and gold Quidditch robes, matching helmet. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+  {
+    name: 'Fred Weasley',
+    file: 'fred_weasley.png',
+    prompt: `Sports trading card portrait photograph of a white British teenage male Quidditch Beater, 17 years old, tall, vivid bright orange-red straight hair, very heavy freckles across nose and cheeks, gap-toothed wide grin, mischievous cheerful expression, broad build. Wearing scarlet and gold Quidditch robes, matching helmet pushed back. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+  {
+    name: 'George Weasley',
+    file: 'george_weasley.png',
+    prompt: `Sports trading card portrait photograph of a white British teenage male Quidditch Beater, 17 years old, tall, vivid bright orange-red straight hair, very heavy freckles across nose and cheeks, slight knowing smirk, one eyebrow slightly raised, broad build. Wearing scarlet and gold Quidditch robes, matching helmet pushed back. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+  {
+    // Harry Potter — using description only, no name, no scar mention
+    name: 'Harry Potter',
+    file: 'harry_potter.png',
+    prompt: `Sports trading card portrait photograph of a white teenage male Quidditch Seeker, 15 years old, slender build, very untidy jet-black hair sticking up in all directions, round thin wire-frame glasses, bright alert green eyes, slightly small for his age. Wearing scarlet and gold Quidditch robes, matching helmet pushed back. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+
+  // ── SLYTHERIN (emerald green and silver robes) ─────────────────────────
+  {
+    name: 'Marcus Flint',
+    file: 'marcus_flint.png',
+    prompt: `Sports trading card portrait photograph of a white British teenage male Quidditch Chaser, 18 years old, heavyset jaw, brutish square face, black straggly lank hair falling past his ears, broad flat nose, slightly crooked teeth visible in a hard expression, thick-necked. Wearing emerald green and silver Quidditch robes, matching helmet. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+  {
+    name: 'Adrian Pucey',
+    file: 'adrian_pucey.png',
+    prompt: `Sports trading card portrait photograph of a white British teenage male Quidditch Chaser, 17 years old, lean wiry athletic build, very dark brown short neat hair, sharp grey eyes, angular jaw, cool unreadable expression. Wearing emerald green and silver Quidditch robes, matching helmet. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+  {
+    name: 'Cassius Warrington',
+    file: 'cassius_warrington.png',
+    prompt: `Sports trading card portrait photograph of a white British teenage male Quidditch Chaser, 18 years old, broad imposing face, wide-set features, close-cropped sandy brown hair, heavy brow, stern intimidating expression, broad-shouldered stocky build. Wearing emerald green and silver Quidditch robes, matching helmet. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+  {
+    name: 'Vincent Crabbe',
+    file: 'vincent_crabbe.png',
+    prompt: `Sports trading card portrait photograph of a white British teenage male Quidditch Beater, 16 years old, very stocky heavy build, round fleshy face, short thick black hair, small eyes, blank vacant expression. Wearing emerald green and silver Quidditch robes, matching helmet. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+  {
+    name: 'Gregory Goyle',
+    file: 'gregory_goyle.png',
+    prompt: `Sports trading card portrait photograph of a white British teenage male Quidditch Beater, 16 years old, very large heavy build, taller than average, flat broad nose, close-cropped dark hair, wide jaw, slow dull expression. Wearing emerald green and silver Quidditch robes, matching helmet. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+  {
+    name: 'Draco Malfoy',
+    file: 'draco_malfoy.png',
+    prompt: `Sports trading card portrait photograph of a white British teenage male Quidditch Seeker, 15 years old, pale sharp aristocratic features, platinum blonde hair slicked back severely, cold pale grey eyes, thin lips in a contemptuous sneer, lean slight build. Wearing emerald green and silver Quidditch robes, matching helmet tucked under arm. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+
+  // ── HUFFLEPUFF (black and yellow robes) ───────────────────────────────
+  {
+    name: 'Herbert Fleet',
+    file: 'herbert_fleet.png',
+    prompt: `Sports trading card portrait photograph of a white British teenage male Quidditch Keeper, 17 years old, tall lanky build, short reddish-brown hair, long thin face, prominent nose, earnest friendly expression. Wearing black and yellow Quidditch robes, matching helmet. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+  {
+    name: 'Zacharias Smith',
+    file: 'zacharias_smith.png',
+    prompt: `Sports trading card portrait photograph of a white British teenage male Quidditch Chaser, 16 years old, medium build, wavy blonde hair slightly swept to the side, blue eyes, faintly superior expression as if mildly unimpressed. Wearing black and yellow Quidditch robes, matching helmet. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+  {
+    name: 'Tamsin Applebee',
+    file: 'tamsin_applebee.png',
+    prompt: `Sports trading card portrait photograph of a Black British teenage female Quidditch Chaser, 16 years old, short natural hair, warm medium-dark brown skin, round cheerful face with dimples, bright wide smile, athletic build. Wearing black and yellow Quidditch robes, matching helmet. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+  {
+    name: 'Heidi Macavoy',
+    file: 'heidi_macavoy.png',
+    prompt: `Sports trading card portrait photograph of an East Asian British teenage female Quidditch Chaser, 16 years old, straight dark brown hair in a low ponytail, calm focused expression, high cheekbones, athletic lean build, light olive skin. Wearing black and yellow Quidditch robes, matching helmet. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+  {
+    name: "Maxine O'Flaherty",
+    file: 'maxine_o_flaherty.png',
+    prompt: `Sports trading card portrait photograph of a white Irish teenage female Quidditch Beater, 16 years old, stocky solid athletic build, very pale freckled skin, bright auburn curly hair cropped short, green eyes, fierce competitive expression. Wearing black and yellow Quidditch robes, matching helmet. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+  {
+    name: 'Anthony Rickett',
+    file: 'anthony_rickett.png',
+    prompt: `Sports trading card portrait photograph of a South Asian British teenage male Quidditch Beater, 17 years old, medium-dark complexion, short neat black hair, strong athletic build, serious steady expression, dark brown eyes. Wearing black and yellow Quidditch robes, matching helmet. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+  {
+    name: 'Cedric Diggory',
+    file: 'cedric_diggory.png',
+    prompt: `Sports trading card portrait photograph of a white British teenage male Quidditch Seeker, 17 years old, exceptionally handsome, neatly combed dark brown hair, clear grey eyes, strong jaw, warm genuine smile, tall broad-shouldered athletic build, natural easy confidence. Wearing black and yellow Quidditch robes, matching helmet pushed back. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+
+  // ── RAVENCLAW (blue and bronze robes) ─────────────────────────────────
+  {
+    name: 'Roger Davies',
+    file: 'roger_davies.png',
+    prompt: `Sports trading card portrait photograph of a white British teenage male Quidditch Chaser, 17 years old, handsome athletic build, wavy chestnut brown hair, dark brown eyes, confident charming smile, strong jawline. Wearing blue and bronze Quidditch robes, matching helmet. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+  {
+    name: 'Jeremy Stretton',
+    file: 'jeremy_stretton.png',
+    prompt: `Sports trading card portrait photograph of a white British teenage male Quidditch Chaser, 16 years old, lean build, loose curly dirty-blonde hair, hazel eyes, light scatter of freckles, thoughtful contemplative expression. Wearing blue and bronze Quidditch robes, matching helmet. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+  {
+    name: 'Duncan Inglebee',
+    file: 'duncan_inglebee.png',
+    prompt: `Sports trading card portrait photograph of a Black British teenage male Quidditch Chaser, 17 years old, very close-cropped black hair, tall angular face, sharp defined cheekbones, dark skin, focused serious expression, lean athletic build. Wearing blue and bronze Quidditch robes, matching helmet. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+  {
+    name: 'Jason Samuels',
+    file: 'jason_samuels.png',
+    prompt: `Sports trading card portrait photograph of a white British teenage male Quidditch Beater, 17 years old, short neat light brown hair, medium stocky build, oval face, steady reliable expression, calm brown eyes. Wearing blue and bronze Quidditch robes, matching helmet. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+  {
+    name: 'Grant Whitmore',
+    file: 'grant_whitmore.png',
+    prompt: `Sports trading card portrait photograph of a white British teenage male Quidditch Beater, 16 years old, messy sandy blonde hair, light freckles, blue-grey eyes, easygoing relaxed expression, medium athletic build. Wearing blue and bronze Quidditch robes, matching helmet. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
+  {
+    name: 'Cho Chang',
+    file: 'cho_chang.png',
+    prompt: `Sports trading card portrait photograph of an East Asian British teenage female Quidditch Seeker, 16 years old, long straight jet-black hair loose around her shoulders, dark eyes, graceful delicate features, fair light skin, poised elegant expression, slender athletic build. Wearing blue and bronze Quidditch robes, matching helmet. Front-facing headshot, looking directly at camera. Dark gradient background. Photorealistic, professional sports card style, studio lighting, sharp focus. No text, no logos.`,
+  },
 ];
-
-function fileName(name) {
-  return name.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase() + '.png';
-}
-
-function downloadFile(url, dest) {
-  return new Promise((resolve, reject) => {
-    const file = fs.createWriteStream(dest);
-    https.get(url, (res) => {
-      res.pipe(file);
-      file.on('finish', () => { file.close(); resolve(); });
-    }).on('error', (err) => {
-      fs.unlink(dest, () => {});
-      reject(err);
-    });
-  });
-}
-
-function buildPrompt(player) {
-  const gender = FEMALE_PLAYERS.has(player.name) ? 'woman' : 'man';
-  const uniform = TEAM_UNIFORMS[player.teamId];
-  return (
-    `Sports trading card portrait photograph of a ${gender} named ${player.name}, ` +
-    `a Quidditch ${player.position}. ` +
-    `Wearing ${uniform} Quidditch robes and a matching helmet. ` +
-    `Front-facing headshot, looking directly at the camera with a neutral confident expression. ` +
-    `Neutral dark gradient background. Photorealistic digital art, highly detailed, ` +
-    `professional sports card style, sharp focus, studio lighting. ` +
-    `No text, no logos.`
-  );
-}
 
 async function generateAll() {
   let generated = 0;
   let skipped = 0;
 
   for (const player of PLAYERS) {
-    const file = path.join(OUT_DIR, fileName(player.name));
+    const file = path.join(OUT_DIR, player.file);
     if (fs.existsSync(file)) {
       console.log(`  skip  ${player.name} (already exists)`);
       skipped++;
@@ -177,7 +179,7 @@ async function generateAll() {
     try {
       const response = await openai.images.generate({
         model: 'gpt-image-1',
-        prompt: buildPrompt(player),
+        prompt: player.prompt,
         n: 1,
         size: '1024x1024',
         quality: 'medium',
@@ -185,23 +187,17 @@ async function generateAll() {
       });
 
       const b64 = response.data[0].b64_json;
-      if (b64) {
-        fs.writeFileSync(file, Buffer.from(b64, 'base64'));
-      } else {
-        const url = response.data[0].url;
-        await downloadFile(url, file);
-      }
+      fs.writeFileSync(file, Buffer.from(b64, 'base64'));
       console.log('done');
       generated++;
 
-      // Slight pause to avoid rate limiting
       await new Promise(r => setTimeout(r, 500));
     } catch (err) {
       console.log(`FAILED: ${err.message}`);
     }
   }
 
-  console.log(`\nDone. Generated: ${generated}, Skipped (already existed): ${skipped}`);
+  console.log(`\nDone. Generated: ${generated}, Skipped: ${skipped}`);
 }
 
 generateAll();
