@@ -1,6 +1,7 @@
 import { MATCHES } from '@/data';
 import { computeStandings } from '@/lib/standings';
 import StandingsTable from '@/components/StandingsTable/StandingsTable';
+import HouseHourglasses from '@/components/HouseHourglasses/HouseHourglasses';
 import styles from './page.module.css';
 
 export default function StandingsPage() {
@@ -36,6 +37,8 @@ export default function StandingsPage() {
           </span>
         </div>
       </header>
+
+      <HouseHourglasses standings={standings} />
 
       <div className={styles.tableSection}>
         <div className={styles.sectionTitle}>Full Table — click any column to sort</div>
