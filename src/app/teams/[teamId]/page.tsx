@@ -190,7 +190,9 @@ export default async function TeamPage({ params }: { params: Promise<{ teamId: s
                     {players.map((p) => (
                       <div key={p.id} className={styles.player}>
                         <span className={styles.playerNumber}>{p.number}</span>
-                        <span className={styles.playerName}>{p.name}</span>
+                        <Link href={`/rosters?team=${team.id}&player=${p.id}`} className={styles.playerName}>
+                          {p.name}
+                        </Link>
                         {pos === 'Seeker' && (
                           <span className={styles.seekerBadge}>🔮</span>
                         )}

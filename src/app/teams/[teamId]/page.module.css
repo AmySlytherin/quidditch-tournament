@@ -206,6 +206,14 @@
   font-weight: 500;
   font-size: 0.9375rem;
   flex: 1;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.playerName:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .playerPos {

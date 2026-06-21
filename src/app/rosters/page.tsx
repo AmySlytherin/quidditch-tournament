@@ -58,10 +58,23 @@ function RostersInner() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const initialTeam = searchParams.get('team') ?? TEAMS[0].id;
+  const initialPlayerId = searchParams.get('player');
   const [activeTeam, setActiveTeam] = useState(initialTeam);
   const [selectedPlayer, setSelectedPlayer] = useState<{ player: Player; team: Team } | null>(null);
   const playerStats = computePlayerStats(MATCHES);
   const team = TEAMS.find((t) => t.id === activeTeam) ?? TEAMS[0];
+
+  useEffect(() => {
+    if (!initialPlayerId) return;
+    const t = TEAMS.find((t) => t.id === initialTeam) ?? TEAMS[0];
+    const p = t.roster.find((p) => p.id === initialPlayerId);
+    if (p) {
+      setSelectedPlayer({ player: p, team: t });
+      setTimeout(() => {
+        document.getElementById(`player-${p.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 100);
+    }
+  }, []);
 
   function togglePlayer(player: Player, t: Team) {
     setSelectedPlayer((prev) =>
@@ -149,6 +162,7 @@ function RostersInner() {
                 const cardEl = (
                   <div
                     key={player.id}
+                    id={`player-${player.id}`}
                     className={styles.cardFlipContainer}
                     style={{ ['--team-primary' as string]: team.colors.primary }}
                     onClick={() => togglePlayer(player, team)}
