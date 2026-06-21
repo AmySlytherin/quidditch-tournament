@@ -48,6 +48,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
+  box-shadow: 0 0 0 1.5px rgba(220,185,120,0.35), 0 0 6px 1px rgba(220,185,120,0.2);
 }
 
 .tableSection {
