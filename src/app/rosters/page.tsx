@@ -145,13 +145,19 @@ function RostersInner() {
                 const pts    = ps?.pointsContributed ?? 0;
                 const posColor = POSITION_COLOR[pos];
 
+                const isFlipped = selectedPlayer?.player.id === player.id;
                 const cardEl = (
                   <div
                     key={player.id}
-                    className={`${styles.playerCard} ${isYou ? styles.playerCardHighlight : ''} ${selectedPlayer?.player.id === player.id ? styles.playerCardSelected : ''}`}
-                    style={{ ['--team-primary' as string]: team.colors.primary, cursor: 'pointer' }}
+                    className={styles.cardFlipContainer}
+                    style={{ ['--team-primary' as string]: team.colors.primary }}
                     onClick={() => togglePlayer(player, team)}
                   >
+                  <div className={`${styles.cardInner} ${isFlipped ? styles.cardFlipped : ''}`}>
+
+                  {/* ── FRONT ── */}
+                  <div className={styles.cardFront}>
+                  <div className={`${styles.playerCard} ${isYou ? styles.playerCardHighlight : ''}`}>
                     {/* Top accent stripe — team color */}
                     <div className={styles.cardStripe}
                       style={{ background: `linear-gradient(90deg, ${team.colors.primary}, ${team.colors.secondary})` }} />
@@ -225,52 +231,44 @@ function RostersInner() {
                       </div>
                     </div>
                   </div>
-                );
+                  </div>
 
-                // Bio panel injected into the grid right after the selected card
-                // cardEl is assigned above
-                if (selectedPlayer?.player.id === player.id) {
-                  const p = player;
-                  const t = team;
-                  const posColor = POSITION_COLOR[p.position];
-                  return [
-                    cardEl,
-                    <div key="bio" className={styles.bioPanel}>
-                      <div className={styles.bioPanelStripe}
-                        style={{ background: `linear-gradient(90deg, ${t.colors.primary}, ${t.colors.secondary})` }} />
-                      <button className={styles.bioPanelClose} onClick={() => setSelectedPlayer(null)}>✕</button>
-                      <div className={styles.bioPanelPortrait}>
-                        <Image src={playerImagePath(p.name)} alt={p.name} fill className={styles.bioPanelImg} />
-                        <div className={styles.bioPanelOverlay} />
+                  {/* ── BACK ── */}
+                  <div className={styles.cardBack}
+                    style={{ border: `1px solid ${team.colors.primary}66` }}>
+                    <div className={styles.cardStripe}
+                      style={{ background: `linear-gradient(90deg, ${team.colors.primary}, ${team.colors.secondary})` }} />
+                    <div className={styles.cardBackPortrait}>
+                      <Image src={playerImagePath(player.name)} alt={player.name} fill className={styles.cardBackPortraitImg} />
+                      <div className={styles.cardBackOverlay} />
+                    </div>
+                    <div className={styles.cardBackBody}>
+                      <div className={styles.cardBackName}>{player.name}</div>
+                      <div className={styles.cardBackRow}>
+                        <span className={styles.cardBackLabel}>Position</span>
+                        <span className={styles.cardBackValue} style={{ color: POSITION_COLOR[player.position] }}>
+                          {POSITION_ICON[player.position]} {player.position}
+                        </span>
                       </div>
-                      <div className={styles.bioPanelBody}>
-                        <div className={styles.bioPanelName}>{p.name}</div>
-                        <div className={styles.bioPanelRows}>
-                          <div className={styles.bioPanelRow}>
-                            <span className={styles.bioPanelLabel}>Position</span>
-                            <span className={styles.bioPanelValue} style={{ color: posColor }}>
-                              {POSITION_ICON[p.position]} {p.position}
-                            </span>
-                          </div>
-                          <div className={styles.bioPanelRow}>
-                            <span className={styles.bioPanelLabel}>House</span>
-                            <span className={styles.bioPanelValue} style={{ color: t.id === 'hufflepuff' ? '#7a5c00' : t.colors.primary }}>
-                              {t.name}
-                            </span>
-                          </div>
-                          <div className={styles.bioPanelRow}>
-                            <span className={styles.bioPanelLabel}>Jersey</span>
-                            <span className={styles.bioPanelValue}>#{p.number}</span>
-                          </div>
-                          <div className={styles.bioPanelRow}>
-                            <span className={styles.bioPanelLabel}>Year</span>
-                            <span className={styles.bioPanelValue}>{ordinal(p.year)} Year</span>
-                          </div>
-                        </div>
+                      <div className={styles.cardBackRow}>
+                        <span className={styles.cardBackLabel}>House</span>
+                        <span className={styles.cardBackValue} style={{ color: team.id === 'hufflepuff' ? '#7a5c00' : team.colors.primary }}>
+                          {team.name}
+                        </span>
                       </div>
-                    </div>,
-                  ];
-                }
+                      <div className={styles.cardBackRow}>
+                        <span className={styles.cardBackLabel}>Jersey</span>
+                        <span className={styles.cardBackValue}>#{player.number}</span>
+                      </div>
+                      <div className={styles.cardBackRow}>
+                        <span className={styles.cardBackLabel}>Year</span>
+                        <span className={styles.cardBackValue}>{ordinal(player.year)} Year</span>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                  </div>
+                );
 
                 return cardEl;
               })}
