@@ -7,7 +7,7 @@
   pointer-events: none;
   /* Fly in from right, arc up slightly, exit left */
   animation: snitchFly 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  filter: drop-shadow(0 0 6px rgba(212,168,67,0.8)) drop-shadow(0 0 2px rgba(255,220,80,0.6));
+  filter: drop-shadow(0 0 3px rgba(212,168,67,0.45)) drop-shadow(0 0 1px rgba(255,220,80,0.3));
 }
 
 @keyframes snitchFly {
