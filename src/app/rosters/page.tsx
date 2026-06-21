@@ -1,12 +1,16 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { TEAMS, MATCHES } from '@/data';
 import { computePlayerStats } from '@/lib/playerStats';
-import { Position } from '@/data/types';
+import { Position, Player, Team } from '@/data/types';
 import styles from './page.module.css';
+
+function ordinal(n: number) {
+  return ['', '1st', '2nd', '3rd', '4th', '5th', '6th', '7th'][n] ?? `${n}th`;
+}
 
 const POSITION_ORDER: Position[] = ['Keeper', 'Chaser', 'Beater', 'Seeker'];
 
@@ -33,6 +37,9 @@ const POSITION_COLOR: Record<Position, string> = {
 
 const IMAGE_OVERRIDES: Record<string, string> = {
   'Amy Ward': '/players/amy_ward_v10.png',
+  'Lucinda Talkalot': '/players/lucinda_v2.png',
+  'Harry Potter': '/players/harry_potter_v9a.png',
+  'Vincent Crabbe': '/players/vincent_crabbe_v2.png',
 };
 
 function playerImagePath(name: string): string {
@@ -40,24 +47,40 @@ function playerImagePath(name: string): string {
 }
 
 export default function RostersPage() {
+  return (
+    <Suspense>
+      <RostersInner />
+    </Suspense>
+  );
+}
+
+function RostersInner() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const initialTeam = searchParams.get('team') ?? TEAMS[0].id;
   const [activeTeam, setActiveTeam] = useState(initialTeam);
+  const [selectedPlayer, setSelectedPlayer] = useState<{ player: Player; team: Team } | null>(null);
   const playerStats = computePlayerStats(MATCHES);
   const team = TEAMS.find((t) => t.id === activeTeam) ?? TEAMS[0];
 
+  function togglePlayer(player: Player, t: Team) {
+    setSelectedPlayer((prev) =>
+      prev?.player.id === player.id ? null : { player, team: t }
+    );
+  }
+
   function selectTeam(id: string) {
     setActiveTeam(id);
+    setSelectedPlayer(null);
     router.replace(`/rosters?team=${id}`, { scroll: false });
   }
 
   return (
     <div className={`${styles.page} container`}>
       <header className={styles.header}>
-        <p className={styles.eyebrow}>⚡ 2024–25 Season</p>
-        <h1>Team Rosters</h1>
-        <p className={styles.subtitle}>All players, positions, and stats across {TEAMS.length} teams</p>
+        <p className={styles.eyebrow}>⚡ Hogwarts Quidditch Cup · 2024–25</p>
+        <h1>House Rosters</h1>
+        <div className="page-divider"><span>✦</span></div>
       </header>
 
       {/* Team tab bar */}
@@ -81,8 +104,8 @@ export default function RostersPage() {
       <div
         className={styles.teamHeader}
         style={{
-          background: `linear-gradient(120deg, ${team.colors.primary}22, ${team.colors.secondary}11)`,
-          border: `1px solid ${team.colors.primary}33`,
+          background: `linear-gradient(120deg, ${team.colors.primary}44, ${team.colors.secondary}22)`,
+          border: `1px solid ${team.colors.primary}66`,
           borderRadius: 'var(--radius-xl)',
           marginBottom: 'var(--space-8)',
         }}
@@ -99,6 +122,48 @@ export default function RostersPage() {
         </div>
         <div className={styles.teamHeaderCount}>{team.roster.length} players</div>
       </div>
+
+      {/* Bio panel */}
+      {selectedPlayer && (() => {
+        const { player: p, team: t } = selectedPlayer;
+        const posColor = POSITION_COLOR[p.position];
+        return (
+          <div className={styles.bioPanel}>
+            <div className={styles.bioPanelStripe}
+              style={{ background: `linear-gradient(90deg, ${t.colors.primary}, ${t.colors.secondary})` }} />
+            <button className={styles.bioPanelClose} onClick={() => setSelectedPlayer(null)}>✕</button>
+            <div className={styles.bioPanelPortrait}>
+              <Image src={playerImagePath(p.name)} alt={p.name} fill className={styles.bioPanelImg} />
+              <div className={styles.bioPanelOverlay} />
+            </div>
+            <div className={styles.bioPanelBody}>
+              <div className={styles.bioPanelName}>{p.name}</div>
+              <div className={styles.bioPanelRows}>
+                <div className={styles.bioPanelRow}>
+                  <span className={styles.bioPanelLabel}>Position</span>
+                  <span className={styles.bioPanelValue} style={{ color: posColor }}>
+                    {POSITION_ICON[p.position]} {p.position}
+                  </span>
+                </div>
+                <div className={styles.bioPanelRow}>
+                  <span className={styles.bioPanelLabel}>House</span>
+                  <span className={styles.bioPanelValue} style={{ color: t.id === 'hufflepuff' ? '#7a5c00' : t.colors.primary }}>
+                    {t.name}
+                  </span>
+                </div>
+                <div className={styles.bioPanelRow}>
+                  <span className={styles.bioPanelLabel}>Jersey</span>
+                  <span className={styles.bioPanelValue}>#{p.number}</span>
+                </div>
+                <div className={styles.bioPanelRow}>
+                  <span className={styles.bioPanelLabel}>Year</span>
+                  <span className={styles.bioPanelValue}>{ordinal(p.year)} Year</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* Roster by position */}
       {POSITION_ORDER.map((pos) => {
@@ -124,8 +189,9 @@ export default function RostersPage() {
                 return (
                   <div
                     key={player.id}
-                    className={`${styles.playerCard} ${isYou ? styles.playerCardHighlight : ''}`}
-                    style={{ ['--team-primary' as string]: team.colors.primary }}
+                    className={`${styles.playerCard} ${isYou ? styles.playerCardHighlight : ''} ${selectedPlayer?.player.id === player.id ? styles.playerCardSelected : ''}`}
+                    style={{ ['--team-primary' as string]: team.colors.primary, cursor: 'pointer' }}
+                    onClick={() => togglePlayer(player, team)}
                   >
                     {/* Top accent stripe — team color */}
                     <div className={styles.cardStripe}
