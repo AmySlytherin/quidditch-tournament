@@ -5,6 +5,7 @@ export interface Player {
   name: string;
   position: Position;
   number: number;
+  year: number;
 }
 
 export interface TeamColors {
