@@ -1,0 +1,40 @@
+.snitch {
+  position: fixed;
+  /* Start just off the right edge, vertically centered-ish */
+  top: 28%;
+  right: -48px;
+  z-index: 9999;
+  pointer-events: none;
+  /* Fly in from right, arc up slightly, exit left */
+  animation: snitchFly 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  filter: drop-shadow(0 0 6px rgba(212,168,67,0.8)) drop-shadow(0 0 2px rgba(255,220,80,0.6));
+}
+
+@keyframes snitchFly {
+  0%   { transform: translateX(0)      translateY(0)    rotate(-8deg)  scale(0.7); opacity: 0; }
+  8%   { opacity: 1; }
+  30%  { transform: translateX(-30vw)  translateY(-24px) rotate(-12deg) scale(1);   opacity: 1; }
+  55%  { transform: translateX(-55vw)  translateY(10px)  rotate(-6deg)  scale(1);   opacity: 1; }
+  80%  { transform: translateX(-82vw)  translateY(-8px)  rotate(-10deg) scale(0.95); opacity: 1; }
+  92%  { opacity: 1; }
+  100% { transform: translateX(-108vw) translateY(0)    rotate(-8deg)  scale(0.8); opacity: 0; }
+}
+
+/* Wing flutter */
+.wingLeft {
+  transform-origin: 14px 13px;
+  animation: flutterLeft 0.12s ease-in-out infinite alternate;
+}
+.wingRight {
+  transform-origin: 22px 13px;
+  animation: flutterRight 0.12s ease-in-out infinite alternate;
+}
+
+@keyframes flutterLeft {
+  from { transform: rotate(-18deg) scaleY(1);   }
+  to   { transform: rotate(-26deg) scaleY(0.7); }
+}
+@keyframes flutterRight {
+  from { transform: rotate(18deg)  scaleY(1);   }
+  to   { transform: rotate(26deg)  scaleY(0.7); }
+}

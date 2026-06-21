@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Cinzel } from 'next/font/google';
 import './globals.css';
 import Nav from '@/components/Nav/Nav';
+import GoldenSnitch from '@/components/GoldenSnitch/GoldenSnitch';
 
 const cinzel = Cinzel({
   subsets: ['latin'],
@@ -20,6 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={cinzel.variable}>
       <body>
         <Nav />
+        <GoldenSnitch />
         <main>{children}</main>
       </body>
     </html>
