@@ -11,8 +11,7 @@ export default function StandingsPage() {
   return (
     <div className={`${styles.page} container`}>
       <header className={styles.header}>
-        <p className={styles.eyebrow}>⚡ Hogwarts Quidditch Cup · 2024–25</p>
-        <h1 className={styles.title}>House Standings</h1>
+        <h1 className={styles.title}>⚡ Current Standings (2024–2025)</h1>
         <div className="page-divider"><span>✦</span></div>
         <p className={styles.subtitle}>
           Last updated{' '}
