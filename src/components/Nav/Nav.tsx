@@ -12,6 +12,7 @@ const NAV_LINKS = [
   { href: '/schedule', label: 'Schedule' },
   { href: '/teams', label: 'Teams' },
   { href: '/rosters', label: 'Rosters' },
+  { href: '/about', label: 'About' },
 ];
 
 export default function Nav() {
