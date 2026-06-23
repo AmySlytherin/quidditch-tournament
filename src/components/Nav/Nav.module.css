@@ -13,6 +13,7 @@
   align-items: center;
   justify-content: space-between;
   height: var(--nav-height);
+  width: 100%;
 }
 
 .brand {
@@ -21,6 +22,7 @@
   gap: var(--space-3);
   flex-shrink: 0;
   text-decoration: none;
+  margin-right: auto;
 }
 
 .brandText {
