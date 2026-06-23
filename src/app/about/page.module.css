@@ -3,7 +3,7 @@
 }
 
 .header {
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-10);
 }
 
 .eyebrow {
@@ -23,39 +23,20 @@
   margin-bottom: var(--space-3);
 }
 
-/* ── Hero illustration ─────────────────────────────── */
-.heroIllustration {
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto var(--space-10);
-  opacity: 0.85;
-  border-bottom: 1px solid var(--color-border);
-  padding-bottom: var(--space-6);
-}
-.heroIllustration svg { width: 100%; height: auto; }
-
-/* ── Inline illustrations ──────────────────────────── */
-.inlineIllustration {
-  width: 100%;
-  max-width: 500px;
-  margin: var(--space-8) auto;
-  opacity: 0.8;
-}
-.inlineIllustration svg { width: 100%; height: auto; }
-
-/* ── Content ───────────────────────────────────────── */
-.content {
-  max-width: 740px;
-  margin: 0 auto;
-}
-
+/* ── Sections ──────────────────────────────────────── */
 .section {
-  margin-bottom: var(--space-12);
+  position: relative;
+  max-width: 660px;
+  margin: 0 auto var(--space-14);
+  overflow: visible;
 }
+
+.section h2 { position: relative; z-index: 1; }
+.section p  { position: relative; z-index: 1; }
 
 .sectionTitle {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: var(--color-accent);
   margin-bottom: var(--space-4);
@@ -66,15 +47,77 @@
 .section p {
   color: var(--color-text-secondary);
   font-size: 1rem;
-  line-height: 1.8;
+  line-height: 1.85;
   margin-bottom: var(--space-4);
 }
 .section p:last-child { margin-bottom: 0; }
 
+/* ── Floating illustrations ────────────────────────── */
+.floatRight {
+  position: absolute;
+  right: -180px;
+  top: -10px;
+  width: 200px;
+  opacity: 0.22;
+  pointer-events: none;
+  z-index: 0;
+}
+.floatRight svg { width: 100%; height: auto; }
+
+.floatLeft {
+  position: absolute;
+  left: -180px;
+  top: 20px;
+  width: 200px;
+  opacity: 0.22;
+  pointer-events: none;
+  z-index: 0;
+}
+.floatLeft svg { width: 100%; height: auto; }
+
+/* ── Goal posts section — illustration behind text ─── */
+.sectionWithBg {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto var(--space-14);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+}
+
+.bgIllustration {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  opacity: 0.18;
+  pointer-events: none;
+}
+.bgIllustration svg {
+  width: 100%;
+  height: auto;
+}
+
+.bgContent {
+  position: relative;
+  z-index: 1;
+  padding: var(--space-8) var(--space-10);
+  max-width: 660px;
+}
+.bgContent h2 { color: var(--color-accent); }
+.bgContent p  {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  line-height: 1.85;
+}
+
 /* ── Positions grid ────────────────────────────────── */
 .positionsGrid {
+  position: relative;
+  z-index: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: var(--space-4);
   margin-top: var(--space-4);
 }
@@ -89,27 +132,28 @@
   gap: var(--space-2);
   transition: border-color 0.2s;
 }
-.positionCard:hover {
-  border-color: var(--color-border-strong);
-}
+.positionCard:hover { border-color: var(--color-border-strong); }
 
 .positionIcon { font-size: 1.5rem; }
-
 .positionName {
   font-family: var(--font-display);
   font-size: 0.9375rem;
   font-weight: 700;
   color: var(--color-accent);
 }
-
 .positionDesc {
   font-size: 0.8125rem;
   color: var(--color-text-muted);
   line-height: 1.5;
 }
 
+/* ── Responsive ────────────────────────────────────── */
+@media (max-width: 900px) {
+  .floatRight, .floatLeft { display: none; }
+}
+
 @media (max-width: 640px) {
-  .positionsGrid {
-    grid-template-columns: 1fr 1fr;
-  }
+  .positionsGrid { grid-template-columns: 1fr 1fr; }
+  .bgContent { padding: var(--space-6); }
+  .section { margin-bottom: var(--space-10); }
 }
