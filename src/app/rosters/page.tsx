@@ -91,7 +91,7 @@ function RostersInner() {
   return (
     <div className={`${styles.page} container`}>
       <header className={styles.header}>
-        <p className={styles.eyebrow}>⚡ Hogwarts Quidditch · 2024–25</p>
+        <p className={styles.eyebrow}>⚡ 2024–2025</p>
         <h1>House Rosters</h1>
         <div className="page-divider"><span>✦</span></div>
       </header>
