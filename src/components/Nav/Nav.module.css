@@ -217,12 +217,12 @@
   color: var(--color-text-primary);
 }
 
-/* ── Responsive ────────────────────────────────────── */
-@media (max-width: 680px) {
-  .links     { display: none; }
-  .desktopOnly { display: none !important; }
-  .hamburger { display: flex; }
+/* ── Hamburger always visible, links always hidden ── */
+.links     { display: none; }
+.desktopOnly { display: none !important; }
+.hamburger { display: flex; }
 
+@media (max-width: 680px) {
   .brandText {
     font-size: 1.15rem;
   }
