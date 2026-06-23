@@ -17,21 +17,21 @@ const NAV_LINKS = [
 export default function Nav() {
   const pathname = usePathname();
   const router = useRouter();
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
+  // Close when clicking outside
   useEffect(() => {
     function handleClick(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setDropdownOpen(false);
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setMenuOpen(false);
       }
     }
     document.addEventListener('mousedown', handleClick);
     return () => document.removeEventListener('mousedown', handleClick);
   }, []);
 
-  // Close mobile menu on navigation
+  // Close on navigation
   useEffect(() => { setMenuOpen(false); }, [pathname]);
 
   return (
@@ -42,77 +42,40 @@ export default function Nav() {
           <span className={styles.brandText}>Hogwarts Quidditch</span>
         </Link>
 
-        {/* Desktop nav links */}
-        <ul className={styles.links}>
-          {NAV_LINKS.map(({ href, label }) => (
-            <li key={href}>
-              <Link href={href} className={`${styles.link} ${pathname === href ? styles.active : ''}`}>
-                {label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-
-        {/* Desktop team switcher */}
-        <div className={`${styles.teamSwitcher} ${styles.desktopOnly}`} ref={ref}>
+        {/* Hamburger + dropdown anchored to right side */}
+        <div className={styles.menuWrap} ref={menuRef}>
           <button
-            className={styles.switcherButton}
-            onClick={() => setDropdownOpen((v) => !v)}
-            aria-haspopup="listbox"
-            aria-expanded={dropdownOpen}
+            className={styles.hamburger}
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label="Toggle menu"
+            aria-expanded={menuOpen}
           >
-            Jump to team
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+            <span className={`${styles.hamburgerLine} ${menuOpen ? styles.hamburgerLineTop : ''}`} />
+            <span className={`${styles.hamburgerLine} ${menuOpen ? styles.hamburgerLineMid : ''}`} />
+            <span className={`${styles.hamburgerLine} ${menuOpen ? styles.hamburgerLineBot : ''}`} />
           </button>
-          {dropdownOpen && (
-            <div className={styles.dropdown} role="listbox">
+
+          {menuOpen && (
+            <div className={styles.dropdown}>
+              {NAV_LINKS.map(({ href, label }) => (
+                <Link key={href} href={href}
+                  className={`${styles.dropdownLink} ${pathname === href ? styles.dropdownLinkActive : ''}`}>
+                  {label}
+                </Link>
+              ))}
+              <div className={styles.dropdownDivider} />
+              <p className={styles.dropdownTeamLabel}>Jump to team</p>
               {TEAMS.map((team) => (
-                <div key={team.id} role="option" aria-selected={false} className={styles.dropdownItem}
-                  onClick={() => { router.push(`/teams/${team.id}`); setDropdownOpen(false); }}>
+                <button key={team.id} className={styles.dropdownTeamBtn}
+                  onClick={() => router.push(`/teams/${team.id}`)}>
                   <span className={styles.teamDot} style={{ background: team.colors.primary }} />
                   {team.name}
-                </div>
+                </button>
               ))}
             </div>
           )}
         </div>
-
-        {/* Mobile hamburger button */}
-        <button
-          className={styles.hamburger}
-          onClick={() => setMenuOpen((v) => !v)}
-          aria-label="Toggle menu"
-          aria-expanded={menuOpen}
-        >
-          <span className={`${styles.hamburgerLine} ${menuOpen ? styles.hamburgerLineTop : ''}`} />
-          <span className={`${styles.hamburgerLine} ${menuOpen ? styles.hamburgerLineMid : ''}`} />
-          <span className={`${styles.hamburgerLine} ${menuOpen ? styles.hamburgerLineBot : ''}`} />
-        </button>
       </div>
-
-      {/* Mobile drawer */}
-      {menuOpen && (
-        <div className={styles.mobileMenu}>
-          {NAV_LINKS.map(({ href, label }) => (
-            <Link key={href} href={href}
-              className={`${styles.mobileLink} ${pathname === href ? styles.mobileLinkActive : ''}`}
-              onClick={() => setMenuOpen(false)}>
-              {label}
-            </Link>
-          ))}
-          <div className={styles.mobileDivider} />
-          <p className={styles.mobileTeamLabel}>Jump to team</p>
-          {TEAMS.map((team) => (
-            <button key={team.id} className={styles.mobileTeamBtn}
-              onClick={() => { router.push(`/teams/${team.id}`); setMenuOpen(false); }}>
-              <span className={styles.teamDot} style={{ background: team.colors.primary }} />
-              {team.name}
-            </button>
-          ))}
-        </div>
-      )}
     </nav>
   );
 }
