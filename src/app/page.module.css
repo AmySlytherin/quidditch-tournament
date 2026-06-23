@@ -53,6 +53,8 @@
 
 .tableSection {
   margin-top: var(--space-8);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .sectionTitle {
