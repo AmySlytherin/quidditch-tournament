@@ -38,7 +38,7 @@ export default function Nav() {
     <nav className={styles.nav}>
       <div className={`container ${styles.inner}`}>
         <Link href="/" className={styles.brand}>
-          <HogwartsCrest size={44} />
+          <span className={styles.crestWrap}><HogwartsCrest size={58} /></span>
           <span className={styles.brandText}>Hogwarts Quidditch</span>
         </Link>
 

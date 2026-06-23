@@ -25,13 +25,17 @@
 
 .brandText {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 700;
   color: var(--color-accent);
   letter-spacing: 0.04em;
   white-space: nowrap;
   text-shadow: 0 0 20px rgba(212,168,67,0.4);
   line-height: 1;
+}
+
+@media (max-width: 680px) {
+  .brandText { font-size: 1.5rem; }
 }
 
 /* ── Hamburger button ──────────────────────────────── */
@@ -154,6 +158,12 @@
   border-radius: 50%;
   flex-shrink: 0;
   box-shadow: 0 0 0 1.5px rgba(220,185,120,0.35), 0 0 6px 1px rgba(220,185,120,0.2);
+}
+
+.crestWrap { display: flex; align-items: center; }
+
+@media (max-width: 680px) {
+  .crestWrap svg { width: 36px !important; height: auto !important; }
 }
 
 @media (max-width: 480px) {
