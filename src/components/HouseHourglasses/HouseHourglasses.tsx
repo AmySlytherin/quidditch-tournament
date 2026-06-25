@@ -27,27 +27,43 @@ const BULB_B_BOT  = 224;
 const topBulbPath    = `M${NECK_L},${NECK_TOP} C28,112 16,82 16,54 L84,54 C84,82 72,112 ${NECK_R},${NECK_TOP} Z`;
 const bottomBulbPath = `M${NECK_L},${NECK_BOT} C26,158 14,188 14,${BULB_B_BOT} L86,${BULB_B_BOT} C86,188 74,158 ${NECK_R},${NECK_BOT} Z`;
 
-// ── House animal toppers ─────────────────────────────────────────────────────
+// ── House animal toppers — bronze/brass sculptural style ─────────────────────
+// All animals use a metallic brass palette to look like cast figurines on the frame.
+
+const B = { // brass palette
+  light: '#e8c860', mid: '#c09030', base: '#8a6018', dark: '#3a2008', shadow: '#1e1004',
+};
 
 function Lion() {
   return (
     <g>
-      {/* mane */}
-      <ellipse cx="50" cy="16" rx="14" ry="13" fill="#9a5808" />
-      <ellipse cx="50" cy="15" rx="11" ry="10" fill="#c87808" />
+      {/* outer mane ring — unmistakable lion silhouette */}
+      <circle cx="50" cy="17" r="16" fill={B.dark} />
+      <circle cx="50" cy="16" r="13" fill={B.base} />
+      {/* mane texture strokes */}
+      {[0,30,60,90,120,150,180,210,240,270,300,330].map(deg => {
+        const r1 = 10, r2 = 13, a = deg * Math.PI / 180;
+        return <line key={deg}
+          x1={50 + r1 * Math.cos(a)} y1={16 + r1 * Math.sin(a)}
+          x2={50 + r2 * Math.cos(a)} y2={16 + r2 * Math.sin(a)}
+          stroke={B.light} strokeWidth="0.8" opacity="0.5" />;
+      })}
       {/* head */}
-      <circle cx="50" cy="14" r="8.5" fill="#e8a820" />
-      {/* ears */}
-      <polygon points="41,7 37,0 45,6" fill="#e8a820" /><polygon points="39,7 36,1 44,6" fill="#c87808" />
-      <polygon points="59,7 63,0 55,6" fill="#e8a820" /><polygon points="61,7 64,1 56,6" fill="#c87808" />
-      {/* eyes */}
-      <circle cx="46" cy="13" r="2.2" fill="#2a1000" /><circle cx="45.4" cy="12.4" r="0.9" fill="white" />
-      <circle cx="54" cy="13" r="2.2" fill="#2a1000" /><circle cx="53.4" cy="12.4" r="0.9" fill="white" />
-      {/* nose + mouth */}
-      <path d="M48,17 L52,17 L50,19.5 Z" fill="#8a3010" />
-      <path d="M47,20 Q50,22 53,20" stroke="#6a2008" strokeWidth="0.8" fill="none" />
-      {/* body */}
-      <ellipse cx="50" cy="27" rx="8" ry="5" fill="#9a5808" />
+      <circle cx="50" cy="15" r="9" fill={B.mid} />
+      <circle cx="50" cy="14" r="8" fill={B.light} opacity="0.15" />
+      {/* ears above mane */}
+      <polygon points="42,5 39,0 46,7" fill={B.mid} />
+      <polygon points="58,5 61,0 54,7" fill={B.mid} />
+      {/* deep-set eyes (shadow sockets, sculpture style) */}
+      <ellipse cx="46" cy="14" rx="2.5" ry="2" fill={B.shadow} />
+      <ellipse cx="54" cy="14" rx="2.5" ry="2" fill={B.shadow} />
+      <circle cx="46" cy="14" r="1" fill={B.light} opacity="0.4" />
+      <circle cx="54" cy="14" r="1" fill={B.light} opacity="0.4" />
+      {/* muzzle */}
+      <ellipse cx="50" cy="20" rx="4" ry="3" fill={B.base} />
+      <ellipse cx="50" cy="21" rx="2" ry="1.5" fill={B.shadow} />
+      {/* highlight on forehead */}
+      <ellipse cx="50" cy="10" rx="3" ry="2" fill={B.light} opacity="0.35" />
     </g>
   );
 }
@@ -55,43 +71,62 @@ function Lion() {
 function Eagle() {
   return (
     <g>
-      {/* left wing */}
-      <path d="M50,14 C44,10 28,6 16,10 C22,12 32,11 40,16 Z" fill="#152055" />
-      <path d="M50,14 C44,10 28,6 16,10 C22,12 32,11 40,16 Z" fill="none" stroke="#2a3888" strokeWidth="0.6" />
-      {/* right wing */}
-      <path d="M50,14 C56,10 72,6 84,10 C78,12 68,11 60,16 Z" fill="#152055" />
-      <path d="M50,14 C56,10 72,6 84,10 C78,12 68,11 60,16 Z" fill="none" stroke="#2a3888" strokeWidth="0.6" />
+      {/* heraldic spread wings — wide V silhouette */}
+      <path d="M50,18 C46,14 36,8 18,11 C25,13 38,15 44,20 Z" fill={B.dark} />
+      <path d="M50,18 C54,14 64,8 82,11 C75,13 62,15 56,20 Z" fill={B.dark} />
+      <path d="M50,18 C46,14 36,8 18,11 C25,13 38,15 44,20 Z" fill={B.base} opacity="0.8" />
+      <path d="M50,18 C54,14 64,8 82,11 C75,13 62,15 56,20 Z" fill={B.base} opacity="0.8" />
+      {/* feather lines left */}
+      <path d="M50,18 C42,15 30,11 19,12" stroke={B.light} strokeWidth="0.7" fill="none" opacity="0.5" />
+      <path d="M50,18 C42,16 32,13 22,14" stroke={B.light} strokeWidth="0.5" fill="none" opacity="0.3" />
+      {/* feather lines right */}
+      <path d="M50,18 C58,15 70,11 81,12" stroke={B.light} strokeWidth="0.7" fill="none" opacity="0.5" />
+      <path d="M50,18 C58,16 68,13 78,14" stroke={B.light} strokeWidth="0.5" fill="none" opacity="0.3" />
       {/* body */}
-      <ellipse cx="50" cy="18" rx="6" ry="9" fill="#152055" />
+      <ellipse cx="50" cy="22" rx="6" ry="8" fill={B.mid} />
       {/* tail */}
-      <path d="M44,26 L50,24 L56,26 L53,31 L47,31 Z" fill="#152055" />
-      {/* head */}
-      <circle cx="50" cy="8" r="5.5" fill="#152055" />
-      {/* beak */}
-      <path d="M50,6 L56,9 L50,12 Z" fill="#c89818" />
+      <path d="M45,29 L50,27 L55,29 L52,33 L48,33 Z" fill={B.base} />
+      {/* neck + head */}
+      <ellipse cx="50" cy="11" rx="5" ry="7" fill={B.mid} />
+      <circle  cx="50" cy="6"  r="5"   fill={B.mid} />
+      {/* highlight on head */}
+      <ellipse cx="48" cy="4" rx="2.5" ry="1.5" fill={B.light} opacity="0.4" />
+      {/* beak — prominent hooked shape */}
+      <path d="M50,4 L58,7 L54,11 L50,9 Z" fill={B.base} />
+      <path d="M54,11 L58,9 L58,7" fill={B.dark} />
       {/* eye */}
-      <circle cx="47" cy="7" r="1.8" fill="#d0b020" />
-      <circle cx="47" cy="7" r="0.9" fill="#1a1000" />
+      <circle cx="47" cy="6" r="1.8" fill={B.shadow} />
+      <circle cx="46.5" cy="5.5" r="0.7" fill={B.light} opacity="0.6" />
     </g>
   );
 }
 
 function Badger() {
+  // Eurasian badger — face-on, very wide/flat, unmistakable stripe pattern
   return (
     <g>
-      {/* body */}
-      <ellipse cx="50" cy="24" rx="15" ry="8" fill="#302818" />
-      {/* head */}
-      <ellipse cx="50" cy="13" rx="13" ry="11" fill="#282010" />
-      {/* white face stripes */}
-      <path d="M44,3 L42,23" stroke="white" strokeWidth="3.5" strokeLinecap="round" />
-      <path d="M56,3 L58,23" stroke="white" strokeWidth="3.5" strokeLinecap="round" />
-      <path d="M50,2 L50,10" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
-      {/* eyes */}
-      <circle cx="45" cy="11" r="2" fill="#b89000" /><circle cx="45" cy="11" r="1" fill="#100800" />
-      <circle cx="55" cy="11" r="2" fill="#b89000" /><circle cx="55" cy="11" r="1" fill="#100800" />
+      {/* body — wide, low, clearly not a cat */}
+      <ellipse cx="50" cy="27" rx="20" ry="7" fill={B.dark} />
+      <ellipse cx="50" cy="27" rx="18" ry="5.5" fill={B.base} />
+      {/* head — round, wide */}
+      <ellipse cx="50" cy="14" rx="16" ry="13" fill="#9a9488" />
+      {/* BLACK stripes running from crown down past eyes — the definitive badge marking */}
+      <path d="M38,2 C37,6 37,14 38,22" stroke="#1a1410" strokeWidth="7" fill="none" strokeLinecap="round" />
+      <path d="M62,2 C63,6 63,14 62,22" stroke="#1a1410" strokeWidth="7" fill="none" strokeLinecap="round" />
+      {/* white/light centre of face between stripes */}
+      <ellipse cx="50" cy="13" rx="8" ry="11" fill="#d8d4cc" />
+      {/* eyes sit inside the dark stripes */}
+      <circle cx="40" cy="13" r="2.2" fill="#c8a820" />
+      <circle cx="40" cy="13" r="1.1" fill={B.shadow} />
+      <circle cx="60" cy="13" r="2.2" fill="#c8a820" />
+      <circle cx="60" cy="13" r="1.1" fill={B.shadow} />
+      {/* snout — slightly pointed */}
+      <ellipse cx="50" cy="21" rx="6" ry="4.5" fill="#a89e94" />
+      <ellipse cx="50" cy="23" rx="3.5" ry="2.5" fill="#8a8078" />
       {/* nose */}
-      <ellipse cx="50" cy="17" rx="3" ry="2" fill="#180800" />
+      <ellipse cx="50" cy="24" rx="2.5" ry="1.5" fill="#1a1008" />
+      {/* highlight */}
+      <ellipse cx="50" cy="8" rx="4" ry="2" fill="white" opacity="0.25" />
     </g>
   );
 }
@@ -99,20 +134,25 @@ function Badger() {
 function Snake() {
   return (
     <g>
-      {/* body S-curve */}
-      <path d="M42,28 C32,24 28,16 36,10 C44,4 56,4 58,10 C60,16 54,20 50,16"
-            stroke="#156020" strokeWidth="5.5" fill="none" strokeLinecap="round" />
-      <path d="M42,28 C32,24 28,16 36,10 C44,4 56,4 58,10 C60,16 54,20 50,16"
-            stroke="#28a040" strokeWidth="3" fill="none" strokeLinecap="round" strokeDasharray="5,4" />
-      {/* head */}
-      <ellipse cx="49" cy="14" rx="7" ry="4.5" fill="#156020" transform="rotate(-25 49 14)" />
-      <ellipse cx="49" cy="14" rx="5.5" ry="3" fill="#1e8030" transform="rotate(-25 49 14)" />
+      {/* coiled body — thicker, more sculptural */}
+      <path d="M38,28 C24,24 22,14 32,8 C42,2 58,4 60,12 C62,18 54,22 48,18"
+            stroke={B.dark} strokeWidth="8" fill="none" strokeLinecap="round" />
+      <path d="M38,28 C24,24 22,14 32,8 C42,2 58,4 60,12 C62,18 54,22 48,18"
+            stroke={B.mid} strokeWidth="6" fill="none" strokeLinecap="round" />
+      {/* scale sheen */}
+      <path d="M38,28 C24,24 22,14 32,8 C42,2 58,4 60,12 C62,18 54,22 48,18"
+            stroke={B.light} strokeWidth="2" fill="none" strokeLinecap="round"
+            strokeDasharray="6,5" opacity="0.4" />
+      {/* head — raised, slightly flattened */}
+      <ellipse cx="47" cy="17" rx="8" ry="5" fill={B.mid} transform="rotate(-20 47 17)" />
+      <ellipse cx="47" cy="17" rx="6" ry="3.5" fill={B.light} opacity="0.2" transform="rotate(-20 47 17)" />
       {/* eye */}
-      <ellipse cx="47" cy="11" rx="1.8" ry="1.2" fill="#e0c000" transform="rotate(-25 47 11)" />
-      <ellipse cx="47" cy="11" rx="0.6" ry="1" fill="#100800" transform="rotate(-25 47 11)" />
-      {/* tongue */}
-      <path d="M53,10 L58,8 M58,8 L61,6 M58,8 L61,10"
-            stroke="#cc1818" strokeWidth="0.9" fill="none" strokeLinecap="round" />
+      <ellipse cx="44" cy="13" rx="2" ry="1.4" fill={B.shadow} transform="rotate(-20 44 13)" />
+      <ellipse cx="43.5" cy="12.5" rx="0.7" ry="0.9" fill={B.light} opacity="0.5" transform="rotate(-20 43.5 12.5)" />
+      {/* forked tongue */}
+      <path d="M51,13 L57,10 M57,10 L60,8 M57,10 L60,12"
+            stroke="#aa1818" strokeWidth="1.1" fill="none" strokeLinecap="round"
+            transform="rotate(-20 51 13)" />
     </g>
   );
 }
