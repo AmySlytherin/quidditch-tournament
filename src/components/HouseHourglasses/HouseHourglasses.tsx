@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { TeamStanding } from '@/data/types';
 import { TEAM_MAP } from '@/data';
 import styles from './HouseHourglasses.module.css';
@@ -116,7 +117,7 @@ function Snake() {
   );
 }
 
-const ANIMALS: Record<string, () => JSX.Element> = {
+const ANIMALS: Record<string, () => React.ReactElement> = {
   gryffindor: Lion,
   ravenclaw:  Eagle,
   hufflepuff: Badger,
