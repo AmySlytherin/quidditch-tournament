@@ -1,5 +1,6 @@
 import { MATCHES } from '@/data';
 import { computeStandings } from '@/lib/standings';
+import { lastMonday } from '@/lib/dates';
 import StandingsTable from '@/components/StandingsTable/StandingsTable';
 import HouseHourglasses from '@/components/HouseHourglasses/HouseHourglasses';
 import WelcomeAudio from '@/components/WelcomeAudio/WelcomeAudio';
@@ -7,7 +8,6 @@ import styles from './page.module.css';
 
 export default function StandingsPage() {
   const standings = computeStandings(MATCHES);
-  const lastMatch = [...MATCHES].sort((a, b) => b.date.localeCompare(a.date))[0];
 
   return (
     <div className={`${styles.page} container`}>
@@ -16,12 +16,7 @@ export default function StandingsPage() {
         <h1 className={styles.title}>⚡ Current Standings (2024–2025)</h1>
         <div className="page-divider"><span>✦</span></div>
         <p className={styles.subtitle}>
-          Last updated{' '}
-          {new Date(lastMatch.date).toLocaleDateString('en-GB', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-          })}
+          Last updated{' '}{lastMonday()}
         </p>
         <div className={styles.legend}>
           <span className={styles.legendItem}>
