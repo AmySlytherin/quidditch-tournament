@@ -29,110 +29,181 @@ const bottomBulbPath = `M${NECK_L},${NECK_BOT} C28,162 15,194 15,${BULB_B} L95,$
 // ── Antique bronze palette (dark base, warm gold accents) ────────────────────
 const B = { light:'#e8c860', mid:'#c09030', base:'#8a6018', dark:'#3a2008', shadow:'#1e1004' };
 
-// ── House animal toppers ─────────────────────────────────────────────────────
-// Animals use house accent colors so they're clearly distinct from the dark frame.
+// ── House animal toppers — sculptural heraldic style ────────────────────────
 
 function Lion() {
-  // Gryffindor — warm gold/amber tones
+  // Gryffindor — bronze lion head with full mane, sculptural depth
   return (
     <g>
-      <circle cx="55" cy="17" r="16" fill="#5a2800" />
-      <circle cx="55" cy="16" r="13" fill="#c07010" />
-      {[0,30,60,90,120,150,180,210,240,270,300,330].map(deg => {
-        const a = deg * Math.PI / 180;
-        return <line key={deg}
-          x1={55+10*Math.cos(a)} y1={16+10*Math.sin(a)}
-          x2={55+13*Math.cos(a)} y2={16+13*Math.sin(a)}
-          stroke={B.light} strokeWidth="0.9" opacity="0.55" />;
-      })}
-      <circle cx="55" cy="15" r="9" fill={B.mid} />
-      <polygon points="47,5 43,0 51,7" fill={B.mid} />
-      <polygon points="63,5 67,0 59,7" fill={B.mid} />
-      <ellipse cx="51" cy="14" rx="2.5" ry="2" fill={B.shadow} />
-      <ellipse cx="59" cy="14" rx="2.5" ry="2" fill={B.shadow} />
-      <circle cx="51" cy="14" r="1"   fill={B.light} opacity="0.45" />
-      <circle cx="59" cy="14" r="1"   fill={B.light} opacity="0.45" />
-      <ellipse cx="55" cy="20" rx="4"  ry="3"  fill={B.base} />
-      <ellipse cx="55" cy="21" rx="2"  ry="1.5" fill={B.shadow} />
-      <ellipse cx="55" cy="10" rx="3"  ry="2"  fill={B.light} opacity="0.3" />
+      <defs>
+        <radialGradient id="lgm" cx="40%" cy="38%" r="62%">
+          <stop offset="0%"   stopColor="#e8b840" />
+          <stop offset="45%"  stopColor="#b07820" />
+          <stop offset="100%" stopColor="#4a2808" />
+        </radialGradient>
+        <radialGradient id="lgf" cx="42%" cy="36%" r="58%">
+          <stop offset="0%"   stopColor="#f0cc60" />
+          <stop offset="50%"  stopColor="#c89030" />
+          <stop offset="100%" stopColor="#7a4c10" />
+        </radialGradient>
+      </defs>
+      {/* drop shadow */}
+      <ellipse cx="56" cy="23" rx="17" ry="14" fill="rgba(0,0,0,0.4)" />
+      {/* outer mane ring — dark */}
+      <circle cx="55" cy="19" r="17" fill="#2e1606" />
+      {/* mane tufts radiating outward */}
+      {(Array.from({length:12},(_,i)=>{
+        const a=(i*30-90)*Math.PI/180;
+        const x1=55+9*Math.cos(a),  y1=19+9*Math.sin(a);
+        const x2=55+14*Math.cos(a-0.22), y2=19+14*Math.sin(a-0.22);
+        const x3=55+17*Math.cos(a), y3=19+17*Math.sin(a);
+        const x4=55+14*Math.cos(a+0.22), y4=19+14*Math.sin(a+0.22);
+        return <path key={i} d={`M${x1},${y1} L${x2},${y2} L${x3},${y3} L${x4},${y4}Z`} fill="#c08020" />;
+      }))}
+      {/* inner mane */}
+      <circle cx="55" cy="19" r="12" fill="url(#lgm)" />
+      {/* face */}
+      <circle cx="55" cy="18" r="9"  fill="url(#lgf)" />
+      {/* brow ridge — makes it regal not cute */}
+      <path d="M47,14 C49,12 52,12 55,13 C58,12 61,12 63,14"
+            stroke="rgba(60,25,0,0.65)" strokeWidth="2.2" fill="none" />
+      {/* eye sockets — shadowed hollows, sculptural */}
+      <ellipse cx="50" cy="17" rx="2.8" ry="2.2" fill="rgba(35,12,0,0.6)" />
+      <ellipse cx="60" cy="17" rx="2.8" ry="2.2" fill="rgba(35,12,0,0.6)" />
+      {/* nose — triangular, low */}
+      <path d="M52,22 L58,22 L55,25.5 Z" fill="rgba(55,18,0,0.5)" />
+      {/* chin highlight */}
+      <ellipse cx="55" cy="11" rx="3.5" ry="2" fill="rgba(255,225,90,0.3)" />
     </g>
   );
 }
 
 function Eagle() {
-  // Ravenclaw — deep blue/midnight tones
+  // Ravenclaw — heraldic eagle, wings spread, head in profile
   return (
     <g>
-      <path d="M55,18 C50,13 36,7 18,11 C26,13 39,14 46,19 Z" fill="#0a1840" />
-      <path d="M55,18 C50,13 36,7 18,11 C26,13 39,14 46,19 Z" fill="#1a3880" opacity="0.9" />
-      <path d="M55,18 C60,13 74,7 92,11 C84,13 71,14 64,19 Z" fill="#0a1840" />
-      <path d="M55,18 C60,13 74,7 92,11 C84,13 71,14 64,19 Z" fill="#1a3880" opacity="0.9" />
-      <path d="M55,18 C46,14 32,10 20,12" stroke="#6090d8" strokeWidth="0.8" fill="none" opacity="0.6" />
-      <path d="M55,18 C46,15 34,12 22,13" stroke="#6090d8" strokeWidth="0.5" fill="none" opacity="0.35" />
-      <path d="M55,18 C64,14 78,10 90,12" stroke="#6090d8" strokeWidth="0.8" fill="none" opacity="0.6" />
-      <path d="M55,18 C64,15 76,12 88,13" stroke="#6090d8" strokeWidth="0.5" fill="none" opacity="0.35" />
-      <ellipse cx="55" cy="22" rx="6" ry="8" fill="#2040a0" />
-      <path d="M50,29 L55,27 L60,29 L57,33 L53,33 Z" fill="#1a3880" />
-      <ellipse cx="55" cy="11" rx="5" ry="7" fill="#2040a0" />
-      <circle  cx="55" cy="6"  r="5"        fill="#2848b8" />
-      <ellipse cx="53" cy="4"  rx="2.5" ry="1.5" fill="#80b0f0" opacity="0.5" />
-      <path d="M55,4 L63,7 L59,11 L55,9 Z" fill="#c8a018" />
-      <path d="M59,11 L63,9 L63,7"          fill="#8a6808" />
-      <circle cx="52" cy="6" r="1.8" fill="#0a0818" />
-      <circle cx="51.5" cy="5.5" r="0.8" fill="#d0c060" opacity="0.7" />
+      <defs>
+        <radialGradient id="egb" cx="40%" cy="35%" r="65%">
+          <stop offset="0%"   stopColor="#3868c8" />
+          <stop offset="55%"  stopColor="#1a3880" />
+          <stop offset="100%" stopColor="#080e30" />
+        </radialGradient>
+      </defs>
+      {/* drop shadow */}
+      <ellipse cx="56" cy="24" rx="36" ry="10" fill="rgba(0,0,0,0.35)" />
+      {/* left wing */}
+      <path d="M55,18 C50,12 38,6 22,8 C15,9 12,13 14,16 C20,13 32,11 43,16 C48,18 52,19 55,19 Z" fill="#06102a" />
+      <path d="M55,18 C50,12 38,6 22,8 C15,9 12,13 14,16 C20,13 32,11 43,16 C48,18 52,19 55,19 Z" fill="url(#egb)" opacity="0.92" />
+      <path d="M55,18 C46,14 33,9 18,11"  stroke="#5888e0" strokeWidth="0.9" fill="none" opacity="0.55" />
+      <path d="M53,19 C44,16 31,12 18,14"  stroke="#5888e0" strokeWidth="0.6" fill="none" opacity="0.35" />
+      <path d="M50,20 C42,18 31,15 20,17"  stroke="#5888e0" strokeWidth="0.5" fill="none" opacity="0.22" />
+      {/* right wing */}
+      <path d="M55,18 C60,12 72,6 88,8 C95,9 98,13 96,16 C90,13 78,11 67,16 C62,18 58,19 55,19 Z" fill="#06102a" />
+      <path d="M55,18 C60,12 72,6 88,8 C95,9 98,13 96,16 C90,13 78,11 67,16 C62,18 58,19 55,19 Z" fill="url(#egb)" opacity="0.92" />
+      <path d="M55,18 C64,14 77,9 92,11"  stroke="#5888e0" strokeWidth="0.9" fill="none" opacity="0.55" />
+      <path d="M57,19 C66,16 79,12 92,14"  stroke="#5888e0" strokeWidth="0.6" fill="none" opacity="0.35" />
+      {/* body */}
+      <ellipse cx="55" cy="24" rx="7" ry="10" fill="#0c1c4a" />
+      <ellipse cx="55" cy="24" rx="5" ry="8"  fill="url(#egb)" opacity="0.75" />
+      {/* tail */}
+      <path d="M50,33 L55,31 L60,33 L57,37 L53,37 Z" fill="#0c1c4a" />
+      {/* neck + head */}
+      <ellipse cx="55" cy="11" rx="5.5" ry="7" fill="#162048" />
+      <circle  cx="55" cy="5.5" r="5.5"        fill="#1e3080" />
+      <ellipse cx="53" cy="3.5" rx="3" ry="1.8" fill="#6090e0" opacity="0.38" />
+      {/* hooked beak — profile facing right */}
+      <path d="M55,3 L65,6 L60,11 L56,9 Z" fill="#c8a018" />
+      <path d="M60,11 L65,8 L65,6"          fill="#7a6008" />
+      {/* eye */}
+      <circle cx="51" cy="5" r="2.2" fill="#060818" />
+      <circle cx="50.5" cy="4.5" r="0.9" fill="#d8c040" opacity="0.75" />
     </g>
   );
 }
 
 function Badger() {
-  // Eurasian badger — very wide face, dominant black+white stripe pattern
+  // Hufflepuff — face-on badger portrait, massive black stripes are unmistakable
   return (
     <g>
-      {/* body low and wide */}
-      <ellipse cx="55" cy="28" rx="22" ry="7"  fill="#1e1810" />
-      <ellipse cx="55" cy="27" rx="20" ry="5.5" fill="#2e2818" />
-      {/* head — wide, round */}
-      <ellipse cx="55" cy="14" rx="20" ry="14" fill="#807870" />
-      {/* LEFT black stripe — wide, definitive */}
-      <path d="M38,1 C36,5 35,11 35,17 C35,21 36,25 37,28"
-            stroke="#1a1408" strokeWidth="10" fill="none" strokeLinecap="round" />
+      <defs>
+        <radialGradient id="bgf" cx="45%" cy="38%" r="62%">
+          <stop offset="0%"   stopColor="#ccc4b4" />
+          <stop offset="55%"  stopColor="#988e80" />
+          <stop offset="100%" stopColor="#483e30" />
+        </radialGradient>
+      </defs>
+      {/* drop shadow */}
+      <ellipse cx="56" cy="30" rx="22" ry="7" fill="rgba(0,0,0,0.35)" />
+      {/* body — very wide, squat */}
+      <path d="M32,32 C28,28 28,22 32,19 L78,19 C82,22 82,28 78,32 Z" fill="#201c14" />
+      <path d="M33,31 C30,27 30,23 33,20 L77,20 C80,23 80,27 77,31 Z" fill="#302820" />
+      {/* head — wide oval */}
+      <path d="M36,16 C34,8 38,1 46,0 C49,-1 51,0 55,0 C59,0 61,-1 64,0 C72,1 76,8 74,16 C72,22 65,26 55,26 C45,26 38,22 36,16 Z"
+            fill="url(#bgf)" />
+      {/* LEFT black facial stripe — thick, runs crown to jaw */}
+      <path d="M41,-1 C39,4 38,11 38,17 C38,21 40,25 42,26"
+            stroke="#14100a" strokeWidth="10" fill="none" strokeLinecap="round" />
       {/* RIGHT black stripe */}
-      <path d="M72,1 C74,5 75,11 75,17 C75,21 74,25 73,28"
-            stroke="#1a1408" strokeWidth="10" fill="none" strokeLinecap="round" />
-      {/* Central cream face between stripes */}
-      <ellipse cx="55" cy="14" rx="11" ry="13" fill="#d8d4cc" />
-      {/* White crown stripe */}
-      <path d="M55,0 L55,10" stroke="#f0ece6" strokeWidth="8" fill="none" strokeLinecap="round" />
-      {/* Eyes inside dark stripes — bright amber */}
-      <circle cx="37" cy="14" r="3.5" fill="#c89e10" />
-      <circle cx="37" cy="14" r="1.8" fill="#0e0c08" />
-      <circle cx="73" cy="14" r="3.5" fill="#c89e10" />
-      <circle cx="73" cy="14" r="1.8" fill="#0e0c08" />
-      {/* Snout */}
-      <ellipse cx="55" cy="23" rx="9"  ry="6"  fill="#a09888" />
-      <ellipse cx="55" cy="25" rx="5.5" ry="4" fill="#706860" />
-      <ellipse cx="55" cy="26.5" rx="3.5" ry="2" fill="#0e0c08" />
-      <ellipse cx="55" cy="6"   rx="5"  ry="2"  fill="white" opacity="0.18" />
+      <path d="M69,-1 C71,4 72,11 72,17 C72,21 70,25 68,26"
+            stroke="#14100a" strokeWidth="10" fill="none" strokeLinecap="round" />
+      {/* cream centre face */}
+      <path d="M47,0 C50,-1 60,-1 63,0 C67,2 67,9 65,14 C62,18 59,20 55,20 C51,20 48,18 45,14 C43,9 43,2 47,0 Z"
+            fill="#e0dcd2" />
+      {/* white crown stripe */}
+      <path d="M55,-2 L55,9" stroke="#f2eee8" strokeWidth="8" fill="none" strokeLinecap="round" />
+      {/* eyes in dark stripes — gleaming amber */}
+      <circle cx="39" cy="14" r="3.8" fill="#c89010" />
+      <circle cx="39" cy="14" r="2.2" fill="#0c0a06" />
+      <circle cx="38.5" cy="13.2" r="0.9" fill="rgba(255,245,160,0.65)" />
+      <circle cx="71" cy="14" r="3.8" fill="#c89010" />
+      <circle cx="71" cy="14" r="2.2" fill="#0c0a06" />
+      <circle cx="70.5" cy="13.2" r="0.9" fill="rgba(255,245,160,0.65)" />
+      {/* snout — triangular, pushed out */}
+      <path d="M48,19 C50,16 53,15 55,15 C57,15 60,16 62,19 C63,21 62,25 60,26 C58,27 52,27 50,26 C48,25 47,21 48,19 Z"
+            fill="#9a9080" />
+      {/* nose */}
+      <path d="M52,22 C53,20 57,20 58,22 C59,24 57,26 55,26 C53,26 51,24 52,22 Z" fill="#1a1410" />
     </g>
   );
 }
 
 function Snake() {
-  // Slytherin — vivid green so it reads clearly against the dark frame
+  // Slytherin — thick coiled serpent, angular head, slit pupil
   return (
     <g>
-      <path d="M42,29 C26,24 22,14 32,8 C42,2 60,4 62,12 C64,19 56,23 50,18"
-            stroke="#0a2e10" strokeWidth="9" fill="none" strokeLinecap="round" />
-      <path d="M42,29 C26,24 22,14 32,8 C42,2 60,4 62,12 C64,19 56,23 50,18"
-            stroke="#1e8838" strokeWidth="6" fill="none" strokeLinecap="round" />
-      <path d="M42,29 C26,24 22,14 32,8 C42,2 60,4 62,12 C64,19 56,23 50,18"
-            stroke="#58e878" strokeWidth="2" fill="none" strokeLinecap="round" strokeDasharray="6,5" opacity="0.5" />
-      <ellipse cx="49" cy="17" rx="8" ry="5"   fill="#1e8838" transform="rotate(-20 49 17)" />
-      <ellipse cx="49" cy="17" rx="6" ry="3.5" fill="#58e878" opacity="0.25" transform="rotate(-20 49 17)" />
-      <ellipse cx="46" cy="13" rx="2" ry="1.4" fill="#0a1808" transform="rotate(-20 46 13)" />
-      <ellipse cx="45.5" cy="12.5" rx="0.7" ry="0.9" fill="#e0d060" opacity="0.8" transform="rotate(-20 45.5 12.5)" />
-      <path d="M53,13 L59,10 M59,10 L62,8 M59,10 L62,12"
-            stroke="#ee2222" strokeWidth="1.4" fill="none" strokeLinecap="round" transform="rotate(-20 53 13)" />
+      <defs>
+        <linearGradient id="sgl" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%"   stopColor="#38c868" />
+          <stop offset="50%"  stopColor="#1a7830" />
+          <stop offset="100%" stopColor="#093018" />
+        </linearGradient>
+      </defs>
+      {/* drop shadow */}
+      <ellipse cx="52" cy="31" rx="18" ry="6" fill="rgba(0,0,0,0.35)" />
+      {/* body outer shadow */}
+      <path d="M40,30 C22,26 18,14 28,6 C38,-1 58,1 62,11 C66,20 56,27 48,21"
+            stroke="#061408" strokeWidth="13" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      {/* body main */}
+      <path d="M40,30 C22,26 18,14 28,6 C38,-1 58,1 62,11 C66,20 56,27 48,21"
+            stroke="url(#sgl)" strokeWidth="9" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      {/* scale highlight */}
+      <path d="M40,30 C22,26 18,14 28,6 C38,-1 58,1 62,11 C66,20 56,27 48,21"
+            stroke="#70f090" strokeWidth="3" fill="none" strokeLinecap="round"
+            strokeDasharray="5,7" opacity="0.38" />
+      {/* head — angular diamond/triangle (realistic snake shape) */}
+      <path d="M45,19 C41,14 40,9 44,6 C48,3 55,4 59,7 C63,10 63,16 59,19 C55,22 49,22 45,19 Z"
+            fill="#083018" />
+      <path d="M46,19 C42,14 42,10 45,7 C49,4 55,5 58,8 C61,11 61,16 58,19 C55,21 49,21 46,19 Z"
+            fill="#1e8840" />
+      {/* head highlight */}
+      <ellipse cx="52" cy="11" rx="5.5" ry="3" fill="#60e880" opacity="0.18" />
+      {/* eye — vertical slit pupil, reptilian */}
+      <ellipse cx="53" cy="12" rx="2.8" ry="2.2" fill="#d8c000" />
+      <ellipse cx="53" cy="12" rx="0.9" ry="2.2" fill="#080c00" />
+      <ellipse cx="52.4" cy="11" rx="0.9" ry="0.5" fill="rgba(255,255,180,0.55)" />
+      {/* forked tongue */}
+      <path d="M58,15 L65,12 M65,12 L68,10 M65,12 L68,14"
+            stroke="#ee2020" strokeWidth="1.6" fill="none" strokeLinecap="round" />
     </g>
   );
 }
