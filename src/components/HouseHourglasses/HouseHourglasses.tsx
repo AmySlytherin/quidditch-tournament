@@ -30,12 +30,14 @@ const bottomBulbPath = `M${NECK_L},${NECK_BOT} C28,162 15,194 15,${BULB_B} L95,$
 const B = { light:'#e8c860', mid:'#c09030', base:'#8a6018', dark:'#3a2008', shadow:'#1e1004' };
 
 // ── House animal toppers ─────────────────────────────────────────────────────
+// Animals use house accent colors so they're clearly distinct from the dark frame.
 
 function Lion() {
+  // Gryffindor — warm gold/amber tones
   return (
     <g>
-      <circle cx="55" cy="17" r="16" fill={B.dark} />
-      <circle cx="55" cy="16" r="13" fill={B.base} />
+      <circle cx="55" cy="17" r="16" fill="#5a2800" />
+      <circle cx="55" cy="16" r="13" fill="#c07010" />
       {[0,30,60,90,120,150,180,210,240,270,300,330].map(deg => {
         const a = deg * Math.PI / 180;
         return <line key={deg}
@@ -58,25 +60,26 @@ function Lion() {
 }
 
 function Eagle() {
+  // Ravenclaw — deep blue/midnight tones
   return (
     <g>
-      <path d="M55,18 C50,13 36,7 18,11 C26,13 39,14 46,19 Z" fill={B.dark}  />
-      <path d="M55,18 C50,13 36,7 18,11 C26,13 39,14 46,19 Z" fill={B.base} opacity="0.85" />
-      <path d="M55,18 C60,13 74,7 92,11 C84,13 71,14 64,19 Z" fill={B.dark}  />
-      <path d="M55,18 C60,13 74,7 92,11 C84,13 71,14 64,19 Z" fill={B.base} opacity="0.85" />
-      <path d="M55,18 C46,14 32,10 20,12" stroke={B.light} strokeWidth="0.8" fill="none" opacity="0.5" />
-      <path d="M55,18 C46,15 34,12 22,13" stroke={B.light} strokeWidth="0.5" fill="none" opacity="0.3" />
-      <path d="M55,18 C64,14 78,10 90,12" stroke={B.light} strokeWidth="0.8" fill="none" opacity="0.5" />
-      <path d="M55,18 C64,15 76,12 88,13" stroke={B.light} strokeWidth="0.5" fill="none" opacity="0.3" />
-      <ellipse cx="55" cy="22" rx="6" ry="8" fill={B.mid} />
-      <path d="M50,29 L55,27 L60,29 L57,33 L53,33 Z" fill={B.base} />
-      <ellipse cx="55" cy="11" rx="5" ry="7" fill={B.mid} />
-      <circle  cx="55" cy="6"  r="5"        fill={B.mid} />
-      <ellipse cx="53" cy="4"  rx="2.5" ry="1.5" fill={B.light} opacity="0.4" />
-      <path d="M55,4 L63,7 L59,11 L55,9 Z" fill={B.base} />
-      <path d="M59,11 L63,9 L63,7"          fill={B.dark} />
-      <circle cx="52" cy="6" r="1.8" fill={B.shadow} />
-      <circle cx="51.5" cy="5.5" r="0.7" fill={B.light} opacity="0.6" />
+      <path d="M55,18 C50,13 36,7 18,11 C26,13 39,14 46,19 Z" fill="#0a1840" />
+      <path d="M55,18 C50,13 36,7 18,11 C26,13 39,14 46,19 Z" fill="#1a3880" opacity="0.9" />
+      <path d="M55,18 C60,13 74,7 92,11 C84,13 71,14 64,19 Z" fill="#0a1840" />
+      <path d="M55,18 C60,13 74,7 92,11 C84,13 71,14 64,19 Z" fill="#1a3880" opacity="0.9" />
+      <path d="M55,18 C46,14 32,10 20,12" stroke="#6090d8" strokeWidth="0.8" fill="none" opacity="0.6" />
+      <path d="M55,18 C46,15 34,12 22,13" stroke="#6090d8" strokeWidth="0.5" fill="none" opacity="0.35" />
+      <path d="M55,18 C64,14 78,10 90,12" stroke="#6090d8" strokeWidth="0.8" fill="none" opacity="0.6" />
+      <path d="M55,18 C64,15 76,12 88,13" stroke="#6090d8" strokeWidth="0.5" fill="none" opacity="0.35" />
+      <ellipse cx="55" cy="22" rx="6" ry="8" fill="#2040a0" />
+      <path d="M50,29 L55,27 L60,29 L57,33 L53,33 Z" fill="#1a3880" />
+      <ellipse cx="55" cy="11" rx="5" ry="7" fill="#2040a0" />
+      <circle  cx="55" cy="6"  r="5"        fill="#2848b8" />
+      <ellipse cx="53" cy="4"  rx="2.5" ry="1.5" fill="#80b0f0" opacity="0.5" />
+      <path d="M55,4 L63,7 L59,11 L55,9 Z" fill="#c8a018" />
+      <path d="M59,11 L63,9 L63,7"          fill="#8a6808" />
+      <circle cx="52" cy="6" r="1.8" fill="#0a0818" />
+      <circle cx="51.5" cy="5.5" r="0.8" fill="#d0c060" opacity="0.7" />
     </g>
   );
 }
@@ -92,10 +95,10 @@ function Badger() {
       <ellipse cx="55" cy="14" rx="20" ry="14" fill="#807870" />
       {/* LEFT black stripe — wide, definitive */}
       <path d="M38,1 C36,5 35,11 35,17 C35,21 36,25 37,28"
-            stroke="#0e0c08" strokeWidth="10" fill="none" strokeLinecap="round" />
+            stroke="#1a1408" strokeWidth="10" fill="none" strokeLinecap="round" />
       {/* RIGHT black stripe */}
       <path d="M72,1 C74,5 75,11 75,17 C75,21 74,25 73,28"
-            stroke="#0e0c08" strokeWidth="10" fill="none" strokeLinecap="round" />
+            stroke="#1a1408" strokeWidth="10" fill="none" strokeLinecap="round" />
       {/* Central cream face between stripes */}
       <ellipse cx="55" cy="14" rx="11" ry="13" fill="#d8d4cc" />
       {/* White crown stripe */}
@@ -115,20 +118,21 @@ function Badger() {
 }
 
 function Snake() {
+  // Slytherin — vivid green so it reads clearly against the dark frame
   return (
     <g>
       <path d="M42,29 C26,24 22,14 32,8 C42,2 60,4 62,12 C64,19 56,23 50,18"
-            stroke={B.dark} strokeWidth="9" fill="none" strokeLinecap="round" />
+            stroke="#0a2e10" strokeWidth="9" fill="none" strokeLinecap="round" />
       <path d="M42,29 C26,24 22,14 32,8 C42,2 60,4 62,12 C64,19 56,23 50,18"
-            stroke={B.mid}  strokeWidth="6" fill="none" strokeLinecap="round" />
+            stroke="#1e8838" strokeWidth="6" fill="none" strokeLinecap="round" />
       <path d="M42,29 C26,24 22,14 32,8 C42,2 60,4 62,12 C64,19 56,23 50,18"
-            stroke={B.light} strokeWidth="2" fill="none" strokeLinecap="round" strokeDasharray="6,5" opacity="0.4" />
-      <ellipse cx="49" cy="17" rx="8" ry="5"   fill={B.mid}   transform="rotate(-20 49 17)" />
-      <ellipse cx="49" cy="17" rx="6" ry="3.5" fill={B.light} opacity="0.2" transform="rotate(-20 49 17)" />
-      <ellipse cx="46" cy="13" rx="2" ry="1.4" fill={B.shadow} transform="rotate(-20 46 13)" />
-      <ellipse cx="45.5" cy="12.5" rx="0.7" ry="0.9" fill={B.light} opacity="0.5" transform="rotate(-20 45.5 12.5)" />
+            stroke="#58e878" strokeWidth="2" fill="none" strokeLinecap="round" strokeDasharray="6,5" opacity="0.5" />
+      <ellipse cx="49" cy="17" rx="8" ry="5"   fill="#1e8838" transform="rotate(-20 49 17)" />
+      <ellipse cx="49" cy="17" rx="6" ry="3.5" fill="#58e878" opacity="0.25" transform="rotate(-20 49 17)" />
+      <ellipse cx="46" cy="13" rx="2" ry="1.4" fill="#0a1808" transform="rotate(-20 46 13)" />
+      <ellipse cx="45.5" cy="12.5" rx="0.7" ry="0.9" fill="#e0d060" opacity="0.8" transform="rotate(-20 45.5 12.5)" />
       <path d="M53,13 L59,10 M59,10 L62,8 M59,10 L62,12"
-            stroke="#aa1818" strokeWidth="1.2" fill="none" strokeLinecap="round" transform="rotate(-20 53 13)" />
+            stroke="#ee2222" strokeWidth="1.4" fill="none" strokeLinecap="round" transform="rotate(-20 53 13)" />
     </g>
   );
 }
@@ -227,9 +231,6 @@ function Hourglass({ standing, fill }: { standing: TeamStanding; fill: number })
           <clipPath id={`ct-${id}`}><path d={topBulbPath}    /></clipPath>
           <clipPath id={`cb-${id}`}><path d={bottomBulbPath} /></clipPath>
         </defs>
-
-        {/* ── Animal ── */}
-        {Animal && <Animal />}
 
         {/* ══════════════ CROWN ══════════════ */}
         {/* Outer arch shadow */}
@@ -394,8 +395,8 @@ function Hourglass({ standing, fill }: { standing: TeamStanding; fill: number })
         <rect x="4"  y="293" width="102" height="4" rx="2" fill="#0e0804" />
         <rect x="5"  y="294" width="100" height="2" rx="1" fill={`url(#fr-${id})`} opacity="0.7" />
 
-        {/* ══════════════ RANK BADGE ══════════════ */}
-        <circle cx="55" cy="302" r="0" /> {/* spacer */}
+        {/* ══════════════ ANIMAL — rendered last so it sits on top of crown ══════════════ */}
+        {Animal && <Animal />}
       </svg>
 
       {/* Rank below SVG */}
