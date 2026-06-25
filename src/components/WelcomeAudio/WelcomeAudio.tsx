@@ -11,21 +11,12 @@ export default function WelcomeAudio() {
     // Only play on the landing page
     if (pathname !== '/') return;
 
-    // Only once per browser session
-    if (sessionStorage.getItem('welcome-played')) return;
-
     const audio = new Audio('/welcome-clip.mp3');
     audioRef.current = audio;
 
-    const markPlayed = () => sessionStorage.setItem('welcome-played', '1');
+    const tryPlay = () => audio.play().catch(() => {});
 
-    const tryPlay = () => {
-      audio.play()
-        .then(markPlayed)
-        .catch(() => {});
-    };
-
-    audio.play().then(markPlayed).catch(() => {
+    audio.play().catch(() => {
       // Autoplay blocked — play on first interaction
       const events = ['click', 'keydown', 'touchstart'] as const;
       const onInteraction = () => {

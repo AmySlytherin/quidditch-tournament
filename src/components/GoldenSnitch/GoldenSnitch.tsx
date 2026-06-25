@@ -11,12 +11,11 @@ export default function GoldenSnitch() {
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    if (pathname !== prevPath.current) {
-      prevPath.current = pathname;
-      if (timer.current) clearTimeout(timer.current);
-      setFlying(true);
-      timer.current = setTimeout(() => setFlying(false), 1400);
-    }
+    // Fire on initial mount AND on every subsequent navigation
+    if (timer.current) clearTimeout(timer.current);
+    setFlying(true);
+    timer.current = setTimeout(() => setFlying(false), 1400);
+    prevPath.current = pathname;
   }, [pathname]);
 
   if (!flying) return null;
