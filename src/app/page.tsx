@@ -13,7 +13,7 @@ export default function StandingsPage() {
     <div className={`${styles.page} container`}>
       <WelcomeAudio />
       <header className={styles.header}>
-        <h1 className={styles.title}>⚡ Current Standings (2024–2025)</h1>
+        <h1 className={styles.title}>⚡ Current Standings (2025–2026)</h1>
         <div className="page-divider"><span>✦</span></div>
         <p className={styles.subtitle}>
           Last updated{' '}{lastMonday()}

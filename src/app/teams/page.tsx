@@ -10,7 +10,7 @@ export default function TeamsPage() {
   return (
     <div className={`${styles.page} container`}>
       <header className={styles.header}>
-        <p className={styles.eyebrow}>⚡ 2024–2025</p>
+        <p className={styles.eyebrow}>⚡ 2025–2026</p>
         <h1>All Houses</h1>
         <div className="page-divider"><span>✦</span></div>
       </header>
