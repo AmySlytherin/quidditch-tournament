@@ -10,62 +10,31 @@ export default function AboutPage() {
       </header>
 
       {/* ── Origins ─────────────────────────────────────── */}
-      <section className={styles.section} style={{ maxWidth: '560px', margin: '0 auto var(--space-14)' }}>
-        <div className={styles.diagBroom}>
-          <BroomIllustration />
-        </div>
+      <section className={styles.section}>
+        <div className={styles.diagBroom}><BroomIllustration /></div>
         <h2 className={styles.sectionTitle}>Origins</h2>
-        <p style={{ textAlign: 'center' }}>
-          Quidditch traces its roots to the eleventh century, when wizards first mounted enchanted
-          broomsticks and took to the skies over the Scottish Highlands. Early accounts describe
-          informal aerial contests played over the bogs of Queerditch Marsh — a remote location
-          chosen to keep the sport hidden from Muggle eyes. A leather ball called the Quaffle was
-          thrown between players and hurled through a target: at first a simple basket nailed to a
-          tree, later the iconic tall hoops we know today.
-        </p>
-        <p style={{ textAlign: 'center' }}>
-          The game spread quickly across wizarding Britain. Each region added its own flavour, and
-          rival villages developed fierce loyalties to their local teams. By the twelfth century,
-          the broad shape of modern Quidditch — aerial play, a scoring ball, and two fearsome
-          Bludgers — had taken hold across much of Europe.
-        </p>
+        <p className={styles.sectionP}>Quidditch traces its roots to the eleventh century, when wizards first mounted enchanted broomsticks and took to the skies over the Scottish Highlands. Early accounts describe informal aerial contests played over the bogs of Queerditch Marsh — a remote location chosen to keep the sport hidden from Muggle eyes. A leather ball called the Quaffle was thrown between players and hurled through a target: at first a simple basket nailed to a tree, later the iconic tall hoops we know today.</p>
+        <p className={styles.sectionP}>The game spread quickly across wizarding Britain. Each region added its own flavour, and rival villages developed fierce loyalties to their local teams. By the twelfth century, the broad shape of modern Quidditch — aerial play, a scoring ball, and two fearsome Bludgers — had taken hold across much of Europe.</p>
       </section>
 
       {/* ── Four Balls ──────────────────────────────────── */}
-      <section className={styles.section} style={{ maxWidth: '560px', margin: '0 auto var(--space-14)' }}>
-        <div className={styles.snitchFloat}>
-          <SnitchIllustration />
-        </div>
+      <section className={styles.section}>
+        <div className={styles.snitchFloat}><SnitchIllustration /></div>
         <h2 className={styles.sectionTitle}>The Four Balls</h2>
-        <p style={{ textAlign: 'center' }}>
-          The <em>Quaffle</em> is the primary scoring ball — a scarlet leather sphere roughly a foot
-          across. Chasers pass it between themselves and attempt to hurl it through one of three goal
-          hoops, defended by the opposing Keeper. Each successful goal is worth ten points.
-        </p>
-        <p style={{ textAlign: 'center' }}>
-          The two <em>Bludgers</em> are iron balls enchanted to pursue and unseat players. Beaters
-          carry short bats and redirect them — both protecting teammates and targeting the opposition.
-          A well-placed Bludger has decided many a match.
-        </p>
-        <p style={{ textAlign: 'center' }}>
-          The <em>Golden Snitch</em> is the smallest and most consequential ball. A winged sphere no
-          larger than a walnut, it darts across the pitch at extraordinary speed. Catching it ends the
-          match and awards one hundred and fifty points. The Snitch traces its lineage to the Golden
-          Snidget, a rare protected bird once used in an earlier form of the game. When hunting the
-          Snidget was outlawed, craftsman Bowman Wright forged the first mechanical Snitch, and the
-          Seeker position was born.
-        </p>
+        <p className={styles.sectionP}>The <em>Quaffle</em> is the primary scoring ball — a scarlet leather sphere roughly a foot across. Chasers pass it between themselves and attempt to hurl it through one of three goal hoops, defended by the opposing Keeper. Each successful goal is worth ten points.</p>
+        <p className={styles.sectionP}>The two <em>Bludgers</em> are iron balls enchanted to pursue and unseat players. Beaters carry short bats and redirect them — both protecting teammates and targeting the opposition. A well-placed Bludger has decided many a match.</p>
+        <p className={styles.sectionP}>The <em>Golden Snitch</em> is the smallest and most consequential ball. A winged sphere no larger than a walnut, it darts across the pitch at extraordinary speed. Catching it ends the match and awards one hundred and fifty points. The Snitch traces its lineage to the Golden Snidget, a rare protected bird once used in an earlier form of the game. When hunting the Snidget was outlawed, craftsman Bowman Wright forged the first mechanical Snitch, and the Seeker position was born.</p>
       </section>
 
       {/* ── Positions ───────────────────────────────────── */}
-      <section style={{ position: 'relative', maxWidth: '900px', margin: '0 auto 80px', textAlign: 'center' }}>
+      <section className={styles.sectionPositions}>
         <h2 className={styles.sectionTitle}>Positions</h2>
         <div className={styles.positionsGrid}>
           {[
-            { icon: '🥅', name: 'Keeper',  desc: 'Guards the three goal hoops. The last line of defence against the opposing Chasers.' },
-            { icon: '🏆', name: 'Chaser',  desc: 'Three per team. Pass the Quaffle and attempt to score goals worth ten points each.' },
-            { icon: '🏏', name: 'Beater',  desc: 'Two per team. Armed with bats, they redirect Bludgers away from teammates.' },
-            { icon: '🔮', name: 'Seeker',  desc: 'Hunts the elusive Golden Snitch. Catching it ends the match and earns 150 points.' },
+            { icon: '🥅', name: 'Keeper', desc: 'Guards the three goal hoops. Last line of defence against the opposing Chasers.' },
+            { icon: '🏆', name: 'Chaser', desc: 'Three per team. Pass the Quaffle and score goals worth ten points each.' },
+            { icon: '🏏', name: 'Beater', desc: 'Two per team. Armed with bats, they redirect Bludgers away from teammates.' },
+            { icon: '🔮', name: 'Seeker', desc: 'Hunts the Golden Snitch. Catching it ends the match and earns 150 points.' },
           ].map(({ icon, name, desc }) => (
             <div key={name} className={styles.positionCard}>
               <div className={styles.positionIcon}>{icon}</div>
@@ -78,38 +47,20 @@ export default function AboutPage() {
 
       {/* ── Pitch ───────────────────────────────────────── */}
       <section className={styles.sectionPitch}>
-        <div className={styles.pitchContent} style={{ textAlign: 'center' }}>
+        <div className={styles.pitchContent}>
           <h2 className={styles.sectionTitle}>The Pitch</h2>
-          <p>
-            A standard Quidditch pitch is an oval approximately five hundred feet long and one
-            hundred and eighty feet wide. At each end stand three golden goal hoops at heights of
-            twenty, thirty, and forty feet — giving Chasers a variety of angles and Keepers a
-            greater challenge to cover. There are no boundaries above the pitch; players may fly
-            as high as they wish. The only firm rule is that no player may touch the ground while
-            in possession of the Quaffle.
-          </p>
+          <p className={styles.sectionP}>A standard Quidditch pitch is an oval approximately five hundred feet long and one hundred and eighty feet wide. At each end stand three golden goal hoops at heights of twenty, thirty, and forty feet — giving Chasers a variety of angles and Keepers a greater challenge to cover. There are no boundaries above the pitch; players may fly as high as they wish. The only firm rule is that no player may touch the ground while in possession of the Quaffle.</p>
         </div>
-        <div style={{ display: 'block', width: '100%', height: '120px', overflow: 'hidden', opacity: 0.22, pointerEvents: 'none', lineHeight: 0, marginTop: '8px' }}>
+        <div style={{ width: '100%', height: '120px', overflow: 'hidden', opacity: 0.22, pointerEvents: 'none', lineHeight: 0 }}>
           <GoalPostsIllustration />
         </div>
       </section>
 
       {/* ── Hogwarts ────────────────────────────────────── */}
-      <section className={styles.section} style={{ maxWidth: '560px', margin: '64px auto var(--space-14)' }}>
+      <section className={styles.sectionHogwarts}>
         <h2 className={styles.sectionTitle}>Quidditch at Hogwarts</h2>
-        <p style={{ textAlign: 'center' }}>
-          Each of the four Hogwarts houses — Gryffindor, Slytherin, Hufflepuff, and Ravenclaw —
-          fields a team of seven players selected by their house captain. House matches take place
-          throughout the school year on the grounds Quidditch pitch, drawing the full student body
-          as spectators.
-        </p>
-        <p style={{ textAlign: 'center' }}>
-          The house that accumulates the most points across all matches by season&apos;s end is
-          awarded the Quidditch Cup — one of the most coveted trophies at Hogwarts. Matches have
-          been known to hinge on a single Snitch catch, a Keeper&apos;s inspired save, or a
-          Beater&apos;s perfectly timed strike. No two matches are ever the same, which is precisely
-          why Quidditch has captivated the wizarding world for nearly a thousand years.
-        </p>
+        <p className={styles.sectionP}>Each of the four Hogwarts houses — Gryffindor, Slytherin, Hufflepuff, and Ravenclaw — fields a team of seven players selected by their house captain. House matches take place throughout the school year on the grounds Quidditch pitch, drawing the full student body as spectators.</p>
+        <p className={styles.sectionP}>The house that accumulates the most points across all matches by season&apos;s end is awarded the Quidditch Cup — one of the most coveted trophies at Hogwarts. Matches have been known to hinge on a single Snitch catch, a Keeper&apos;s inspired save, or a Beater&apos;s perfectly timed strike. No two matches are ever the same, which is precisely why Quidditch has captivated the wizarding world for nearly a thousand years.</p>
       </section>
 
     </div>
