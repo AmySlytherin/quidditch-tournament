@@ -21,7 +21,7 @@ export default function StandingsPage() {
         <div className={styles.legend}>
           <span className={styles.legendItem}>
             <span className={styles.legendDot} style={{ background: 'var(--color-accent)' }} />
-            Top 4 qualify for knockout stage
+            Season Champion advances to Quidditch World Cup 🏆
           </span>
           <span className={styles.legendItem}>
             <span className={styles.legendDot} style={{ background: 'var(--color-win)' }} />
