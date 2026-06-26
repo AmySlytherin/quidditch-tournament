@@ -242,32 +242,24 @@ function GoalPostsIllustration() {
       <line x1="196" y1="310" x2="240" y2="315" stroke="#c9a84c" strokeWidth="1" opacity="0.1" />
 
       {/* Left post 1 — tallest */}
-      <line x1="100" y1="30"  x2="100" y2="310" stroke="#c9a84c" strokeWidth="3.5" strokeLinecap="round" />
-      {/* Cross braces */}
+      <line x1="100" y1="42"  x2="100" y2="310" stroke="#c9a84c" strokeWidth="3.5" strokeLinecap="round" />
       <line x1="90"  y1="90"  x2="110" y2="90"  stroke="#c9a84c" strokeWidth="1.5" opacity="0.5" />
       <line x1="90"  y1="180" x2="110" y2="180" stroke="#c9a84c" strokeWidth="1.2" opacity="0.4" />
       <line x1="90"  y1="260" x2="110" y2="260" stroke="#c9a84c" strokeWidth="1" opacity="0.35" />
-      {/* Hoop */}
-      <ellipse cx="100" cy="30" rx="18" ry="7" fill="none" stroke="#c9a84c" strokeWidth="2.5" />
-      <ellipse cx="100" cy="30" rx="18" ry="7" fill="none" stroke="#c9a84c" strokeWidth="6" opacity="0.06" />
-      {/* Inner hoop ring */}
-      <ellipse cx="100" cy="30" rx="12" ry="4.5" fill="none" stroke="#c9a84c" strokeWidth="0.8" opacity="0.4" />
+      {/* Upright hoop — circle standing on top of pole */}
+      <circle cx="100" cy="22" r="20" fill="none" stroke="#c9a84c" strokeWidth="3.5" />
 
       {/* Left post 2 — medium */}
-      <line x1="148" y1="80"  x2="148" y2="310" stroke="#c9a84c" strokeWidth="3.5" strokeLinecap="round" />
+      <line x1="148" y1="92"  x2="148" y2="310" stroke="#c9a84c" strokeWidth="3.5" strokeLinecap="round" />
       <line x1="138" y1="135" x2="158" y2="135" stroke="#c9a84c" strokeWidth="1.5" opacity="0.5" />
       <line x1="138" y1="220" x2="158" y2="220" stroke="#c9a84c" strokeWidth="1.2" opacity="0.4" />
-      <ellipse cx="148" cy="80" rx="18" ry="7" fill="none" stroke="#c9a84c" strokeWidth="2.5" />
-      <ellipse cx="148" cy="80" rx="18" ry="7" fill="none" stroke="#c9a84c" strokeWidth="6" opacity="0.06" />
-      <ellipse cx="148" cy="80" rx="12" ry="4.5" fill="none" stroke="#c9a84c" strokeWidth="0.8" opacity="0.4" />
+      <circle cx="148" cy="72" r="20" fill="none" stroke="#c9a84c" strokeWidth="3.5" />
 
       {/* Left post 3 — shortest */}
-      <line x1="196" y1="118" x2="196" y2="310" stroke="#c9a84c" strokeWidth="3.5" strokeLinecap="round" />
+      <line x1="196" y1="130" x2="196" y2="310" stroke="#c9a84c" strokeWidth="3.5" strokeLinecap="round" />
       <line x1="186" y1="168" x2="206" y2="168" stroke="#c9a84c" strokeWidth="1.5" opacity="0.5" />
       <line x1="186" y1="248" x2="206" y2="248" stroke="#c9a84c" strokeWidth="1.2" opacity="0.4" />
-      <ellipse cx="196" cy="118" rx="18" ry="7" fill="none" stroke="#c9a84c" strokeWidth="2.5" />
-      <ellipse cx="196" cy="118" rx="18" ry="7" fill="none" stroke="#c9a84c" strokeWidth="6" opacity="0.06" />
-      <ellipse cx="196" cy="118" rx="12" ry="4.5" fill="none" stroke="#c9a84c" strokeWidth="0.8" opacity="0.4" />
+      <circle cx="196" cy="110" r="20" fill="none" stroke="#c9a84c" strokeWidth="3.5" />
 
       {/* Left base bar */}
       <line x1="78"  y1="312" x2="218" y2="312" stroke="#c9a84c" strokeWidth="4" strokeLinecap="round" />
@@ -276,27 +268,21 @@ function GoalPostsIllustration() {
       <circle cx="210" cy="312" r="3" fill="#c9a84c" opacity="0.5" />
 
       {/* ── RIGHT POSTS ── mirrored */}
-      <line x1="700" y1="30"  x2="700" y2="310" stroke="#c9a84c" strokeWidth="3.5" strokeLinecap="round" />
+      <line x1="700" y1="42"  x2="700" y2="310" stroke="#c9a84c" strokeWidth="3.5" strokeLinecap="round" />
       <line x1="690" y1="90"  x2="710" y2="90"  stroke="#c9a84c" strokeWidth="1.5" opacity="0.5" />
       <line x1="690" y1="180" x2="710" y2="180" stroke="#c9a84c" strokeWidth="1.2" opacity="0.4" />
       <line x1="690" y1="260" x2="710" y2="260" stroke="#c9a84c" strokeWidth="1" opacity="0.35" />
-      <ellipse cx="700" cy="30" rx="18" ry="7" fill="none" stroke="#c9a84c" strokeWidth="2.5" />
-      <ellipse cx="700" cy="30" rx="18" ry="7" fill="none" stroke="#c9a84c" strokeWidth="6" opacity="0.06" />
-      <ellipse cx="700" cy="30" rx="12" ry="4.5" fill="none" stroke="#c9a84c" strokeWidth="0.8" opacity="0.4" />
+      <circle cx="700" cy="22" r="20" fill="none" stroke="#c9a84c" strokeWidth="3.5" />
 
-      <line x1="652" y1="80"  x2="652" y2="310" stroke="#c9a84c" strokeWidth="3.5" strokeLinecap="round" />
+      <line x1="652" y1="92"  x2="652" y2="310" stroke="#c9a84c" strokeWidth="3.5" strokeLinecap="round" />
       <line x1="642" y1="135" x2="662" y2="135" stroke="#c9a84c" strokeWidth="1.5" opacity="0.5" />
       <line x1="642" y1="220" x2="662" y2="220" stroke="#c9a84c" strokeWidth="1.2" opacity="0.4" />
-      <ellipse cx="652" cy="80" rx="18" ry="7" fill="none" stroke="#c9a84c" strokeWidth="2.5" />
-      <ellipse cx="652" cy="80" rx="18" ry="7" fill="none" stroke="#c9a84c" strokeWidth="6" opacity="0.06" />
-      <ellipse cx="652" cy="80" rx="12" ry="4.5" fill="none" stroke="#c9a84c" strokeWidth="0.8" opacity="0.4" />
+      <circle cx="652" cy="72" r="20" fill="none" stroke="#c9a84c" strokeWidth="3.5" />
 
-      <line x1="604" y1="118" x2="604" y2="310" stroke="#c9a84c" strokeWidth="3.5" strokeLinecap="round" />
+      <line x1="604" y1="130" x2="604" y2="310" stroke="#c9a84c" strokeWidth="3.5" strokeLinecap="round" />
       <line x1="594" y1="168" x2="614" y2="168" stroke="#c9a84c" strokeWidth="1.5" opacity="0.5" />
       <line x1="594" y1="248" x2="614" y2="248" stroke="#c9a84c" strokeWidth="1.2" opacity="0.4" />
-      <ellipse cx="604" cy="118" rx="18" ry="7" fill="none" stroke="#c9a84c" strokeWidth="2.5" />
-      <ellipse cx="604" cy="118" rx="18" ry="7" fill="none" stroke="#c9a84c" strokeWidth="6" opacity="0.06" />
-      <ellipse cx="604" cy="118" rx="12" ry="4.5" fill="none" stroke="#c9a84c" strokeWidth="0.8" opacity="0.4" />
+      <circle cx="604" cy="110" r="20" fill="none" stroke="#c9a84c" strokeWidth="3.5" />
 
       <line x1="582" y1="312" x2="722" y2="312" stroke="#c9a84c" strokeWidth="4" strokeLinecap="round" />
       <circle cx="590" cy="312" r="3" fill="#c9a84c" opacity="0.5" />
