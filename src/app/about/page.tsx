@@ -23,7 +23,7 @@ export default function AboutPage() {
         <h2 className={styles.sectionTitle}>The Four Balls</h2>
         <p className={styles.sectionP}>The <em>Quaffle</em> is the primary scoring ball — a scarlet leather sphere roughly a foot across. Chasers pass it between themselves and attempt to hurl it through one of three goal hoops, defended by the opposing Keeper. Each successful goal is worth ten points.</p>
         <p className={styles.sectionP}>The two <em>Bludgers</em> are iron balls enchanted to pursue and unseat players. Beaters carry short bats and redirect them — both protecting teammates and targeting the opposition. A well-placed Bludger has decided many a match.</p>
-        <p className={styles.sectionP}>The <em>Golden Snitch</em> is the smallest and most consequential ball. A winged sphere no larger than a walnut, it darts across the pitch at extraordinary speed. Catching it ends the match and awards one hundred and fifty points. The Snitch traces its lineage to the Golden Snidget, a rare protected bird once used in an earlier form of the game. When hunting the Snidget was outlawed, craftsman Bowman Wright forged the first mechanical Snitch, and the Seeker position was born.</p>
+        <p className={styles.sectionP}>The <em>Golden Snitch</em> is the smallest and most consequential ball — a winged sphere no larger than a walnut that darts across the pitch at extraordinary speed. Catching it ends the match and awards one hundred and fifty points, making the Seeker the most decisive player on the pitch.</p>
       </section>
 
       {/* ── Positions ───────────────────────────────────── */}
@@ -60,7 +60,13 @@ export default function AboutPage() {
       <section className={styles.sectionHogwarts}>
         <h2 className={styles.sectionTitle}>Quidditch at Hogwarts</h2>
         <p className={styles.sectionP}>Each of the four Hogwarts houses — Gryffindor, Slytherin, Hufflepuff, and Ravenclaw — fields a team of seven players selected by their house captain. House matches take place throughout the school year on the grounds Quidditch pitch, drawing the full student body as spectators.</p>
-        <p className={styles.sectionP}>The house that accumulates the most points across all matches by season&apos;s end is awarded the Quidditch Cup — one of the most coveted trophies at Hogwarts. Matches have been known to hinge on a single Snitch catch, a Keeper&apos;s inspired save, or a Beater&apos;s perfectly timed strike. No two matches are ever the same, which is precisely why Quidditch has captivated the wizarding world for nearly a thousand years.</p>
+        <p className={styles.sectionP}>The house that accumulates the most points by season&apos;s end is awarded the Quidditch Cup — one of the most coveted trophies at Hogwarts. No two matches are ever the same, which is precisely why Quidditch has captivated the wizarding world for nearly a thousand years.</p>
+      </section>
+
+      {/* ── World Cup ───────────────────────────────────── */}
+      <section className={styles.sectionHogwarts}>
+        <h2 className={styles.sectionTitle}>The Quidditch World Cup</h2>
+        <p className={styles.sectionP}>The Quidditch World Cup is the pinnacle of the sport, held every four years and drawing witches and wizards from nations across the globe. Teams compete to represent their countries in a tournament that commands enormous crowds and fierce national pride. The winner is presented with a large silver trophy in a ceremony before tens of thousands of roaring fans — the greatest honour in professional Quidditch.</p>
       </section>
 
     </div>
