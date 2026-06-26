@@ -51,7 +51,7 @@ export default function AboutPage() {
           <h2 className={styles.sectionTitle}>The Pitch</h2>
           <p className={styles.sectionP}>A standard Quidditch pitch is an oval approximately five hundred feet long and one hundred and eighty feet wide. At each end stand three golden goal hoops at heights of twenty, thirty, and forty feet — giving Chasers a variety of angles and Keepers a greater challenge to cover. There are no boundaries above the pitch; players may fly as high as they wish. The only firm rule is that no player may touch the ground while in possession of the Quaffle.</p>
         </div>
-        <div style={{ width: '100%', height: '120px', overflow: 'hidden', opacity: 0.22, pointerEvents: 'none', lineHeight: 0 }}>
+        <div style={{ width: '100%', height: '160px', overflow: 'hidden', opacity: 0.22, pointerEvents: 'none', lineHeight: 0 }}>
           <GoalPostsIllustration />
         </div>
       </section>
