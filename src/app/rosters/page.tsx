@@ -25,7 +25,7 @@ const POSITION_ICON: Record<Position, string> = {
   Keeper: '🥅',
   Chaser: '🏆',
   Beater: '🏏',
-  Seeker: '🔮',
+  Seeker: '🟡',
 };
 
 const POSITION_COLOR: Record<Position, string> = {

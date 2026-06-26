@@ -19,7 +19,7 @@ const COLUMNS: { key: SortKey; label: string; title: string }[] = [
   { key: 'pointsFor', label: 'PF', title: 'Points For' },
   { key: 'pointsAgainst', label: 'PA', title: 'Points Against' },
   { key: 'pointsDiff', label: '+/-', title: 'Points Difference' },
-  { key: 'snitchCatches', label: '🔮', title: 'Snitch Catches' },
+  { key: 'snitchCatches', label: '🟡', title: 'Snitch Catches' },
 ];
 
 export default function StandingsTable({ standings }: Props) {

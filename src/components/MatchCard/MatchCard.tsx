@@ -40,7 +40,7 @@ export default function MatchCard({ match, highlightTeamId }: Props) {
           </span>
         </div>
         <span className={styles.snitchBadge}>
-          🔮 {match.snitchCatcher}
+          🟡 {match.snitchCatcher}
         </span>
       </div>
 

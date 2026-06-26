@@ -194,7 +194,7 @@ export default async function TeamPage({ params }: { params: Promise<{ teamId: s
                           {p.name}
                         </Link>
                         {pos === 'Seeker' && (
-                          <span className={styles.seekerBadge}>🔮</span>
+                          <span className={styles.seekerBadge}>🟡</span>
                         )}
                       </div>
                     ))}
