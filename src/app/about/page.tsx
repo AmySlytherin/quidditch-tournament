@@ -34,7 +34,7 @@ export default function AboutPage() {
             { icon: '🥅', name: 'Keeper', desc: 'Guards the three goal hoops. Last line of defence against the opposing Chasers.' },
             { icon: '🏆', name: 'Chaser', desc: 'Three per team. Pass the Quaffle and score goals worth ten points each.' },
             { icon: '🏏', name: 'Beater', desc: 'Two per team. Armed with bats, they redirect Bludgers away from teammates.' },
-            { icon: '🔮', name: 'Seeker', desc: 'Hunts the Golden Snitch. Catching it ends the match and earns 150 points.' },
+            { icon: '🟡', name: 'Seeker', desc: 'Hunts the Golden Snitch. Catching it ends the match and earns 150 points.' },
           ].map(({ icon, name, desc }) => (
             <div key={name} className={styles.positionCard}>
               <div className={styles.positionIcon}>{icon}</div>
