@@ -217,7 +217,7 @@ function SnitchIllustration() {
 /* ─── Goal Posts Illustration ─────────────────────────────────────────────── */
 function GoalPostsIllustration() {
   return (
-    <svg viewBox="0 15 800 305" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 -5 800 325" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       {/* Sky atmosphere */}
       <ellipse cx="400" cy="0" rx="500" ry="120" fill="#c9a84c" opacity="0.02" />
 
