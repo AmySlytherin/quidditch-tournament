@@ -1,9 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { loadPredictions, savePrediction } from '@/lib/predictions';
 import styles from './PredictableMatch.module.css';
+
+const SPARKLE_COUNT = 12;
+const SPARKLE_GLYPHS = ['✦', '★', '·', '✶', '✸'];
+const SPARKLE_COLORS = ['#f5c518', '#ffd700', '#fffacd', '#c8a951', '#ffffff'];
 
 interface TeamInfo {
   id: string;
@@ -27,6 +31,8 @@ export default function PredictableMatch({
 }: Props) {
   const [prediction, setPrediction] = useState<string | null>(null);
   const [revealed, setRevealed] = useState(false);
+  const [celebrate, setCelebrate] = useState(false);
+  const celebrateTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const saved = loadPredictions()[matchId] ?? null;
@@ -34,10 +40,16 @@ export default function PredictableMatch({
     setRevealed(saved !== null);
   }, [matchId]);
 
+  useEffect(() => () => { if (celebrateTimer.current) clearTimeout(celebrateTimer.current); }, []);
+
   function handlePick(teamId: string) {
     savePrediction(matchId, teamId);
     setPrediction(teamId);
     setRevealed(true);
+    if (teamId === winnerTeamId) {
+      setCelebrate(true);
+      celebrateTimer.current = setTimeout(() => setCelebrate(false), 1000);
+    }
   }
 
   const correct = prediction === winnerTeamId;
@@ -46,7 +58,33 @@ export default function PredictableMatch({
   const awayWon = winnerTeamId === away.id;
 
   return (
-    <div className={styles.card}>
+    <div className={styles.wrapper}>
+      {celebrate && (
+        <div className={styles.sparkles} aria-hidden>
+          {Array.from({ length: SPARKLE_COUNT }, (_, i) => {
+            const angle = (i / SPARKLE_COUNT) * Math.PI * 2;
+            const dx = Math.round(Math.cos(angle) * 72);
+            const dy = Math.round(Math.sin(angle) * 58);
+            return (
+              <span
+                key={i}
+                className={styles.sparkle}
+                style={{
+                  '--dx': `${dx}px`,
+                  '--dy': `${dy}px`,
+                  '--delay': `${(i % 4) * 55}ms`,
+                  '--glyph-color': SPARKLE_COLORS[i % SPARKLE_COLORS.length],
+                  left: `${18 + (i / SPARKLE_COUNT) * 64}%`,
+                  top: `${28 + ((i * 7) % 44)}%`,
+                } as React.CSSProperties}
+              >
+                {SPARKLE_GLYPHS[i % SPARKLE_GLYPHS.length]}
+              </span>
+            );
+          })}
+        </div>
+      )}
+      <div className={styles.card}>
       {/* Teams + score row */}
       <div className={styles.matchRow}>
         <div className={styles.team}>
@@ -109,6 +147,7 @@ export default function PredictableMatch({
           </Link>
         </div>
       )}
+      </div>
     </div>
   );
 }

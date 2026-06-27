@@ -1,8 +1,36 @@
+.wrapper {
+  position: relative;
+}
+
 .card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   overflow: hidden;
+}
+
+/* ── Correct-pick sparkle burst ── */
+.sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  overflow: visible;
+}
+
+.sparkle {
+  position: absolute;
+  font-size: 1.125rem;
+  color: var(--glyph-color);
+  animation: sparkle-burst 0.85s ease-out forwards;
+  animation-delay: var(--delay);
+  opacity: 0;
+}
+
+@keyframes sparkle-burst {
+  0%   { opacity: 1; transform: translate(0, 0) scale(1.2); }
+  60%  { opacity: 0.85; }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.2); }
 }
 
 /* ── Match row ── */
