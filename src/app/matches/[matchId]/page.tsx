@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { MATCHES, TEAM_MAP } from '@/data';
 import { matchScore, matchWinner } from '@/lib/standings';
+import MvpVote from '@/components/MvpVote/MvpVote';
 import styles from './page.module.css';
 
 export function generateStaticParams() {
@@ -125,6 +126,29 @@ export default async function MatchPage({ params }: { params: Promise<{ matchId:
           </span>
         </div>
       </div>
+
+      {/* MVP Vote */}
+      <MvpVote
+        matchId={match.id}
+        players={[
+          ...home.roster.map((p) => ({
+            id: p.id,
+            name: p.name,
+            position: p.position,
+            teamId: home.id,
+            teamShortName: home.shortName,
+            teamPrimary: home.colors.primary,
+          })),
+          ...away.roster.map((p) => ({
+            id: p.id,
+            name: p.name,
+            position: p.position,
+            teamId: away.id,
+            teamShortName: away.shortName,
+            teamPrimary: away.colors.primary,
+          })),
+        ]}
+      />
 
       {/* Timeline */}
       <div className={styles.timeline}>
