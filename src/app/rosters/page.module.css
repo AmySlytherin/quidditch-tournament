@@ -151,7 +151,7 @@
 /* ─── Card flip container ────────────────────────────────────────── */
 .cardFlipContainer {
   perspective: 1200px;
-  height: 320px;
+  height: 350px;
   cursor: pointer;
 }
 
@@ -286,7 +286,7 @@
   position: relative;
   width: 100%;
   /* Portrait: taller than wide, shows head + shoulders */
-  padding-top: 88%;
+  padding-top: 72%;
   overflow: hidden;
   background: var(--color-surface-raised);
 }
