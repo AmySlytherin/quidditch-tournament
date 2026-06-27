@@ -1,9 +1,9 @@
 .page {
-  padding: var(--space-10) 0 var(--space-16);
+  padding: var(--space-8) 0 var(--space-10);
 }
 
 .header {
-  margin-bottom: var(--space-10);
+  margin-bottom: var(--space-6);
 }
 
 .eyebrow {

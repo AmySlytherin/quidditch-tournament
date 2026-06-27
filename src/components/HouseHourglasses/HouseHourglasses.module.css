@@ -2,9 +2,9 @@
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  gap: var(--space-8);
-  padding: var(--space-8) var(--space-6);
-  margin-bottom: var(--space-6);
+  gap: var(--space-6);
+  padding: var(--space-5) var(--space-6);
+  margin-bottom: var(--space-4);
 }
 
 .hourglassWrap {
