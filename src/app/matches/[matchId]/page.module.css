@@ -14,7 +14,7 @@
 .scoreboardTop {
   display: flex;
   align-items: stretch;
-  min-height: 90px;
+  min-height: 70px;
 }
 
 .teamPanel {
@@ -23,8 +23,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--space-2);
-  padding: var(--space-4) var(--space-6);
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
   position: relative;
   overflow: hidden;
 }
@@ -41,7 +41,7 @@
 
 .teamAbbr {
   font-family: var(--font-display);
-  font-size: 1.375rem;
+  font-size: 1.125rem;
   font-weight: 700;
   color: rgba(255,255,255,0.9);
   text-shadow: 0 2px 8px rgba(0,0,0,0.5);
@@ -56,7 +56,7 @@
 
 .teamScore {
   font-family: var(--font-display);
-  font-size: 1.875rem;
+  font-size: 1.5rem;
   font-weight: 700;
   line-height: 1;
   font-variant-numeric: tabular-nums;
