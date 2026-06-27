@@ -266,7 +266,7 @@ function Hourglass({ standing, fill }: { standing: TeamStanding; fill: number })
 
   return (
     <div className={styles.hourglassWrap}>
-      <svg width="110" height="308" viewBox="0 0 110 308" fill="none"
+      <svg width="90" height="252" viewBox="0 0 110 308" fill="none"
            xmlns="http://www.w3.org/2000/svg" className={styles.svg}>
         <defs>
           {/* Antique bronze: very dark edges, warm gold centre */}
