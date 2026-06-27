@@ -1,9 +1,9 @@
 .page {
-  padding: var(--space-8) 0 var(--space-10);
+  padding: var(--space-5) 0 var(--space-6);
 }
 
 .header {
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-4);
 }
 
 .eyebrow {
@@ -27,7 +27,7 @@
 .rounds {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-4);
 }
 
 .roundSection {}
@@ -36,8 +36,8 @@
   display: flex;
   align-items: baseline;
   gap: var(--space-4);
-  margin-bottom: var(--space-4);
-  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-2);
   border-bottom: 1px solid var(--color-border);
 }
 

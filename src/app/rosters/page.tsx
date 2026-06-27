@@ -202,46 +202,9 @@ function RostersInner() {
                         {POSITION_ICON[pos]} {pos}
                       </span>
 
-                      {/* Stats */}
+                      {/* Role description */}
                       <div className={styles.playerStats}>
-                        {pos === 'Chaser' && (
-                          <>
-                            <div className={styles.pStat}>
-                              <span className={styles.pStatVal} style={{ color: posColor }}>{goals}</span>
-                              <span className={styles.pStatLabel}>Goals</span>
-                            </div>
-                            <div className={styles.statDivider} />
-                            <div className={styles.pStat}>
-                              <span className={styles.pStatVal}>{pts}</span>
-                              <span className={styles.pStatLabel}>Pts scored</span>
-                            </div>
-                          </>
-                        )}
-                        {pos === 'Seeker' && (
-                          <>
-                            <div className={styles.pStat}>
-                              <span className={styles.pStatVal} style={{ color: posColor }}>{snitch}</span>
-                              <span className={styles.pStatLabel}>Snitch</span>
-                            </div>
-                            <div className={styles.statDivider} />
-                            <div className={styles.pStat}>
-                              <span className={styles.pStatVal}>{snitch * 150}</span>
-                              <span className={styles.pStatLabel}>Pts</span>
-                            </div>
-                          </>
-                        )}
-                        {pos === 'Keeper' && (
-                          <div className={styles.pStat}>
-                            <span className={styles.pStatVal} style={{ color: posColor }}>🥅</span>
-                            <span className={styles.pStatLabel}>Last line of defence</span>
-                          </div>
-                        )}
-                        {pos === 'Beater' && (
-                          <div className={styles.pStat}>
-                            <span className={styles.pStatVal} style={{ color: posColor }}>🏏</span>
-                            <span className={styles.pStatLabel}>Protects the team</span>
-                          </div>
-                        )}
+                        <p className={styles.roleDesc}>{POSITION_DESC[pos]}</p>
                       </div>
                     </div>
                   </div>

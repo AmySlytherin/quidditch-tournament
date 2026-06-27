@@ -1,11 +1,11 @@
 .page {
-  padding-bottom: var(--space-16);
+  padding-bottom: var(--space-8);
 }
 
 /* Hero */
 .hero {
-  padding: var(--space-12) 0;
-  margin-bottom: var(--space-10);
+  padding: var(--space-6) 0;
+  margin-bottom: var(--space-6);
   border-bottom: 1px solid var(--color-border);
   position: relative;
   overflow: hidden;
@@ -85,7 +85,7 @@
 
 .heroStatVal {
   font-family: var(--font-display);
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   line-height: 1;
   font-variant-numeric: tabular-nums;
@@ -128,7 +128,7 @@
 
 /* Section */
 .section {
-  margin-bottom: var(--space-10);
+  margin-bottom: var(--space-6);
 }
 
 .sectionHeader {
