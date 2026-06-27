@@ -56,6 +56,42 @@
   /* Layout */
   --max-width: 1200px;
   --nav-height: 80px;
+
+  /* Nav bar background (overridden in light theme) */
+  --color-nav-bg: rgba(10, 8, 5, 0.92);
+  --color-nav-border: rgba(212, 168, 67, 0.2);
+}
+
+/* ─── Light theme (Lumos) — daytime parchment ────────────────────────── */
+html[data-theme='light'] {
+  color-scheme: light;
+
+  --color-bg: #f3ead6;
+  --color-surface: #ede2c9;
+  --color-surface-raised: #e5d8b9;
+  --color-surface-overlay: #dccba6;
+  --color-border: rgba(120, 85, 25, 0.18);
+  --color-border-strong: rgba(120, 85, 25, 0.32);
+
+  --color-text-primary: #2b2417;
+  --color-text-secondary: #6b5d42;
+  --color-text-muted: #94835f;
+
+  --color-accent: #9c6f12;
+  --color-accent-dim: rgba(156, 111, 18, 0.14);
+  --color-accent-glow: rgba(156, 111, 18, 0.30);
+
+  --color-win: #1f9d66;
+  --color-loss: #c43a4e;
+  --color-win-bg: rgba(31, 157, 102, 0.12);
+  --color-loss-bg: rgba(196, 58, 78, 0.12);
+
+  --color-nav-bg: rgba(247, 240, 224, 0.92);
+  --color-nav-border: rgba(120, 85, 25, 0.28);
+
+  --shadow-sm: 0 1px 3px rgba(80, 60, 20, 0.18);
+  --shadow-md: 0 4px 16px rgba(80, 60, 20, 0.20);
+  --shadow-lg: 0 8px 32px rgba(80, 60, 20, 0.22);
 }
 
 /* ─── Reset ──────────────────────────────────────────────────────────── */
@@ -86,6 +122,14 @@ body {
   font-family: var(--font-sans);
   line-height: 1.6;
   min-height: 100vh;
+}
+
+/* Softer daytime glow for the light (Lumos) theme */
+html[data-theme='light'] body {
+  background-image:
+    radial-gradient(ellipse 70% 40% at 50% 0%, rgba(156, 111, 18, 0.10) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 30% at 15% 60%, rgba(180, 120, 40, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 85% 60%, rgba(180, 120, 40, 0.06) 0%, transparent 60%);
 }
 
 a {

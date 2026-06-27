@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
 import { TEAMS } from '@/data';
 import HogwartsCrest from '@/components/HogwartsCrest/HogwartsCrest';
+import ThemeToggle from '@/components/ThemeToggle/ThemeToggle';
 import styles from './Nav.module.css';
 
 const NAV_LINKS = [
@@ -43,6 +44,9 @@ export default function Nav() {
           <span className={styles.crestWrap}><HogwartsCrest size={58} /></span>
           <span className={styles.brandText}>Hogwarts Quidditch</span>
         </Link>
+
+        {/* Day/Night (Lumos/Nox) toggle */}
+        <ThemeToggle />
 
         {/* Hamburger + dropdown anchored to right side */}
         <div className={styles.menuWrap} ref={menuRef}>

@@ -19,6 +19,16 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={cinzel.variable}>
+      <head>
+        {/* Apply the visitor's saved Lumos/Nox choice before paint, so there's
+            no flash of the wrong theme. Defaults to dark (Nox) if unset. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{if(localStorage.getItem('theme')==='light'){document.documentElement.setAttribute('data-theme','light');}}catch(e){}})();",
+          }}
+        />
+      </head>
       <body>
         <Nav />
         <GoldenSnitch />
