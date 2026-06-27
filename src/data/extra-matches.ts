@@ -66,9 +66,9 @@ function makeMatch(
 }
 
 // ─── Add new match results below ───────────────────────────────────────────
-// Gryffindor 280 – Hufflepuff 150 (Round 19, 14 Dec 2024)
-// Gryffindor: 28 quaffle goals (280 pts), no snitch
-// Hufflepuff: 0 quaffle goals, Cedric caught snitch (150 pts)
-// Gryffindor wins despite not catching the snitch
 
-export const EXTRA_MATCHES: Match[] = [];
+export const EXTRA_MATCHES: Match[] = [
+  // Round 1 — 7 Sep 2024 — Gryffindor 250 – Slytherin 190
+  // Harry Potter caught the snitch (150 pts); Gryffindor 10 quaffle goals, Slytherin 19
+  makeMatch('match-1', '2024-09-07', 1, 'gryffindor', 'slytherin', 10, 19, 'home', 'Harry Potter', 95),
+];
