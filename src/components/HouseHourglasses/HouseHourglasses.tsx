@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { TeamStanding } from '@/data/types';
 import { TEAM_MAP } from '@/data';
@@ -249,7 +249,7 @@ function Gem({ cx, cy, r, color, colorLight, colorDark, id }: {
 }
 
 // ── Single hourglass ─────────────────────────────────────────────────────────
-function Hourglass({ standing, fill }: { standing: TeamStanding; fill: number }) {
+function Hourglass({ standing, fill, animate }: { standing: TeamStanding; fill: number; animate: boolean }) {
   const team = TEAM_MAP[standing.teamId];
   const h    = HOUSE[standing.teamId];
   if (!team || !h) return null;
@@ -444,6 +444,23 @@ function Hourglass({ standing, fill }: { standing: TeamStanding; fill: number })
         <path d="M41,148 C28,162 17,192 17,228 C21,214 24,182 36,162 Z"
               fill={`url(#sh-${id})`} clipPath={`url(#cb-${id})`} />
 
+        {/* ══════════════ FALLING SAND ANIMATION ══════════════ */}
+        {animate && Array.from({ length: 9 }, (_, i) => (
+          <circle
+            key={i}
+            cx={55 + ((i % 5) - 2) * 3}
+            cy={NECK_BOT}
+            r={1.4 + (i % 3) * 0.6}
+            fill={h.sand}
+            clipPath={`url(#cb-${id})`}
+            className={styles.sandParticle}
+            style={{
+              '--dx': `${((i % 3) - 1) * 7}px`,
+              animationDelay: `${i * 130}ms`,
+            } as React.CSSProperties}
+          />
+        ))}
+
         {/* ══════════════ BOTTOM CAP BEAM ══════════════ */}
         <rect x="9"  y="230" width="92" height="8" rx="2"   fill="#0e0804" />
         <rect x="10" y="230" width="90" height="7" rx="1.5" fill={`url(#fr-${id})`} />
@@ -522,17 +539,28 @@ const BULB_BOT_TOP = NECK_BOT;
 
 // ── Container ────────────────────────────────────────────────────────────────
 export default function HouseHourglasses({ standings }: { standings: TeamStanding[] }) {
-  const sorted = [...standings].sort((a, b) => a.rank - b.rank);
-  const diffs  = sorted.map(s => s.pointsDiff);
-  const min    = Math.min(...diffs);
-  const max    = Math.max(...diffs);
-  const range  = max - min || 1;
+  const sorted  = [...standings].sort((a, b) => a.rank - b.rank);
+  const diffs   = sorted.map(s => s.pointsDiff);
+  const min     = Math.min(...diffs);
+  const max     = Math.max(...diffs);
+  const range   = max - min || 1;
+  const [animate, setAnimate] = useState(false);
+
+  useEffect(() => {
+    if (!sessionStorage.getItem('sand-animated')) {
+      sessionStorage.setItem('sand-animated', '1');
+      setAnimate(true);
+      const t = setTimeout(() => setAnimate(false), 2800);
+      return () => clearTimeout(t);
+    }
+  }, []);
 
   return (
     <div className={styles.container}>
       {sorted.map(s => (
         <Hourglass key={s.teamId} standing={s}
-          fill={0.05 + 0.90 * (s.pointsDiff - min) / range} />
+          fill={0.05 + 0.90 * (s.pointsDiff - min) / range}
+          animate={animate} />
       ))}
     </div>
   );

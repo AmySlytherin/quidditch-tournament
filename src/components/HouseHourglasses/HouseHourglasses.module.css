@@ -26,6 +26,18 @@
   transition: y 1s ease, height 1s ease;
 }
 
+.sandParticle {
+  opacity: 0;
+  animation: sand-fall 1.3s ease-in forwards;
+}
+
+@keyframes sand-fall {
+  0%   { transform: translate(0, 0);                    opacity: 0;    }
+  8%   { opacity: 0.9;                                                 }
+  80%  { opacity: 0.7;                                                 }
+  100% { transform: translate(var(--dx, 0px), 50px);    opacity: 0;    }
+}
+
 .rank {
   margin-bottom: 4px;
 }
