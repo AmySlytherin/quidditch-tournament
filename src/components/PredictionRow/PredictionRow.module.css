@@ -1,0 +1,90 @@
+.picker {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.prompt {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  margin-right: var(--space-1);
+  white-space: nowrap;
+}
+
+.teamBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--team-color) 40%, transparent);
+  border-radius: var(--radius-full);
+  color: color-mix(in srgb, var(--team-color) 90%, white);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.teamBtn:hover {
+  background: color-mix(in srgb, var(--team-color) 15%, transparent);
+  border-color: color-mix(in srgb, var(--team-color) 70%, transparent);
+}
+
+.btnDot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--team-color);
+  flex-shrink: 0;
+}
+
+/* Result row */
+.result {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-top: 1px solid var(--color-border);
+  font-size: 0.75rem;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.label {
+  color: var(--color-text-secondary);
+  flex: 1;
+}
+
+.label strong {
+  color: var(--color-text-primary);
+}
+
+.badge {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.correct .badge {
+  background: var(--color-win-bg);
+  color: var(--color-win);
+}
+
+.wrong .badge {
+  background: var(--color-loss-bg);
+  color: var(--color-loss);
+}

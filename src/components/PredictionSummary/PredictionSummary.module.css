@@ -1,0 +1,31 @@
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-accent-dim);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-8);
+}
+
+.icon {
+  font-size: 1.125rem;
+}
+
+.text {
+  flex: 1;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.text strong {
+  color: var(--color-text-primary);
+}
+
+.pct {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
