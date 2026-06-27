@@ -270,7 +270,7 @@ function Hourglass({ standing, fill, animate }: { standing: TeamStanding; fill: 
 
   return (
     <Link href={`/teams/${id}`} className={styles.hourglassWrap} style={{ textDecoration: 'none' }}>
-      <svg width="90" height="252" viewBox="0 0 110 308" fill="none"
+      <svg width="90" height="265" viewBox="0 -16 110 324" fill="none"
            xmlns="http://www.w3.org/2000/svg" className={styles.svg}>
         <defs>
           {/* Antique bronze: very dark edges, warm gold centre */}
@@ -547,8 +547,8 @@ export default function HouseHourglasses({ standings }: { standings: TeamStandin
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
-    if (!sessionStorage.getItem('sand-animated-5')) {
-      sessionStorage.setItem('sand-animated-5', '1');
+    if (!sessionStorage.getItem('sand-animated-6')) {
+      sessionStorage.setItem('sand-animated-6', '1');
       setAnimate(true);
       const t = setTimeout(() => setAnimate(false), 2800);
       return () => clearTimeout(t);
