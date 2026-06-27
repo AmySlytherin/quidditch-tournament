@@ -1,7 +1,6 @@
 import { MATCHES, TEAM_MAP } from '@/data';
-import { matchWinner } from '@/lib/standings';
-import MatchCard from '@/components/MatchCard/MatchCard';
-import PredictionRow from '@/components/PredictionRow/PredictionRow';
+import { matchScore, matchWinner } from '@/lib/standings';
+import PredictableMatch from '@/components/PredictableMatch/PredictableMatch';
 import PredictionSummary from '@/components/PredictionSummary/PredictionSummary';
 import styles from './page.module.css';
 
@@ -56,19 +55,17 @@ export default function SchedulePage() {
                   const side = matchWinner(m);
                   const winnerTeamId = side === 'home' ? m.homeTeamId : m.awayTeamId;
                   return (
-                    <div key={m.id} className={styles.matchGroup}>
-                      <MatchCard match={m} />
-                      <PredictionRow
-                        matchId={m.id}
-                        homeTeamId={m.homeTeamId}
-                        homeShortName={home.shortName}
-                        homePrimary={home.colors.primary}
-                        awayTeamId={m.awayTeamId}
-                        awayShortName={away.shortName}
-                        awayPrimary={away.colors.primary}
-                        winnerTeamId={winnerTeamId}
-                      />
-                    </div>
+                    <PredictableMatch
+                      key={m.id}
+                      matchId={m.id}
+                      round={m.round}
+                      home={{ id: m.homeTeamId, shortName: home.shortName, primary: home.colors.primary }}
+                      away={{ id: m.awayTeamId, shortName: away.shortName, primary: away.colors.primary }}
+                      homeScore={matchScore(m, 'home')}
+                      awayScore={matchScore(m, 'away')}
+                      winnerTeamId={winnerTeamId}
+                      snitchCatcher={m.snitchCatcher}
+                    />
                   );
                 })}
               </div>
