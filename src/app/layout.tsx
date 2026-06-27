@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={cinzel.variable}>
+    <html lang="en" className={cinzel.variable} suppressHydrationWarning>
       <head>
         {/* Apply the visitor's saved Lumos/Nox choice before paint, so there's
             no flash of the wrong theme. Defaults to dark (Nox) if unset. */}

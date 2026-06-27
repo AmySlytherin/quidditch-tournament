@@ -547,8 +547,8 @@ export default function HouseHourglasses({ standings }: { standings: TeamStandin
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
-    if (!sessionStorage.getItem('sand-animated-4')) {
-      sessionStorage.setItem('sand-animated-4', '1');
+    if (!sessionStorage.getItem('sand-animated-5')) {
+      sessionStorage.setItem('sand-animated-5', '1');
       setAnimate(true);
       const t = setTimeout(() => setAnimate(false), 2800);
       return () => clearTimeout(t);
@@ -559,7 +559,7 @@ export default function HouseHourglasses({ standings }: { standings: TeamStandin
     <div className={styles.container}>
       {sorted.map(s => (
         <Hourglass key={s.teamId} standing={s}
-          fill={0.05 + 0.90 * (s.pointsDiff - min) / range}
+          fill={0.30 + 0.65 * (s.pointsDiff - min) / range}
           animate={animate} />
       ))}
     </div>
