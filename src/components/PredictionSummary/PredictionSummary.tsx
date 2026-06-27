@@ -18,16 +18,21 @@ export default function PredictionSummary({ matches }: Props) {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    const map = loadPredictions();
-    let predicted = 0;
-    let correct = 0;
-    for (const { matchId, winnerTeamId } of matches) {
-      if (map[matchId]) {
-        predicted++;
-        if (map[matchId] === winnerTeamId) correct++;
+    function recount() {
+      const map = loadPredictions();
+      let predicted = 0;
+      let correct = 0;
+      for (const { matchId, winnerTeamId } of matches) {
+        if (map[matchId]) {
+          predicted++;
+          if (map[matchId] === winnerTeamId) correct++;
+        }
       }
+      setCounts({ predicted, correct });
     }
-    setCounts({ predicted, correct });
+    recount();
+    window.addEventListener('prediction-saved', recount);
+    return () => window.removeEventListener('prediction-saved', recount);
   }, [matches]);
 
   if (!counts || counts.predicted === 0) return null;

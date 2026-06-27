@@ -15,5 +15,6 @@ export function savePrediction(matchId: string, teamId: string): PredictionMap {
   const map = loadPredictions();
   map[matchId] = teamId;
   sessionStorage.setItem(STORAGE_KEY, JSON.stringify(map));
+  window.dispatchEvent(new CustomEvent('prediction-saved'));
   return map;
 }
