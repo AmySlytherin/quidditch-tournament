@@ -4,7 +4,6 @@ export default function AboutPage() {
   return (
     <div className={`${styles.page} container`}>
       <header className={styles.header}>
-        <p className={styles.eyebrow}>⚡ 2025–2026</p>
         <h1 className={styles.title}>The History of Quidditch</h1>
         <div className="page-divider"><span>✦</span></div>
       </header>
@@ -49,7 +48,7 @@ export default function AboutPage() {
       <section className={styles.sectionPitch}>
         <div className={styles.pitchContent}>
           <h2 className={styles.sectionTitle}>The Pitch</h2>
-          <p className={styles.sectionP}>A standard Quidditch pitch is an oval approximately five hundred feet long and one hundred and eighty feet wide. At each end stand three golden goal hoops at heights of twenty, thirty, and forty feet — giving Chasers a variety of angles and Keepers a greater challenge to cover. There are no boundaries above the pitch; players may fly as high as they wish. The only firm rule is that no player may touch the ground while in possession of the Quaffle.</p>
+          <p className={styles.sectionP}>A standard Quidditch pitch is an oval approximately one hundred and fifty metres long and fifty-five metres wide. At each end stand three golden goal hoops at heights of six, nine, and twelve metres — giving Chasers a variety of angles and Keepers a greater challenge to cover. There are no boundaries above the pitch; players may fly as high as they wish. The only firm rule is that no player may touch the ground while in possession of the Quaffle.</p>
         </div>
         <div style={{ width: '100%', height: '160px', overflow: 'hidden', opacity: 0.22, pointerEvents: 'none', lineHeight: 0 }}>
           <GoalPostsIllustration />

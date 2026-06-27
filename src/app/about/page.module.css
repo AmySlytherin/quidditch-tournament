@@ -71,10 +71,10 @@
   background: var(--color-surface-raised);
   border: 1px solid var(--color-border);
   border-radius: 12px;
-  padding: 20px 16px;
+  padding: 14px 16px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   text-align: left;
   transition: border-color 0.2s;
 }
@@ -89,7 +89,7 @@
 }
 .positionDesc {
   font-size: 0.8125rem;
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
   line-height: 1.5;
 }
 
@@ -105,7 +105,7 @@
 }
 
 .pitchContent {
-  padding: 40px 48px;
+  padding: 24px 32px;
   text-align: center;
   max-width: 620px;
   margin: 0 auto;
