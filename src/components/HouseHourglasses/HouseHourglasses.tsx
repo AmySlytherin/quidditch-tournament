@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { TeamStanding } from '@/data/types';
 import { TEAM_MAP } from '@/data';
 import styles from './HouseHourglasses.module.css';
@@ -265,7 +266,7 @@ function Hourglass({ standing, fill }: { standing: TeamStanding; fill: number })
     <path d={d} stroke={`url(#fr-${id})`} strokeWidth={w} fill="none" strokeLinecap="round" opacity={opacity} />;
 
   return (
-    <div className={styles.hourglassWrap}>
+    <Link href={`/teams/${id}`} className={styles.hourglassWrap} style={{ textDecoration: 'none' }}>
       <svg width="90" height="252" viewBox="0 0 110 308" fill="none"
            xmlns="http://www.w3.org/2000/svg" className={styles.svg}>
         <defs>
@@ -495,7 +496,7 @@ function Hourglass({ standing, fill }: { standing: TeamStanding; fill: number })
 
       <div className={styles.label} style={{ color: h.label }}>{team.name}</div>
       <div className={styles.points}>{standing.pointsFor} pts</div>
-    </div>
+    </Link>
   );
 }
 
