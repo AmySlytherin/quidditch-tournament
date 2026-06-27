@@ -506,13 +506,16 @@ const BULB_BOT_TOP = NECK_BOT;
 // ── Container ────────────────────────────────────────────────────────────────
 export default function HouseHourglasses({ standings }: { standings: TeamStanding[] }) {
   const sorted = [...standings].sort((a, b) => a.rank - b.rank);
-  const total  = sorted.length - 1 || 1;
+  const diffs  = sorted.map(s => s.pointsDiff);
+  const min    = Math.min(...diffs);
+  const max    = Math.max(...diffs);
+  const range  = max - min || 1;
 
   return (
     <div className={styles.container}>
       {sorted.map(s => (
         <Hourglass key={s.teamId} standing={s}
-          fill={0.15 + 0.80 * (total - (s.rank - 1)) / total} />
+          fill={0.15 + 0.80 * (s.pointsDiff - min) / range} />
       ))}
     </div>
   );
