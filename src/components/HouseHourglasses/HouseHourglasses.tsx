@@ -547,8 +547,8 @@ export default function HouseHourglasses({ standings }: { standings: TeamStandin
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
-    if (!sessionStorage.getItem('sand-animated-3')) {
-      sessionStorage.setItem('sand-animated-3', '1');
+    if (!sessionStorage.getItem('sand-animated-4')) {
+      sessionStorage.setItem('sand-animated-4', '1');
       setAnimate(true);
       const t = setTimeout(() => setAnimate(false), 2800);
       return () => clearTimeout(t);
