@@ -254,10 +254,13 @@ function Hourglass({ standing, fill }: { standing: TeamStanding; fill: number })
   const h    = HOUSE[standing.teamId];
   if (!team || !h) return null;
 
-  const id    = standing.teamId;
-  const fillH = (BULB_B - BULB_BOT_TOP) * fill;
-  const fillY = BULB_B - fillH;
-  const Animal = ANIMALS[id];
+  const id         = standing.teamId;
+  const fillH      = (BULB_B    - BULB_BOT_TOP) * fill;
+  const fillY      = BULB_B    - fillH;
+  const upperFill  = 1 - fill;
+  const upperFillH = (NECK_TOP  - BULB_T)       * upperFill;
+  const upperFillY = NECK_TOP   - upperFillH;
+  const Animal     = ANIMALS[id];
 
   // Helpers — shadow stroke + gold stroke layered for depth
   const archShadow = (d: string, w: number) =>
@@ -396,6 +399,20 @@ function Hourglass({ standing, fill }: { standing: TeamStanding; fill: number })
 
         {/* ══════════════ TOP BULB ══════════════ */}
         <path d={topBulbPath} fill={`url(#gl-${id})`} stroke="#c9a84c" strokeWidth="1" strokeOpacity="0.5" />
+
+        {/* Sand remaining in top — piled at the neck, drains as points are earned */}
+        {upperFillH > 0 && (
+          <>
+            <rect x="0" y={upperFillY} width="110" height={upperFillH + 2}
+                  clipPath={`url(#ct-${id})`} fill={`url(#sf-${id})`} className={styles.gemFill} />
+            {upperFill > 0.15 && <>
+              <circle cx="72" cy={upperFillY + 4}  r="1.5" fill="rgba(255,255,255,0.6)"  clipPath={`url(#ct-${id})`} />
+              <circle cx="50" cy={upperFillY + 10} r="1.1" fill="rgba(255,255,255,0.42)" clipPath={`url(#ct-${id})`} />
+              <circle cx="80" cy={upperFillY + 18} r="0.9" fill="rgba(255,255,255,0.3)"  clipPath={`url(#ct-${id})`} />
+            </>}
+          </>
+        )}
+
         <path d="M41,126 C30,112 19,84 19,60 C23,68 24,96 37,118 Z"
               fill={`url(#sh-${id})`} clipPath={`url(#ct-${id})`} />
 
@@ -515,7 +532,7 @@ export default function HouseHourglasses({ standings }: { standings: TeamStandin
     <div className={styles.container}>
       {sorted.map(s => (
         <Hourglass key={s.teamId} standing={s}
-          fill={0.15 + 0.80 * (s.pointsDiff - min) / range} />
+          fill={0.05 + 0.90 * (s.pointsDiff - min) / range} />
       ))}
     </div>
   );
