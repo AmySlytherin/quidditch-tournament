@@ -71,4 +71,8 @@ export const EXTRA_MATCHES: Match[] = [
   // Round 1 — 7 Sep 2024 — Gryffindor 250 – Slytherin 190
   // Harry Potter caught the snitch (150 pts); Gryffindor 10 quaffle goals, Slytherin 19
   makeMatch('match-1', '2024-09-07', 1, 'gryffindor', 'slytherin', 10, 19, 'home', 'Harry Potter', 95),
+
+  // Round 6 — 12 Oct 2024 — Hufflepuff 240 – Ravenclaw 140
+  // Cedric Diggory caught the snitch (150 pts); Hufflepuff 9 quaffle goals, Ravenclaw 14
+  makeMatch('match-6', '2024-10-12', 6, 'hufflepuff', 'ravenclaw', 9, 14, 'home', 'Cedric Diggory', 110),
 ];
