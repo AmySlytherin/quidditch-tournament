@@ -18,7 +18,7 @@ function makeRng(seed: number) {
   };
 }
 
-const rng = makeRng(20240449); // fixed seed → reproducible season
+const rng = makeRng(20240002); // fixed seed → reproducible season
 
 function randInt(min: number, max: number): number {
   return Math.floor(rng() * (max - min + 1)) + min;
