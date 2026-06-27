@@ -71,13 +71,4 @@ function makeMatch(
 // Hufflepuff: 0 quaffle goals, Cedric caught snitch (150 pts)
 // Gryffindor wins despite not catching the snitch
 
-export const EXTRA_MATCHES: Match[] = [
-  makeMatch(
-    'match-extra-1', '2024-12-14', 19,
-    'gryffindor', 'hufflepuff',
-    28, 0,          // 28 × 10 = 280 for Gryffindor, 0 for Hufflepuff
-    'away',         // Cedric (Hufflepuff = away) caught snitch → +150 for Hufflepuff
-    'Cedric Diggory',
-    142
-  ),
-];
+export const EXTRA_MATCHES: Match[] = [];

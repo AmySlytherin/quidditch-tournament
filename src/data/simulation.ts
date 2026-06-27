@@ -121,7 +121,7 @@ function simulateMatch(
     snitchCaughtBy, snitchCatcher: seeker.name, durationMinutes: duration, timeline };
 }
 
-// 3 full round-robins = 18 matches, each team plays 9 games
+// 2 full round-robins = 12 matches, each team plays 6 games
 function generateSchedule(): Match[] {
   const ids = TEAMS.map((t) => t.id);
   // All 6 unique pairings
@@ -134,7 +134,7 @@ function generateSchedule(): Match[] {
   let matchNum = 0;
   const startDate = new Date('2024-09-07');
 
-  for (let roundSet = 0; roundSet < 3; roundSet++) {
+  for (let roundSet = 0; roundSet < 2; roundSet++) {
     for (let p = 0; p < pairs.length; p++) {
       const round = roundSet * pairs.length + p + 1;
       // Alternate home/away each round set
