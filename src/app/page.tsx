@@ -1,10 +1,14 @@
 import { MATCHES } from '@/data';
 import { computeStandings } from '@/lib/standings';
-import { lastMonday } from '@/lib/dates';
+import { lastDeployed } from '@/lib/dates';
 import StandingsTable from '@/components/StandingsTable/StandingsTable';
 import HouseHourglasses from '@/components/HouseHourglasses/HouseHourglasses';
 import WelcomeAudio from '@/components/WelcomeAudio/WelcomeAudio';
 import styles from './page.module.css';
+
+// Build this page once at deploy time so the "Last updated" date is frozen in
+// when Amy deploys, rather than recalculating when someone visits.
+export const dynamic = 'force-static';
 
 export default function StandingsPage() {
   const standings = computeStandings(MATCHES);
@@ -16,7 +20,7 @@ export default function StandingsPage() {
         <h1 className={styles.title}>⚡ Current Standings (2025–2026)</h1>
         <div className="page-divider"><span>✦</span></div>
         <p className={styles.subtitle}>
-          Last updated{' '}{lastMonday()}
+          Last updated{' '}{lastDeployed()}
         </p>
         <div className={styles.legend}>
           <span className={styles.legendItem}>

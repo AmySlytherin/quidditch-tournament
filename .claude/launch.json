@@ -4,8 +4,9 @@
     {
       "name": "quidditch-tournament",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["--prefix", "/Users/amyward/Documents/quidditch-tournament", "run", "dev"],
-      "port": 3000
+      "runtimeArgs": ["run", "dev", "--", "--port", "3001"],
+      "cwd": "/Users/amyward/Documents/quidditch-tournament",
+      "port": 3001
     }
   ]
 }
