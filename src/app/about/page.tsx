@@ -12,17 +12,17 @@ export default function AboutPage() {
       <section className={styles.section}>
         <div className={styles.diagBroom}><BroomIllustration /></div>
         <h2 className={styles.sectionTitle}>Origins</h2>
-        <p className={styles.sectionP}>Quidditch traces its roots to the eleventh century, when wizards first mounted enchanted broomsticks and took to the skies over the Scottish Highlands. Early accounts describe informal aerial contests played over the bogs of Queerditch Marsh — a remote location chosen to keep the sport hidden from Muggle eyes. A leather ball called the Quaffle was thrown between players and hurled through a target: at first a simple basket nailed to a tree, later the iconic tall hoops we know today.</p>
-        <p className={styles.sectionP}>The game spread quickly across wizarding Britain. Each region added its own flavour, and rival villages developed fierce loyalties to their local teams. By the twelfth century, the broad shape of modern Quidditch — aerial play, a scoring ball, and two fearsome Bludgers — had taken hold across much of Europe.</p>
+        <p className={styles.sectionP}>Quidditch dates to the eleventh century, when wizards first took enchanted broomsticks to the skies over the Scottish Highlands. Early aerial contests were played over the bogs of Queerditch Marsh — remote enough to stay hidden from Muggle eyes. A leather ball, the Quaffle, was hurled through a target: first a basket nailed to a tree, later the tall hoops we know today.</p>
+        <p className={styles.sectionP}>The game spread fast across wizarding Britain, with rival villages forming fierce loyalties to their local teams. By the twelfth century, the modern shape of Quidditch — aerial play, a scoring ball, and two fearsome Bludgers — had taken hold across much of Europe.</p>
       </section>
 
       {/* ── Four Balls ──────────────────────────────────── */}
       <section className={styles.section}>
         <div className={styles.snitchFloat}><SnitchIllustration /></div>
         <h2 className={styles.sectionTitle}>The Four Balls</h2>
-        <p className={styles.sectionP}>The <em>Quaffle</em> is the primary scoring ball — a scarlet leather sphere roughly a foot across. Chasers pass it between themselves and attempt to hurl it through one of three goal hoops, defended by the opposing Keeper. Each successful goal is worth ten points.</p>
-        <p className={styles.sectionP}>The two <em>Bludgers</em> are iron balls enchanted to pursue and unseat players. Beaters carry short bats and redirect them — both protecting teammates and targeting the opposition. A well-placed Bludger has decided many a match.</p>
-        <p className={styles.sectionP}>The <em>Golden Snitch</em> is the smallest and most consequential ball — a winged sphere no larger than a walnut that darts across the pitch at extraordinary speed. Catching it ends the match and awards one hundred and fifty points, making the Seeker the most decisive player on the pitch.</p>
+        <p className={styles.sectionP}>The <em>Quaffle</em> is the scoring ball — a scarlet leather sphere about a foot across. Chasers pass it and try to hurl it through one of three goal hoops, defended by the opposing Keeper. Each goal is worth ten points.</p>
+        <p className={styles.sectionP}>The two <em>Bludgers</em> are iron balls enchanted to chase down and unseat players. Beaters carry short bats to redirect them — protecting teammates and harrying opponents. A well-placed Bludger has decided many a match.</p>
+        <p className={styles.sectionP}>The <em>Golden Snitch</em> is the smallest yet most decisive ball — a winged sphere no bigger than a walnut that darts across the pitch at incredible speed. Catching it ends the match and earns 150 points, making the Seeker the most important player on the field.</p>
       </section>
 
       {/* ── Positions ───────────────────────────────────── */}
@@ -48,9 +48,9 @@ export default function AboutPage() {
       <section className={styles.sectionPitch}>
         <div className={styles.pitchContent}>
           <h2 className={styles.sectionTitle}>The Pitch</h2>
-          <p className={styles.sectionP}>A standard Quidditch pitch is an oval approximately one hundred and fifty metres long and fifty-five metres wide. At each end stand three golden goal hoops at heights of six, nine, and twelve metres — giving Chasers a variety of angles and Keepers a greater challenge to cover. There are no boundaries above the pitch; players may fly as high as they wish. The only firm rule is that no player may touch the ground while in possession of the Quaffle.</p>
+          <p className={styles.sectionP}>A standard pitch is an oval roughly 150 metres long and 55 wide. Three golden hoops stand at each end — at six, nine, and twelve metres — giving Chasers their angles and Keepers plenty to cover. There is no ceiling: players may fly as high as they like. The one firm rule is that no player may touch the ground while holding the Quaffle.</p>
         </div>
-        <div style={{ width: '100%', height: '160px', overflow: 'hidden', opacity: 0.22, pointerEvents: 'none', lineHeight: 0 }}>
+        <div style={{ width: '100%', height: '110px', overflow: 'hidden', opacity: 0.22, pointerEvents: 'none', lineHeight: 0 }}>
           <GoalPostsIllustration />
         </div>
       </section>
@@ -58,14 +58,14 @@ export default function AboutPage() {
       {/* ── Hogwarts ────────────────────────────────────── */}
       <section className={styles.sectionHogwarts}>
         <h2 className={styles.sectionTitle}>Quidditch at Hogwarts</h2>
-        <p className={styles.sectionP}>Each of the four Hogwarts houses — Gryffindor, Slytherin, Hufflepuff, and Ravenclaw — fields a team of seven players selected by their house captain. House matches take place throughout the school year on the grounds Quidditch pitch, drawing the full student body as spectators.</p>
-        <p className={styles.sectionP}>The house that accumulates the most points by season&apos;s end is awarded the Quidditch Cup — one of the most coveted trophies at Hogwarts. No two matches are ever the same, which is precisely why Quidditch has captivated the wizarding world for nearly a thousand years.</p>
+        <p className={styles.sectionP}>Each of the four houses — Gryffindor, Slytherin, Hufflepuff, and Ravenclaw — fields a team of seven, chosen by its house captain. Matches run throughout the school year on the grounds&apos; pitch, drawing the whole student body as spectators.</p>
+        <p className={styles.sectionP}>The house with the most points by season&apos;s end wins the Quidditch Cup — one of Hogwarts&apos; most coveted trophies. No two matches are ever alike, which is exactly why Quidditch has captivated the wizarding world for nearly a thousand years.</p>
       </section>
 
       {/* ── World Cup ───────────────────────────────────── */}
       <section className={styles.sectionHogwarts}>
         <h2 className={styles.sectionTitle}>The Quidditch World Cup</h2>
-        <p className={styles.sectionP}>The Quidditch World Cup is the pinnacle of the sport, held every four years and drawing witches and wizards from nations across the globe. Teams compete to represent their countries in a tournament that commands enormous crowds and fierce national pride. The winner is presented with a large silver trophy in a ceremony before tens of thousands of roaring fans — the greatest honour in professional Quidditch.</p>
+        <p className={styles.sectionP}>The Quidditch World Cup is the sport&apos;s pinnacle, held every four years and drawing witches and wizards from across the globe. National teams compete amid enormous crowds and fierce pride, and the winner is presented with a great silver trophy before tens of thousands of roaring fans — the highest honour in professional Quidditch.</p>
       </section>
 
     </div>
