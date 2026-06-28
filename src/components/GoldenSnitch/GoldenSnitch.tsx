@@ -51,7 +51,8 @@ export default function GoldenSnitch() {
     // Fire on initial mount AND on every subsequent navigation.
     if (flyTimer.current) clearTimeout(flyTimer.current);
     setFlying(true);
-    flyTimer.current = setTimeout(() => setFlying(false), 1400);
+    // Matches the ~5s CSS flight so there's a long, fair window to catch it.
+    flyTimer.current = setTimeout(() => setFlying(false), 5000);
   }, [pathname]);
 
   // Tidy timers if the component unmounts mid-flight or mid-celebration.
