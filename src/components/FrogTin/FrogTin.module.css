@@ -1,0 +1,249 @@
+/* ─── The nav "tin" button ─────────────────────────────────────────────── */
+.tin {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-right: var(--space-3);
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.15s, transform 0.15s;
+}
+.tin:hover {
+  border-color: var(--color-border-strong);
+  transform: translateY(-1px);
+}
+
+/* Small progress pill — shows only once the hunt has begun. */
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -7px;
+  min-width: 18px;
+  padding: 1px 4px;
+  font-family: var(--font-sans);
+  font-size: 0.58rem;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--color-bg);
+  background: var(--color-accent);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+}
+.badgeDone {
+  background: var(--color-win);
+  animation: badgePulse 1.6s ease-in-out infinite;
+}
+@keyframes badgePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(62, 207, 142, 0.5); }
+  50%      { box-shadow: 0 0 0 5px rgba(62, 207, 142, 0); }
+}
+
+/* ─── Album modal ──────────────────────────────────────────────────────── */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: var(--space-8) var(--space-4) var(--space-12);
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.album {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  margin: auto 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-8) var(--space-6) var(--space-6);
+  animation: popIn 0.25s cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+@keyframes popIn {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.closeBtn {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  width: 32px;
+  height: 32px;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--color-text-secondary);
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: color 0.15s, border-color 0.15s;
+}
+.closeBtn:hover { color: var(--color-text-primary); border-color: var(--color-border-strong); }
+
+.header { text-align: center; margin-bottom: var(--space-6); }
+.title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--color-accent);
+  text-shadow: 0 0 16px var(--color-accent-glow);
+}
+.subtitle {
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+}
+.progressBar {
+  height: 6px;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto var(--space-2);
+  background: var(--color-surface-overlay);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.progressFill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(to right, var(--color-accent), var(--color-win));
+  border-radius: var(--radius-full);
+  transition: width 0.4s ease;
+}
+.count {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+.countDone {
+  color: var(--color-win);
+  text-shadow: 0 0 12px rgba(62, 207, 142, 0.4);
+}
+
+/* ─── Card grid ────────────────────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+@media (max-width: 520px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.slot {
+  --card-accent: var(--color-accent);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: var(--space-2);
+  background: var(--color-surface-raised);
+  border: 1px solid var(--card-accent);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.slot:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px -6px var(--card-accent);
+}
+
+.thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 18%, color-mix(in srgb, var(--card-accent) 36%, transparent), transparent 70%),
+    var(--color-surface-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.thumbImg { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.thumbOrb {
+  width: 46%;
+  height: 46%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 32%, #fff0a0 0%, #e8b820 40%, #c08010 72%, #7a4e00 100%);
+  box-shadow: 0 0 14px rgba(232,184,32,0.6), inset 0 -4px 8px rgba(90,60,0,0.5);
+}
+
+.slotName {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--color-text-primary);
+}
+.slotRole {
+  font-size: 0.6rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--card-accent);
+}
+
+/* Undiscovered card */
+.slotMystery {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 3 / 4;
+  background:
+    repeating-linear-gradient(45deg, var(--color-surface-raised), var(--color-surface-raised) 6px, var(--color-surface) 6px, var(--color-surface) 12px);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-md);
+}
+.mysteryMark {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  opacity: 0.7;
+}
+
+.hint {
+  margin-top: var(--space-5);
+  text-align: center;
+  font-size: 0.78rem;
+  font-style: italic;
+  color: var(--color-text-muted);
+}
+
+/* ─── Enlarged single-card view ────────────────────────────────────────── */
+.detailBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10002;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  animation: fadeIn 0.15s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .album, .backdrop, .detailBackdrop { animation: none; }
+  .badgeDone { animation: none; }
+}

@@ -3,6 +3,7 @@ import { Cinzel } from 'next/font/google';
 import './globals.css';
 import Nav from '@/components/Nav/Nav';
 import GoldenSnitch from '@/components/GoldenSnitch/GoldenSnitch';
+import ChocolateFrog from '@/components/ChocolateFrog/ChocolateFrog';
 
 const cinzel = Cinzel({
   subsets: ['latin'],
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Nav />
         <GoldenSnitch />
+        <ChocolateFrog />
         <main>{children}</main>
       </body>
     </html>

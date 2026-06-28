@@ -6,6 +6,7 @@ import { useState, useRef, useEffect } from 'react';
 import { TEAMS } from '@/data';
 import CrestEasterEgg from '@/components/CrestEasterEgg/CrestEasterEgg';
 import ThemeToggle from '@/components/ThemeToggle/ThemeToggle';
+import FrogTin from '@/components/FrogTin/FrogTin';
 import styles from './Nav.module.css';
 
 const NAV_LINKS = [
@@ -46,6 +47,9 @@ export default function Nav() {
           <CrestEasterEgg className={styles.crestWrap} />
           <Link href="/" className={styles.brandText}>Hogwarts Quidditch</Link>
         </div>
+
+        {/* Chocolate Frog Card tin — the collection tracker */}
+        <FrogTin />
 
         {/* Day/Night (Lumos/Nox) toggle */}
         <ThemeToggle />
