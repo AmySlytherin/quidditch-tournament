@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
 import { TEAMS } from '@/data';
-import HogwartsCrest from '@/components/HogwartsCrest/HogwartsCrest';
+import CrestEasterEgg from '@/components/CrestEasterEgg/CrestEasterEgg';
 import ThemeToggle from '@/components/ThemeToggle/ThemeToggle';
 import styles from './Nav.module.css';
 
@@ -40,10 +40,12 @@ export default function Nav() {
   return (
     <nav className={styles.nav}>
       <div className={`container ${styles.inner}`}>
-        <Link href="/" className={styles.brand}>
-          <span className={styles.crestWrap}><HogwartsCrest size={58} /></span>
-          <span className={styles.brandText}>Hogwarts Quidditch</span>
-        </Link>
+        {/* Crest sits OUTSIDE the home link so tapping it triggers the
+            easter egg instead of navigating. The wordmark still goes home. */}
+        <div className={styles.brand}>
+          <CrestEasterEgg className={styles.crestWrap} />
+          <Link href="/" className={styles.brandText}>Hogwarts Quidditch</Link>
+        </div>
 
         {/* Day/Night (Lumos/Nox) toggle */}
         <ThemeToggle />
