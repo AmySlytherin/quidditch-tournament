@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { createPortal } from 'react-dom';
 import { useCallback, useEffect, useState } from 'react';
 import { FROG_CARDS, getCard, type FrogCard } from '@/data/chocolateFrogCards';
 import { useFrogCards } from '@/lib/frogCards';
@@ -15,6 +16,9 @@ export default function FrogTin() {
   const { count, total, isComplete, has } = useFrogCards();
   const [open, setOpen] = useState(false);
   const [detailId, setDetailId] = useState<string | null>(null);
+  // Only portal after mount, since document doesn't exist during SSR.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const close = useCallback(() => {
     setOpen(false);
@@ -51,7 +55,7 @@ export default function FrogTin() {
         )}
       </button>
 
-      {open && (
+      {open && mounted && createPortal(
         <div className={styles.backdrop} onClick={close} role="dialog" aria-label="Chocolate Frog Cards album">
           <div className={styles.album} onClick={(e) => e.stopPropagation()}>
             <button className={styles.closeBtn} onClick={close} aria-label="Close">×</button>
@@ -116,7 +120,8 @@ export default function FrogTin() {
               </div>
             </div>
           )}
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
