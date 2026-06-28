@@ -179,6 +179,19 @@
   .crestWrap svg { width: 36px !important; height: auto !important; }
 }
 
+/* Tighten the bar on small phones so the crest, wordmark, frog tin, theme
+   toggle and hamburger (5 items) all fit without pushing anything off-screen. */
+@media (max-width: 520px) {
+  .brand { gap: var(--space-2); }
+  .hamburger { width: 36px; height: 36px; padding: 7px; gap: 4px; }
+}
+
 @media (max-width: 480px) {
-  .brandText { font-size: 1.15rem; }
+  .brandText { font-size: 1.05rem; letter-spacing: 0.02em; }
+}
+
+@media (max-width: 400px) {
+  .brandText { font-size: 0.95rem; }
+  .crestWrap svg { width: 30px !important; }
+  .hamburger { width: 34px; height: 34px; }
 }

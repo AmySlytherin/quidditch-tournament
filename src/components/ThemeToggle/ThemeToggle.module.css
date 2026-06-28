@@ -17,6 +17,14 @@
   transform: translateY(-1px);
 }
 
+/* Shrink on small phones so the nav's 5 items fit (see Nav.module.css). */
+@media (max-width: 520px) {
+  .toggle { width: 36px; height: 36px; margin-right: var(--space-2); }
+}
+@media (max-width: 400px) {
+  .toggle { width: 34px; height: 34px; margin-right: 6px; }
+}
+
 .icon {
   font-size: 1.1rem;
   line-height: 1;
