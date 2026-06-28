@@ -40,7 +40,7 @@ export default function AboutPage() {
         <div className={styles.positionsGrid}>
           {[
             { icon: '🥅', name: 'Keeper', desc: 'Guards the three goal hoops. Last line of defence against the opposing Chasers.' },
-            { icon: '🏆', name: 'Chaser', desc: 'Three per team. Pass the Quaffle and score goals worth ten points each.' },
+            { icon: '🤾', name: 'Chaser', desc: 'Three per team. Pass the Quaffle and score goals worth ten points each.' },
             { icon: '🏏', name: 'Beater', desc: 'Two per team. Armed with bats, they redirect Bludgers away from teammates.' },
             { icon: '🟡', name: 'Seeker', desc: 'Hunts the Golden Snitch. Catching it ends the match and earns 150 points.' },
           ].map(({ icon, name, desc }) => (
@@ -59,7 +59,7 @@ export default function AboutPage() {
           <h2 className={styles.sectionTitle}>The Pitch</h2>
           <p className={styles.sectionP}>A standard pitch is an oval about 150 by 55 metres, with three golden hoops at each end. There&apos;s no ceiling — players fly as high as they like — but no one may touch the ground while holding the Quaffle.</p>
         </div>
-        <div style={{ width: '100%', height: '110px', overflow: 'hidden', opacity: 0.22, pointerEvents: 'none', lineHeight: 0 }}>
+        <div className={styles.pitchArt}>
           <GoalPostsIllustration />
         </div>
       </section>

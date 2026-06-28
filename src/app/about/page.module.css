@@ -120,6 +120,18 @@
   margin: 0 auto;
 }
 
+/* Goal-posts artwork inside the Pitch box — shown small and complete with
+   room beneath so it never looks clipped. */
+.pitchArt {
+  width: 100%;
+  max-width: 340px;
+  margin: 4px auto 20px;
+  opacity: 0.2;
+  pointer-events: none;
+  line-height: 0;
+}
+.pitchArt svg { width: 100%; height: auto; }
+
 /* ── Hogwarts extra top gap ─────────────────────── */
 .sectionHogwarts {
   position: relative;
@@ -135,8 +147,8 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%) rotate(-20deg);
-  width: 540px;
-  opacity: 0.1;
+  width: 400px;
+  opacity: 0.09;
   pointer-events: none;
   z-index: 0;
 }
@@ -144,10 +156,10 @@
 
 .snitchFloat {
   position: absolute;
-  right: -210px;
+  right: -150px;
   top: 16px;
-  width: 220px;
-  opacity: 0.14;
+  width: 160px;
+  opacity: 0.12;
   pointer-events: none;
   z-index: 0;
 }
@@ -160,7 +172,7 @@
 /* ── Responsive ─────────────────────────────────── */
 @media (max-width: 1000px) {
   .snitchFloat { display: none; }
-  .diagBroom   { width: 500px; opacity: 0.08; }
+  .diagBroom   { width: 320px; opacity: 0.08; }
 }
 @media (max-width: 900px) {
   .diagBroom { display: none; }

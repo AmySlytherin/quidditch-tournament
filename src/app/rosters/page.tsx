@@ -3,8 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { TEAMS, MATCHES } from '@/data';
-import { computePlayerStats } from '@/lib/playerStats';
+import { TEAMS } from '@/data';
 import { Position, Player, Team } from '@/data/types';
 import styles from './page.module.css';
 
@@ -14,16 +13,9 @@ function ordinal(n: number) {
 
 const POSITION_ORDER: Position[] = ['Keeper', 'Chaser', 'Beater', 'Seeker'];
 
-const POSITION_DESC: Record<Position, string> = {
-  Keeper: 'Guards the three goal hoops',
-  Chaser: 'Scores with the Quaffle — 10 pts per goal',
-  Beater: 'Wields a bat to redirect Bludgers',
-  Seeker: 'Catches the Golden Snitch — 150 pts, ends the match',
-};
-
 const POSITION_ICON: Record<Position, string> = {
   Keeper: '🥅',
-  Chaser: '🏆',
+  Chaser: '🤾',
   Beater: '🏏',
   Seeker: '🟡',
 };
@@ -61,7 +53,6 @@ function RostersInner() {
   const initialPlayerId = searchParams.get('player');
   const [activeTeam, setActiveTeam] = useState(initialTeam);
   const [selectedPlayer, setSelectedPlayer] = useState<{ player: Player; team: Team } | null>(null);
-  const playerStats = computePlayerStats(MATCHES);
   const team = TEAMS.find((t) => t.id === activeTeam) ?? TEAMS[0];
 
   useEffect(() => {
@@ -146,16 +137,11 @@ function RostersInner() {
             <div className={styles.positionHeading}>
               <span className={styles.positionTitle}>{POSITION_ICON[pos]} {pos}</span>
               <span className={styles.positionLine} />
-              <span className={styles.positionDesc}>{POSITION_DESC[pos]}</span>
             </div>
 
             <div className={styles.playerGrid}>
               {players.map((player) => {
                 const isYou = player.name === 'Amy Ward';
-                const ps = playerStats[player.name];
-                const goals  = ps?.goalsScored ?? 0;
-                const snitch = ps?.snitchCatches ?? 0;
-                const pts    = ps?.pointsContributed ?? 0;
                 const posColor = POSITION_COLOR[pos];
 
                 const isFlipped = selectedPlayer?.player.id === player.id;
