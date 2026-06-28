@@ -148,7 +148,7 @@ export default function SignupPage() {
                   className={styles.positionRadio}
                 />
                 <span className={styles.positionIcon}>
-                  {pos === 'Keeper' ? '🥅' : pos === 'Chaser' ? '🏆' : pos === 'Beater' ? '🏏' : '🟡'}
+                  {pos === 'Keeper' ? '🥅' : pos === 'Chaser' ? '🤾' : pos === 'Beater' ? '🏏' : '🟡'}
                 </span>
                 <span className={styles.positionName}>{pos}</span>
               </label>

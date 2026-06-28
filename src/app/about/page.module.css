@@ -41,7 +41,7 @@
   font-size: 1rem;
   line-height: 1.7;
   margin-bottom: 12px;
-  text-align: center;
+  text-align: left;
 }
 .sectionP:last-child { margin-bottom: 0; }
 
@@ -111,26 +111,36 @@
   overflow: hidden;
   background: var(--color-surface-raised);
   border: 1px solid var(--color-border);
+  padding: 24px 32px 28px;
 }
 
-.pitchContent {
-  padding: 20px 32px 8px;
-  text-align: center;
-  max-width: 780px;
-  margin: 0 auto;
+/* Title stays centred as a header; the text + goal-posts art sit in two
+   columns below so the box is filled rather than mostly empty. */
+.pitchRow {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-top: 8px;
 }
-
-/* Goal-posts artwork inside the Pitch box — shown small and complete with
-   room beneath so it never looks clipped. */
+.pitchText {
+  flex: 1;
+  text-align: left;
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  line-height: 1.7;
+}
 .pitchArt {
-  width: 100%;
-  max-width: 340px;
-  margin: 4px auto 20px;
-  opacity: 0.2;
+  flex: 0 0 280px;
+  opacity: 0.45;
   pointer-events: none;
   line-height: 0;
 }
 .pitchArt svg { width: 100%; height: auto; }
+
+@media (max-width: 720px) {
+  .pitchRow { flex-direction: column; gap: 12px; }
+  .pitchArt { flex: none; width: 100%; max-width: 300px; margin: 0 auto; }
+}
 
 /* ── Hogwarts extra top gap ─────────────────────── */
 .sectionHogwarts {

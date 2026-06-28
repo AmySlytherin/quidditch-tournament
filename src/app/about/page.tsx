@@ -55,12 +55,12 @@ export default function AboutPage() {
 
       {/* ── Pitch ───────────────────────────────────────── */}
       <section className={styles.sectionPitch}>
-        <div className={styles.pitchContent}>
-          <h2 className={styles.sectionTitle}>The Pitch</h2>
-          <p className={styles.sectionP}>A standard pitch is an oval about 150 by 55 metres, with three golden hoops at each end. There&apos;s no ceiling — players fly as high as they like — but no one may touch the ground while holding the Quaffle.</p>
-        </div>
-        <div className={styles.pitchArt}>
-          <GoalPostsIllustration />
+        <h2 className={styles.sectionTitle}>The Pitch</h2>
+        <div className={styles.pitchRow}>
+          <p className={styles.pitchText}>A standard pitch is an oval about 150 by 55 metres, with three golden hoops at each end. There&apos;s no ceiling — players fly as high as they like — but no one may touch the ground while holding the Quaffle.</p>
+          <div className={styles.pitchArt}>
+            <GoalPostsIllustration />
+          </div>
         </div>
       </section>
 

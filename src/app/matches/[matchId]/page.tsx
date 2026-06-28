@@ -183,7 +183,7 @@ export default async function MatchPage({ params }: { params: Promise<{ matchId:
                     </div>
                   )}
                   {isHome && (
-                    <span className={styles.eventIcon}>{isSnitch ? '🟡' : '🏆'}</span>
+                    <span className={styles.eventIcon}>{isSnitch ? '🟡' : '🔴'}</span>
                   )}
                 </div>
 
@@ -198,7 +198,7 @@ export default async function MatchPage({ params }: { params: Promise<{ matchId:
                 {/* Away side */}
                 <div className={styles.eventAway}>
                   {!isHome && (
-                    <span className={styles.eventIcon}>{isSnitch ? '🟡' : '🏆'}</span>
+                    <span className={styles.eventIcon}>{isSnitch ? '🟡' : '🔴'}</span>
                   )}
                   {!isHome && (
                     <div className={`${styles.eventContent} ${styles.eventContentAway}`}>
