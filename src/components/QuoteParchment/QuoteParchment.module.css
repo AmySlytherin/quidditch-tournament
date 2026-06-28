@@ -1,0 +1,146 @@
+/*
+  The QuoteParchment egg lives over the gold "H" in the crest.
+
+  The crest renders at 58px wide (viewBox 0 0 100 115), with the "H" centred
+  near x=50, y=65. That maps to roughly (29px, 38px) inside the crest, so the
+  hotspot is a small invisible square sitting right on top of it.
+*/
+.hotspot {
+  position: absolute;
+  left: 21px;
+  top: 30px;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  /* Keep the surprise: no cursor change, inherits the crest's own pointer. */
+  cursor: inherit;
+  border-radius: var(--radius-sm);
+  z-index: 60;
+}
+.hotspot:focus-visible {
+  /* Only show a ring for keyboard users, so the egg stays hidden otherwise. */
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ── Dark scrim behind the card (reads in both Lumos & Nox) ───────────── */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background: rgba(8, 6, 3, 0.55);
+  backdrop-filter: blur(2px);
+  animation: fadeIn 220ms ease-out both;
+}
+
+/* ── The parchment card ──────────────────────────────────────────────
+   A parchment is "always paper", the same way the crest's spell-pill is
+   always dark — so the warm paper tones and dark ink are intentional and
+   theme-independent. Structural accents use the gold --color-accent var. */
+.parchment {
+  position: relative;
+  max-width: 420px;
+  width: 100%;
+  padding: var(--space-10) var(--space-8);
+  text-align: center;
+  color: #34291a; /* dark ink — always reads on the light paper */
+  background:
+    radial-gradient(120% 90% at 50% 0%, #f7edd0 0%, #efe1bd 55%, #e4d2a6 100%);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  box-shadow:
+    var(--shadow-lg),
+    0 0 26px var(--color-accent-glow),
+    inset 0 0 38px rgba(120, 85, 25, 0.16);
+  transform-origin: top center;
+  animation: unroll 420ms cubic-bezier(0.16, 0.84, 0.44, 1) both;
+}
+
+/* Little darkened "rolled edge" hints at top and bottom of the scroll. */
+.curlTop,
+.curlBottom {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  height: 10px;
+  background: linear-gradient(to bottom, rgba(120, 85, 25, 0.28), transparent);
+  border-radius: var(--radius-full);
+}
+.curlTop {
+  top: 0;
+}
+.curlBottom {
+  bottom: 0;
+  transform: rotate(180deg);
+}
+
+.text {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.who {
+  margin: 0;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6b5325;
+}
+
+/* Wax-seal flourish under the quote. */
+.seal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  margin: var(--space-5) auto 0;
+  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.1rem;
+  color: #fdf3d6;
+  background: radial-gradient(circle at 35% 30%, #c9442f, #8c1f12);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35), inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes unroll {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.05) translateY(-8px);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1) translateY(0);
+  }
+}
+
+/* Respect visitors who prefer less motion: keep the reveal, drop the roll. */
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .parchment {
+    animation: fadeIn 220ms ease-out both;
+  }
+}

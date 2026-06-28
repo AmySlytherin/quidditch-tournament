@@ -2,6 +2,7 @@
 
 import { useRef, useState, useCallback } from 'react';
 import HogwartsCrest from '@/components/HogwartsCrest/HogwartsCrest';
+import QuoteParchment from '@/components/QuoteParchment/QuoteParchment';
 import styles from './CrestEasterEgg.module.css';
 
 // The four houses, in the order points are awarded. Bright, saturated colours
@@ -78,6 +79,9 @@ export default function CrestEasterEgg({ className }: { className?: string }) {
       aria-label="Hogwarts crest — tap for a surprise"
     >
       <HogwartsCrest size={58} />
+
+      {/* Hidden charm: a precise click on the crest's "H" unrolls a quote. */}
+      <QuoteParchment />
 
       {pops.map((pop) => (
         <span key={pop.id} className={styles.overlay} aria-hidden="true">
