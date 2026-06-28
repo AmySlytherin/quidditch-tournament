@@ -41,6 +41,8 @@ export default function SchedulePage() {
             day: 'numeric',
             month: 'long',
             year: 'numeric',
+            // Stored as calendar days; pin to UTC so they don't slip a day back.
+            timeZone: 'UTC',
           });
           return (
             <section key={round} className={styles.roundSection}>

@@ -25,6 +25,9 @@ export default async function MatchPage({ params }: { params: Promise<{ matchId:
     day: 'numeric',
     month: 'long',
     year: 'numeric',
+    // Dates are stored as calendar days (YYYY-MM-DD); pin to UTC so they don't
+    // slip to the previous day when rendered in a timezone behind UTC.
+    timeZone: 'UTC',
   });
 
   return (
