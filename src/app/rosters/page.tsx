@@ -201,11 +201,6 @@ function RostersInner() {
                         style={{ background: `${posColor}22`, color: posColor, borderColor: `${posColor}44` }}>
                         {POSITION_ICON[pos]} {pos}
                       </span>
-
-                      {/* Role description */}
-                      <div className={styles.playerStats}>
-                        <p className={styles.roleDesc}>{POSITION_DESC[pos]}</p>
-                      </div>
                     </div>
                   </div>
                   </div>

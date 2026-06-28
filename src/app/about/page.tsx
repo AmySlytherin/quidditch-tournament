@@ -12,17 +12,26 @@ export default function AboutPage() {
       <section className={styles.section}>
         <div className={styles.diagBroom}><BroomIllustration /></div>
         <h2 className={styles.sectionTitle}>Origins</h2>
-        <p className={styles.sectionP}>Quidditch dates to the eleventh century, when wizards first took enchanted broomsticks to the skies over the Scottish Highlands. Early aerial contests were played over the bogs of Queerditch Marsh — remote enough to stay hidden from Muggle eyes. A leather ball, the Quaffle, was hurled through a target: first a basket nailed to a tree, later the tall hoops we know today.</p>
-        <p className={styles.sectionP}>The game spread fast across wizarding Britain, with rival villages forming fierce loyalties to their local teams. By the twelfth century, the modern shape of Quidditch — aerial play, a scoring ball, and two fearsome Bludgers — had taken hold across much of Europe.</p>
+        <p className={styles.sectionP}>Quidditch dates to the eleventh century, when wizards first raced enchanted brooms over the bogs of Queerditch Marsh. Within a hundred years its modern shape — aerial play, a scoring ball, and two fearsome Bludgers — had spread across Europe.</p>
       </section>
 
       {/* ── Four Balls ──────────────────────────────────── */}
       <section className={styles.section}>
         <div className={styles.snitchFloat}><SnitchIllustration /></div>
         <h2 className={styles.sectionTitle}>The Four Balls</h2>
-        <p className={styles.sectionP}>The <em>Quaffle</em> is the scoring ball — a scarlet leather sphere about a foot across. Chasers pass it and try to hurl it through one of three goal hoops, defended by the opposing Keeper. Each goal is worth ten points.</p>
-        <p className={styles.sectionP}>The two <em>Bludgers</em> are iron balls enchanted to chase down and unseat players. Beaters carry short bats to redirect them — protecting teammates and harrying opponents. A well-placed Bludger has decided many a match.</p>
-        <p className={styles.sectionP}>The <em>Golden Snitch</em> is the smallest yet most decisive ball — a winged sphere no bigger than a walnut that darts across the pitch at incredible speed. Catching it ends the match and earns 150 points, making the Seeker the most important player on the field.</p>
+        <div className={styles.ballsGrid}>
+          {[
+            { icon: '🔴', name: 'Quaffle', desc: 'The scarlet scoring ball. Chasers hurl it through a hoop for 10 points.' },
+            { icon: '⚫', name: 'Bludgers (×2)', desc: 'Iron balls that knock players off their brooms. Beaters bat them away.' },
+            { icon: '🟡', name: 'Golden Snitch', desc: 'A tiny winged ball. Catching it ends the match and earns 150 points.' },
+          ].map(({ icon, name, desc }) => (
+            <div key={name} className={styles.positionCard}>
+              <div className={styles.positionIcon}>{icon}</div>
+              <div className={styles.positionName}>{name}</div>
+              <div className={styles.positionDesc}>{desc}</div>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* ── Positions ───────────────────────────────────── */}
@@ -48,7 +57,7 @@ export default function AboutPage() {
       <section className={styles.sectionPitch}>
         <div className={styles.pitchContent}>
           <h2 className={styles.sectionTitle}>The Pitch</h2>
-          <p className={styles.sectionP}>A standard pitch is an oval roughly 150 metres long and 55 wide. Three golden hoops stand at each end — at six, nine, and twelve metres — giving Chasers their angles and Keepers plenty to cover. There is no ceiling: players may fly as high as they like. The one firm rule is that no player may touch the ground while holding the Quaffle.</p>
+          <p className={styles.sectionP}>A standard pitch is an oval about 150 by 55 metres, with three golden hoops at each end. There&apos;s no ceiling — players fly as high as they like — but no one may touch the ground while holding the Quaffle.</p>
         </div>
         <div style={{ width: '100%', height: '110px', overflow: 'hidden', opacity: 0.22, pointerEvents: 'none', lineHeight: 0 }}>
           <GoalPostsIllustration />
@@ -58,8 +67,7 @@ export default function AboutPage() {
       {/* ── Hogwarts ────────────────────────────────────── */}
       <section className={styles.sectionHogwarts}>
         <h2 className={styles.sectionTitle}>Quidditch at Hogwarts</h2>
-        <p className={styles.sectionP}>Each of the four houses — Gryffindor, Slytherin, Hufflepuff, and Ravenclaw — fields a team of seven, chosen by its house captain. Matches run throughout the school year on the grounds&apos; pitch, drawing the whole student body as spectators.</p>
-        <p className={styles.sectionP}>The house with the most points by season&apos;s end wins the Quidditch Cup — one of Hogwarts&apos; most coveted trophies. No two matches are ever alike, which is exactly why Quidditch has captivated the wizarding world for nearly a thousand years.</p>
+        <p className={styles.sectionP}>Each of the four houses — Gryffindor, Slytherin, Hufflepuff, and Ravenclaw — fields a team of seven, drawing the whole school as spectators. The house with the most points by season&apos;s end lifts the Quidditch Cup, one of Hogwarts&apos; most coveted trophies.</p>
       </section>
 
       {/* ── World Cup ───────────────────────────────────── */}

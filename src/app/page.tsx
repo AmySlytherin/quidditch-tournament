@@ -25,7 +25,7 @@ export default function StandingsPage() {
         <div className={styles.legend}>
           <span className={styles.legendItem}>
             <span className={styles.legendDot} style={{ background: 'var(--color-accent)' }} />
-            Season Champion advances to Quidditch World Cup 🏆
+            Champion → World Cup 🏆
           </span>
           <span className={styles.legendItem}>
             <span className={styles.legendDot} style={{ background: 'var(--color-win)' }} />

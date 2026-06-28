@@ -68,6 +68,14 @@
   margin-top: 16px;
 }
 
+/* Four Balls — three cards, reusing the position-card look */
+.ballsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+
 .positionCard {
   background: var(--color-surface-raised);
   border: 1px solid var(--color-border);
@@ -159,6 +167,7 @@
 }
 @media (max-width: 640px) {
   .positionsGrid        { grid-template-columns: 1fr 1fr; }
+  .ballsGrid            { grid-template-columns: 1fr; }
   .pitchContent         { padding: 24px; }
   .section,
   .sectionHogwarts      { margin-bottom: 40px; }
