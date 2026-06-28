@@ -3,9 +3,20 @@
   top: 72px;   /* just below the nav */
   left: 24px;
   z-index: 9999;
-  pointer-events: none;
+  /* Now catchable — clicking it fires the celebration. */
+  pointer-events: auto;
+  cursor: pointer;
   animation: snitchFly 1.5s ease-in-out forwards;
   filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5)) drop-shadow(0 0 4px rgba(200,150,10,0.2));
+}
+
+/* Invisible padding around the tiny snitch so it's catchable, not impossible. */
+.hit {
+  position: absolute;
+  top: -14px;
+  left: -14px;
+  right: -14px;
+  bottom: -14px;
 }
 
 /*
@@ -39,4 +50,109 @@
 @keyframes flutterRight {
   from { transform: rotate(15deg)  scaleY(1);    }
   to   { transform: rotate(24deg)  scaleY(0.65); }
+}
+
+/* ══════════════ "You caught the Snitch!" celebration ══════════════ */
+.celebration {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* never traps clicks */
+}
+
+/* Full-screen golden shimmer that blooms then fades. */
+.flash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 45%, var(--color-accent-glow), transparent 60%);
+  opacity: 0;
+  animation: snitchFlash 2600ms ease-out forwards;
+}
+
+@keyframes snitchFlash {
+  0%   { opacity: 0; }
+  12%  { opacity: 0.9; }
+  45%  { opacity: 0.5; }
+  100% { opacity: 0; }
+}
+
+/* The dark "spell card" keeps gold text readable in both Lumos & Nox. */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-8) var(--space-10);
+  background: rgba(18, 12, 5, 0.94);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 30px var(--color-accent-glow);
+  animation: snitchCard 2600ms cubic-bezier(0.16, 0.84, 0.44, 1) forwards;
+}
+
+.cardSnitch {
+  animation: snitchBob 900ms ease-in-out infinite alternate;
+}
+
+.caughtTitle {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+  color: #f2ede4; /* light text on the dark card — theme-independent */
+  text-align: center;
+}
+
+.points {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.7rem;
+  color: var(--color-accent);
+  text-shadow: 0 0 14px var(--color-accent-glow);
+}
+
+@keyframes snitchCard {
+  0%   { transform: scale(0.6) translateY(10px); opacity: 0; }
+  12%  { transform: scale(1.05) translateY(0);   opacity: 1; }
+  20%  { transform: scale(1);                    opacity: 1; }
+  82%  { transform: scale(1);                    opacity: 1; }
+  100% { transform: scale(0.96) translateY(-8px); opacity: 0; }
+}
+
+@keyframes snitchBob {
+  from { transform: translateY(-3px) rotate(-3deg); }
+  to   { transform: translateY(3px)  rotate(3deg);  }
+}
+
+/* Sparkle burst (same idea as the crest egg). */
+.sparkle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  line-height: 1;
+  color: #ffe08a;
+  text-shadow: 0 0 6px rgba(255, 200, 80, 0.9);
+  will-change: transform, opacity;
+  animation: snitchSparkle 1200ms cubic-bezier(0.16, 0.84, 0.44, 1) forwards;
+}
+
+@keyframes snitchSparkle {
+  0%   { transform: translate(-50%, -50%) scale(0.2) rotate(0deg); opacity: 0; }
+  18%  { opacity: 1; }
+  100% { transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(1) rotate(160deg); opacity: 0; }
+}
+
+/* Respect reduced-motion: keep the reveal, drop the heavy movement. */
+@media (prefers-reduced-motion: reduce) {
+  .cardSnitch { animation: none; }
+  .sparkle { animation: snitchSparkleStill 1200ms ease-out forwards; }
+  @keyframes snitchSparkleStill {
+    0%   { transform: translate(-50%, -50%) scale(0.6); opacity: 0; }
+    25%  { opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+  }
 }
