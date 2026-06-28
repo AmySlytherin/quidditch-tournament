@@ -558,8 +558,11 @@ export default function HouseHourglasses({ standings }: { standings: TeamStandin
   return (
     <div className={styles.container}>
       {sorted.map(s => (
+        // Bottom-bulb fill scales with each team's points-difference relative to
+        // the others: lowest team ~30% full, leader ~85%. The 85% cap (was 95%)
+        // leaves a visible sliver of sand in the TOP even for the front-runners.
         <Hourglass key={s.teamId} standing={s}
-          fill={0.30 + 0.65 * (s.pointsDiff - min) / range}
+          fill={0.30 + 0.55 * (s.pointsDiff - min) / range}
           animate={animate} />
       ))}
     </div>
