@@ -540,10 +540,7 @@ const BULB_BOT_TOP = NECK_BOT;
 // ── Container ────────────────────────────────────────────────────────────────
 export default function HouseHourglasses({ standings }: { standings: TeamStanding[] }) {
   const sorted  = [...standings].sort((a, b) => a.rank - b.rank);
-  const diffs   = sorted.map(s => s.pointsDiff);
-  const min     = Math.min(...diffs);
-  const max     = Math.max(...diffs);
-  const range   = max - min || 1;
+  const n       = sorted.length;
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
@@ -557,12 +554,13 @@ export default function HouseHourglasses({ standings }: { standings: TeamStandin
 
   return (
     <div className={styles.container}>
-      {sorted.map(s => (
-        // Bottom-bulb fill scales with each team's points-difference relative to
-        // the others: lowest team ~30% full, leader ~85%. The 85% cap (was 95%)
-        // leaves a visible sliver of sand in the TOP even for the front-runners.
+      {sorted.map((s, i) => (
+        // Bottom-bulb fill follows each team's STANDINGS POSITION (sorted is in
+        // rank order): 1st place ~85% full, last place ~30%. So the table leader
+        // always has the fullest hourglass, and the levels only shift when a new
+        // or updated match changes the standings.
         <Hourglass key={s.teamId} standing={s}
-          fill={0.30 + 0.55 * (s.pointsDiff - min) / range}
+          fill={n > 1 ? 0.30 + 0.55 * (n - 1 - i) / (n - 1) : 0.85}
           animate={animate} />
       ))}
     </div>
