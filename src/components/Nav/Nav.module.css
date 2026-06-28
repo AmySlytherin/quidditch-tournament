@@ -36,6 +36,17 @@
   line-height: 1;
 }
 
+/* No focus box for mouse clicks (was showing the browser's default blue). */
+.brandText:focus {
+  outline: none;
+}
+/* Keyboard users (tabbing) still get a clear, on-theme gold focus ring. */
+.brandText:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+  border-radius: var(--radius-sm);
+}
+
 @media (max-width: 680px) {
   .brandText { font-size: 1.5rem; }
 }
