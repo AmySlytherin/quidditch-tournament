@@ -10,6 +10,14 @@
   filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5));
 }
 
+/* On phones, sit higher so the frog clears Safari's bottom toolbar and the
+   home-indicator safe area — otherwise it hops along hidden behind them. */
+@media (max-width: 640px) {
+  .frog {
+    bottom: calc(84px + env(safe-area-inset-bottom));
+  }
+}
+
 /* Generous invisible target around the small frog so it's catchable. */
 .hit {
   position: absolute;

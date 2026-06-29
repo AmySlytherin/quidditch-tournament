@@ -1,5 +1,6 @@
 'use client';
 
+import { createPortal } from 'react-dom';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import styles from './QuoteParchment.module.css';
 
@@ -46,6 +47,9 @@ const QUOTES = [
 export default function QuoteParchment() {
   const [quote, setQuote] = useState<(typeof QUOTES)[number] | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Only portal after mount, since document doesn't exist during SSR.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const close = useCallback(() => {
     if (timer.current) clearTimeout(timer.current);
@@ -91,7 +95,7 @@ export default function QuoteParchment() {
         aria-label="A hidden charm"
       />
 
-      {quote && (
+      {quote && mounted && createPortal(
         <div
           className={styles.backdrop}
           onClick={close}
@@ -108,7 +112,8 @@ export default function QuoteParchment() {
             </span>
             <span className={styles.curlBottom} aria-hidden="true" />
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
