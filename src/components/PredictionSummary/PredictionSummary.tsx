@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { loadPredictions } from '@/lib/predictions';
+import { clearPredictions, loadPredictions } from '@/lib/predictions';
 import styles from './PredictionSummary.module.css';
 
 interface MatchResult {
@@ -34,6 +34,10 @@ export default function PredictionSummary({ matches }: Props) {
     window.addEventListener('prediction-saved', recount);
     return () => window.removeEventListener('prediction-saved', recount);
   }, [matches]);
+
+  // This summary only lives on the Schedule page, so its unmount means the
+  // visitor has left — wipe their guesses so a return visit starts over.
+  useEffect(() => () => clearPredictions(), []);
 
   if (!counts || counts.predicted === 0) return null;
 
