@@ -48,6 +48,20 @@ export function collectCard(id: string): string[] {
   return next;
 }
 
+/** Forget the whole collection, so the hunt can be played again from scratch. */
+export function resetCards(): void {
+  try {
+    localStorage.removeItem(KEY);
+  } catch {
+    /* private browsing / storage disabled */
+  }
+  try {
+    window.dispatchEvent(new CustomEvent(FROGCARDS_EVENT));
+  } catch {
+    /* no-op */
+  }
+}
+
 /** Pick a random card the visitor doesn't have yet (null if the set is full). */
 export function pickRandomUncollected(): string | null {
   const have = new Set(getCollected());

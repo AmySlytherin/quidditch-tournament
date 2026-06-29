@@ -236,6 +236,27 @@
   color: var(--color-text-muted);
 }
 
+/* "Play again" — only shown once the set is complete, to restart the hunt. */
+.playAgain {
+  display: block;
+  margin: var(--space-4) auto 0;
+  padding: var(--space-2) var(--space-5);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-bg);
+  background: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+}
+.playAgain:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 16px var(--color-accent-glow);
+}
+
 /* ─── Enlarged single-card view ────────────────────────────────────────── */
 .detailBackdrop {
   position: fixed;

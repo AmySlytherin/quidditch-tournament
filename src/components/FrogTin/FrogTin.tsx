@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { createPortal } from 'react-dom';
 import { useCallback, useEffect, useState } from 'react';
 import { FROG_CARDS, getCard, type FrogCard } from '@/data/chocolateFrogCards';
-import { useFrogCards } from '@/lib/frogCards';
+import { resetCards, useFrogCards } from '@/lib/frogCards';
 import FrogSvg from '@/components/ChocolateFrog/FrogSvg';
 import FrogCardFace from '@/components/ChocolateFrog/FrogCardFace';
 import styles from './FrogTin.module.css';
@@ -110,6 +110,19 @@ export default function FrogTin() {
                 ? 'Every legend caught. Nicely done.'
                 : 'Keep an eye out — a chocolate frog hops by now and then. Catch it to collect a card.'}
             </p>
+
+            {/* Once the set is complete, let visitors start the hunt over. */}
+            {isComplete && (
+              <button
+                className={styles.playAgain}
+                onClick={() => {
+                  resetCards();
+                  close();
+                }}
+              >
+                Play again
+              </button>
+            )}
           </div>
 
           {/* Enlarged single-card view, tapping a found card */}
