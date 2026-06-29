@@ -28,7 +28,7 @@ const POSITION_COLOR: Record<Position, string> = {
 };
 
 const IMAGE_OVERRIDES: Record<string, string> = {
-  'Amy Ward': '/players/amy_ward_v11.png',
+  'Amy Ward': '/players/amy_ward_v12.png',
   'Lucinda Talkalot': '/players/lucinda_v2.png',
   'Harry Potter': '/players/harry_potter_v9a.png',
   'Vincent Crabbe': '/players/vincent_crabbe_v2.png',

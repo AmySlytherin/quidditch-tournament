@@ -92,7 +92,7 @@ export const FROG_CARDS: FrogCard[] = [
     role: 'Keeper',
     icon: '🥅',
     house: 'Slytherin',
-    image: '/players/amy_ward_v11.png',
+    image: '/players/amy_ward_v12.png',
     color: '#d4a843',
     flavor:
       "★ Wildcard ★ Slytherin's iron Keeper and the league's worst-kept secret. Has never let a Quaffle past without a fight.",
